@@ -1,0 +1,19 @@
+﻿using PBL6_QLBH.Models;
+using QLBanHang_API.Request;
+using System.Collections;
+
+namespace QLBanHang_API.Repositories
+{
+	public interface IProductRepository
+	{
+		Task<List<Product>> GetAllProductAsync();
+		Task<Product?> GetProductByIdAsync(Guid id);
+		Task<List<Product>> GetProductsAsync(string searchQuery, int page, int limit, string sortCriteria, bool isDescending);
+		Task<List<Product>> FindProductsAsync(string temp, Guid id);
+		Task<List<Product>> FindProductsByNameAsync(string name);
+		Task<int> CountProductAsync();
+		Task AddProductAsync(Product product);
+		Task UpdateProductAsync(Product product);
+		Task<bool> DeleteProductAsync(Guid id);
+	}
+}

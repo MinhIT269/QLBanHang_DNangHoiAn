@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\QLBanHang_API.props" />
+</Project>
