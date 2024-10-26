@@ -1,0 +1,441 @@
+[
+  {
+    "ContainingType": "QLBanHang_API.Controllers.AdminController",
+    "Method": "GetAllProduct",
+    "RelativePath": "api/Admin/GetAllProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.BrandController",
+    "Method": "AddBrand",
+    "RelativePath": "api/Brand/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brand",
+        "Type": "PBL6_QLBH.Models.Brand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.BrandController",
+    "Method": "DeleteBrandById",
+    "RelativePath": "api/Brand/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.BrandController",
+    "Method": "GetBrandByName",
+    "RelativePath": "api/Brand/Get/{brandName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.BrandController",
+    "Method": "UpdateBrandById",
+    "RelativePath": "api/Brand/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "brand",
+        "Type": "PBL6_QLBH.Models.Brand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.LocationController",
+    "Method": "AddLocation",
+    "RelativePath": "api/Location/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addLocation",
+        "Type": "QLBanHang_API.Dto.AddUpLocationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.LocationController",
+    "Method": "DeleteLocation",
+    "RelativePath": "api/Location/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.LocationController",
+    "Method": "GetListLocationByName",
+    "RelativePath": "api/Location/GetList/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.LocationController",
+    "Method": "GetLocationById",
+    "RelativePath": "api/Location/GetLocation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.LocationController",
+    "Method": "UpdateLocation",
+    "RelativePath": "api/Location/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "locationUpdate",
+        "Type": "QLBanHang_API.Dto.AddUpLocationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.OrderController",
+    "Method": "GetAllOrder",
+    "RelativePath": "api/Order/AllOrder/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.OrderController",
+    "Method": "GetOrderDetail",
+    "RelativePath": "api/Order/OrderDetail/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.OrderController",
+    "Method": "UpdateOrder",
+    "RelativePath": "api/Order/OrderUpdate",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.PromotionController",
+    "Method": "AddPromotion",
+    "RelativePath": "api/Promotion/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "promotionAdd",
+        "Type": "QLBanHang_API.Dto.PromotionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.PromotionController",
+    "Method": "DeletePromotion",
+    "RelativePath": "api/Promotion/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.PromotionController",
+    "Method": "GetAllPromotions",
+    "RelativePath": "api/Promotion/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.PromotionController",
+    "Method": "GetPromotionByCode",
+    "RelativePath": "api/Promotion/GetOne/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.PromotionController",
+    "Method": "UpdatePromotion",
+    "RelativePath": "api/Promotion/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "promotionUpdate",
+        "Type": "QLBanHang_API.Dto.PromotionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.ReviewController",
+    "Method": "AddReviewForProduct",
+    "RelativePath": "api/Review/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addReviewDTO",
+        "Type": "QLBanHang_API.Dto.ReviewDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.ReviewController",
+    "Method": "DeleteReview",
+    "RelativePath": "api/Review/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.ReviewController",
+    "Method": "GetAllReviewProduct",
+    "RelativePath": "api/Review/GetAll/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.ReviewController",
+    "Method": "UpdateReview",
+    "RelativePath": "api/Review/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewUpdate",
+        "Type": "QLBanHang_API.Dto.ReviewDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.UserController",
+    "Method": "AddUser",
+    "RelativePath": "api/User/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userAdd",
+        "Type": "QLBanHang_API.Dto.AddUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.UserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.UserInfoController",
+    "Method": "AddUserInfo",
+    "RelativePath": "api/UserInfo/Add/{username}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userInfoDto",
+        "Type": "QLBanHang_API.Dto.UserInfoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.UserInfoController",
+    "Method": "GetUserInfo",
+    "RelativePath": "api/UserInfo/Get/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QLBanHang_API.Controllers.UserInfoController",
+    "Method": "UpdateUserInfo",
+    "RelativePath": "api/UserInfo/Update/{username}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "userInfoUpdate",
+        "Type": "QLBanHang_API.Dto.UpdateUserInfoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
