@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj": {}
+    "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj": {}
   },
   "projects": {
-    "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj": {
+    "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj",
+        "projectUniqueName": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj",
         "projectName": "QLBanHang_API",
-        "projectPath": "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj",
-        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "E:\\PBL6\\QLBanHang_API\\obj\\",
+        "projectPath": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj",
+        "packagesPath": "C:\\Users\\KY THUAT\\.nuget\\packages\\",
+        "outputPath": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\KY THUAT\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -114,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
