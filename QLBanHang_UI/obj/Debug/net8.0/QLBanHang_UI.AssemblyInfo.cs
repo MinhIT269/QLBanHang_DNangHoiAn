@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QLBanHang_UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca0d24887d311f3ebc4074118f514c143da74ac4")]
 [assembly: System.Reflection.AssemblyProductAttribute("QLBanHang_UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QLBanHang_UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

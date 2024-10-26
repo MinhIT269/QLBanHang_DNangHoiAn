@@ -135,3 +135,4 @@ E:\PBL6\QLBanHang_UI\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Ext
 E:\PBL6\QLBanHang_UI\obj\Debug\net8.0\QLBanHang_UI.csproj.AssemblyReference.cache
 E:\PBL6\QLBanHang_UI\obj\Debug\net8.0\QLBanHan.160E4621.Up2Date
 E:\PBL6\QLBanHang_UI\bin\Debug\net8.0\AutoMapper.dll
+E:\PBL6\QLBanHang_UI\obj\Debug\net8.0\QLBanHang_UI.sourcelink.json

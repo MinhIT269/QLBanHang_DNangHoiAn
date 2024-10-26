@@ -38,5 +38,6 @@ namespace QLBanHang_API.Service
 		{
 			await _categoryRepository.DeleteCategoryAsync(categoryId);
 		}
+
 	}
 }
