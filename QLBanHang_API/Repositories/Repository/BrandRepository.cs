@@ -1,4 +1,5 @@
-﻿using PBL6_QLBH.Data;
+
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,5 @@
-﻿using PBL6_QLBH.Models;
+using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
-using System.Runtime.CompilerServices;
 
 namespace QLBanHang_API.Service
 {

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj": {}
+    "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj": {}
   },
   "projects": {
-    "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj": {
+    "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj",
+        "projectUniqueName": "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj",
         "projectName": "QLBanHang_API",
-        "projectPath": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\QLBanHang_API.csproj",
-        "packagesPath": "C:\\Users\\KY THUAT\\.nuget\\packages\\",
-        "outputPath": "E:\\ASP NetCore\\PBL6Final\\QLBanHang_DNangHoiAn\\QLBanHang_API\\obj\\",
+        "projectPath": "E:\\PBL6\\QLBanHang_API\\QLBanHang_API.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\PBL6\\QLBanHang_API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\KY THUAT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,6 +86,10 @@
               "target": "Package",
               "version": "[8.1.2, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -110,7 +118,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

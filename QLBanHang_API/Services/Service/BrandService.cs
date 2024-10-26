@@ -45,6 +45,5 @@ namespace QLBanHang_API.Service
 			var brandDto = mapper.Map<BrandDto> (brand);
 			return brandDto;
 		}
-
 	}
 }
