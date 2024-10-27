@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PBL6_QLBH.Models;
+using QLBanHang_API.Dto;
 using QLBanHang_API.Service;
 
 namespace QLBanHang_API.Controllers
@@ -42,8 +43,8 @@ namespace QLBanHang_API.Controllers
 
         // Update Brand - /api/Brands/Update/id=?
         [HttpPut]
-        [Route("Update/{id:guid}")]
-        public async Task<IActionResult> UpdateBrandById([FromRoute] Guid id, [FromBody] Brand brand)
+        [Route("Update")]
+        public async Task<IActionResult> UpdateBrandById([FromRoute] Guid id, [FromBody] UpBrandDto brand)
         {
             var brandDTO = await brandService.UpdateBrand(id, brand);
             if (brandDTO == null)
@@ -56,7 +57,7 @@ namespace QLBanHang_API.Controllers
         // Create Brand - /api/Brands/Add
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> AddBrand([FromBody] Brand brand)
+        public async Task<IActionResult> AddBrand([FromBody] AddBrandDto brand)
         {
             var brandDTO = await brandService.AddBrand(brand);
             if (brandDTO == null)

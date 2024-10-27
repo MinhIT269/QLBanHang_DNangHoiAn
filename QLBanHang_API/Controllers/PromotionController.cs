@@ -48,12 +48,12 @@ namespace QLBanHang_API.Controllers
         //URL -/api/Promotion/Update
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdatePromotion(PromotionDto promotionUpdate)
+        public async Task<IActionResult> UpdatePromotion(UpPromotionDto promotionUpdate)
         {
             var promotion = await promotionService.UpdatePromotion(promotionUpdate);
             if (promotion == null)
             {
-                return NotFound();
+                return NotFound("Khong the thuc hien Update");
             }
             return Ok(promotion);
         }
@@ -62,12 +62,12 @@ namespace QLBanHang_API.Controllers
         //URL - /api/Promotion/Add
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> AddPromotion(PromotionDto promotionAdd)
+        public async Task<IActionResult> AddPromotion(AddPromotionDto promotionAdd)
         {
             var promotion = await promotionService.AddPromotion(promotionAdd);
             if (promotion == null)
             {
-                return BadRequest();
+                return BadRequest("Trung Ma Code");
             }
             return Ok(promotion);
         }

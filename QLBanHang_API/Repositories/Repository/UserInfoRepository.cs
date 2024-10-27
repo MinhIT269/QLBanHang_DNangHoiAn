@@ -63,7 +63,7 @@ namespace QLBanHang_API.Repositories.Repository
             {
                 return null;
             }
-            userInfo.User.UserId = user.UserId;
+            userInfo.UserId = user.UserId;
             userInfo.UserInfoId = Guid.NewGuid();
             await dbContext.UserInfos.AddAsync(userInfo);
             await dbContext.SaveChangesAsync();

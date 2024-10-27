@@ -34,7 +34,7 @@ namespace QLBanHang_API.Services.Service
         }
 
         //Add Location 
-        public async Task<LocationDto> AddLocation(AddUpLocationDto addLocation)
+        public async Task<LocationDto> AddLocation(AddLocationDto addLocation)
         {
             var location = mapper.Map<Location>(addLocation);
             var locationDomain = await locationRepository.AddLocationAsync(location);
@@ -43,7 +43,7 @@ namespace QLBanHang_API.Services.Service
         }
 
         //Update Location
-        public async Task<LocationDto> UpdateLocation(Guid id,AddUpLocationDto upLocation)
+        public async Task<LocationDto> UpdateLocation(Guid id,UpLocationDto upLocation)
         {
             var location = mapper.Map<Location>(upLocation);
             var locationDomain = await locationRepository.UpdateLocationAsync(id,location);

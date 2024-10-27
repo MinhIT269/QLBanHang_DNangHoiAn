@@ -26,7 +26,7 @@ namespace QLBanHang_API.Services.Service
             return reviewsDto;
         }
 
-        public async Task<ReviewDto> AddReview(ReviewDto reviewAdd)
+        public async Task<ReviewDto> AddReview(AddReviewDto reviewAdd)
         {
             var review = mapper.Map<Review>(reviewAdd);
             var reviewDomain = await reviewRepository.AddReviewAsync(review);
@@ -34,7 +34,7 @@ namespace QLBanHang_API.Services.Service
             return reviewDto;
         }
 
-        public async Task<ReviewDto> UpdateReview(ReviewDto reviewUpdate)
+        public async Task<ReviewDto> UpdateReview(UpReviewDto reviewUpdate)
         {
             var review = mapper.Map<Review>(reviewUpdate);
             var reviewDomain = await reviewRepository.UpdateReviewAsync(review);

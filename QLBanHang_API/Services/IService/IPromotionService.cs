@@ -6,8 +6,8 @@ namespace QLBanHang_API.Services.IService
     {
         Task<List<PromotionDto>> GetAllPromotion();
         Task<PromotionDto> GetPromotion(string code);
-        Task<PromotionDto> UpdatePromotion(PromotionDto promotion);
+        Task<PromotionDto> UpdatePromotion(UpPromotionDto promotion);
         Task<PromotionDto> DeletePromotion(Guid id);
-        Task<PromotionDto> AddPromotion(PromotionDto promotion);
+        Task<PromotionDto> AddPromotion(AddPromotionDto promotion);
     }
 }

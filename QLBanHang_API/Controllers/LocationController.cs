@@ -47,7 +47,7 @@ namespace QLBanHang_API.Controllers
         // URL - /api/Location/Update?id = ?
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdateLocation([FromQuery] Guid id, [FromBody] AddUpLocationDto locationUpdate)
+        public async Task<IActionResult> UpdateLocation([FromQuery] Guid id, [FromBody] UpLocationDto locationUpdate)
         {
             var locationDTO = await locationService.UpdateLocation(id, locationUpdate);
             if (locationDTO == null)
@@ -75,7 +75,7 @@ namespace QLBanHang_API.Controllers
         //URL -/api/Location/Add
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> AddLocation([FromBody] AddUpLocationDto addLocation)
+        public async Task<IActionResult> AddLocation([FromBody] AddLocationDto addLocation)
         {
             var location = await locationService.AddLocation(addLocation);
             if (location == null)

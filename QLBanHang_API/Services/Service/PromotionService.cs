@@ -30,16 +30,24 @@ namespace QLBanHang_API.Services.Service
             return promotionDto;
         }
 
-        public async Task<PromotionDto> UpdatePromotion(PromotionDto promotionUpdate)
+        public async Task<PromotionDto> UpdatePromotion(UpPromotionDto promotionUpdate)
         {
             var promotion = mapper.Map<Promotion>(promotionUpdate);
             var promotionDomain = await promotionRepository.UpdatePromotionByIdAsync(promotion.PromotionId,promotion);
             var promotionDto = mapper.Map<PromotionDto>(promotionDomain);
             return promotionDto;
         }
-        public async Task<PromotionDto> AddPromotion(PromotionDto promotionAdd)
+        public async Task<PromotionDto> AddPromotion(AddPromotionDto promotionAdd)
         {
             var promotion = mapper.Map<Promotion>(promotionAdd);
+            var promotions = await GetAllPromotion();
+            foreach(var i in promotions)
+            {
+                if (i.Code == promotionAdd.Code)
+                {
+                    return null;
+                }
+            }
             var promotionDomain = await promotionRepository.AddPromotionAsync(promotion);
             var promotionDto = mapper.Map<PromotionDto> (promotionDomain);
             return promotionDto;

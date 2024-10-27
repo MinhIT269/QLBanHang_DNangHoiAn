@@ -5,7 +5,6 @@ namespace QLBanHang_API.Dto
 {
     public class AddUserDto
     {
-        public Guid UserId { get; set; } // Khóa chính
 
         [Required]
         [StringLength(25, MinimumLength = 5)]
@@ -21,14 +20,14 @@ namespace QLBanHang_API.Dto
         public string? Email { get; set; }
 
         [Required]
-        public Guid RoleId { get; set; } // Khóa ngoại từ bảng Role
-        public Role? Role { get; set; }
+        public Guid? RoleId { get; set; } // Khóa ngoại từ bảng Role
+        //public Role? Role { get; set; }
 
         // 1 User có nhiều Reviews
-        public ICollection<Review>? Reviews { get; set; }
+        //public ICollection<Review>? Reviews { get; set; }
 
         // 1 User có nhiều PaymentDetails
-        public ICollection<PaymentDetail>? PaymentDetails { get; set; }
+        //public ICollection<PaymentDetail>? PaymentDetails { get; set; }
 
         // 1 User có nhiều Orders
         // public ICollection<Order> Orders { get; set; }

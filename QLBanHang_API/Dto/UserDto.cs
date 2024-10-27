@@ -8,6 +8,6 @@ namespace QLBanHang_API.Dto
         public string UserName { get; set; }
         public string Email { get; set; }
         public Guid RoleId { get; set; }
-        public Role? role { get; set; }
+        //public Role? role { get; set; }
     }
 }
