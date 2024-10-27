@@ -16,11 +16,10 @@ namespace QLBanHang_API.Repositories.Repository
         public async Task<List<Location>> GetListByNameAsync(string? name)
         {
             var Locations = dbContext.Locations.AsQueryable();
-
             //Dieu kien neu name ko co 
             if (string.IsNullOrWhiteSpace(name) == false)
             {
-                Locations = Locations.Where(x => x.Name.Contains(name));
+                Locations = Locations.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(name.Trim()));
             }
             return await Locations.ToListAsync();
         }

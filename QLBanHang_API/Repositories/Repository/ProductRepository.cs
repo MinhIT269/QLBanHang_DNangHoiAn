@@ -33,9 +33,10 @@ namespace QLBanHang_API.Repositories
 		}
 		public IQueryable<Product> FilterBySearchQuery(IQueryable<Product> query, string searchQuery)
 		{
+			var name = searchQuery.Trim();
 			if (!string.IsNullOrEmpty(searchQuery))
 			{
-				query = query.Where(p => p.Name!.Contains(searchQuery));
+				query = query.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(name));
 			}
 			return query;
 		}
@@ -72,37 +73,41 @@ namespace QLBanHang_API.Repositories
 			return await query.ToListAsync();
 		}
 
-		public async Task<List<Product>> FindProductsAsync(string temp, Guid id)
+		public async Task<List<Product>> FindProductsAsync(string name, Guid id)
 		{
-			return await _dataContext.Products
+            var searchTerm = name.Trim();
+            return await _dataContext.Products
 				.Include(p => p.ProductCategories!)
 				.ThenInclude(pc => pc.Category)
-				.Where(p => p.Name!.ToLower().Contains(temp.ToLower()) &&
+                .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm) &&
 							p.ProductCategories!.Any(pc => pc.CategoryId == id))
 				.ToListAsync();
 		}
 		public async Task<List<Product>> FindProductsByNameAsync(string name)
 		{
-			return await _dataContext.Products
+            var searchTerm = name.Trim();
+            return await _dataContext.Products
 				 .Include(p => p.ProductCategories!)
 				 .ThenInclude(pc => pc.Category)
-				 .Where(p => p.Name!.ToLower().Contains(name.ToLower()))
-				 .ToListAsync();
+                 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm))
+                 .ToListAsync();
 		}
 		public async Task<int> CountProductAsync()
 		{
 			return await _dataContext.Products.CountAsync();
 		}
-		public async Task AddProductAsync(Product product)
+		public async Task<bool> AddProductAsync(Product product)
 		{
-			_dataContext.Products.Add(product);
-			await _dataContext.SaveChangesAsync();
-		}
-		public async Task UpdateProductAsync(Product product)
+            _dataContext.Products.Add(product);
+            int result = await _dataContext.SaveChangesAsync();
+            return result > 0;
+        }
+		public async Task<bool> UpdateProductAsync(Product product)
 		{
-			_dataContext.Products.Update(product);
-			await _dataContext.SaveChangesAsync();
-		}
+            _dataContext.Products.Update(product);
+            int result = await _dataContext.SaveChangesAsync();
+            return result > 0;
+        }
 		public async Task<bool> DeleteProductAsync(Guid id)
 		{
 			var product = await _dataContext.Products.FindAsync(id);

@@ -6,8 +6,8 @@ namespace QLBanHang_API.Repositories.IRepository
 	{
 		Task<List<Category>> GetAllCategoriesAsync();
 		Task<Category?> GetCategoryByIdAsync(Guid id);
-		Task CreateCategoryAsync(Category category);
-		Task UpdateCategoryAsync(Category category);
-		Task DeleteCategoryAsync(Guid id);
+		Task<bool> CreateCategoryAsync(Category category);
+        Task<bool> UpdateCategoryAsync(Category category);
+		Task<bool> DeleteCategoryAsync(Guid id);
 	}
 }

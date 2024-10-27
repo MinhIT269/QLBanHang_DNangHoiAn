@@ -12,8 +12,8 @@ namespace QLBanHang_API.Repositories
 		Task<List<Product>> FindProductsAsync(string temp, Guid id);
 		Task<List<Product>> FindProductsByNameAsync(string name);
 		Task<int> CountProductAsync();
-		Task AddProductAsync(Product product);
-		Task UpdateProductAsync(Product product);
+        Task<bool> AddProductAsync(Product product);
+        Task<bool> UpdateProductAsync(Product product);
 		Task<bool> DeleteProductAsync(Guid id);
 	}
 }
