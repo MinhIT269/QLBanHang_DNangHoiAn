@@ -56,22 +56,22 @@ namespace QLBanHang_API.Services.Service
             return userInfoDto;
         }
 
-        public async Task<UserInfoDto> AddUserInfo(string username,UserInfoDto userInfoAddDto)
+        public async Task<UserInfoDto> AddUserInfo(string username,AddUserInfoDto userInfoAddDto)
         {
             var userInfo = mapper.Map<UserInfo>(userInfoAddDto);
             var userInfoDomain = await userInfoRepository.AddUserInfoAsync(username, userInfo);
             var userInfoDto = new UserInfoDto()
             {
-                UserInfoId = userInfo.UserInfoId,
-                Address = userInfo.Address,
-                PhoneNumber = userInfo.PhoneNumber,
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
+                UserInfoId = userInfoDomain.UserInfoId,
+                Address = userInfoDomain.Address,
+                PhoneNumber = userInfoDomain.PhoneNumber,
+                FirstName = userInfoDomain.FirstName,
+                LastName = userInfoDomain.LastName,
                 Gender = userInfo.Gender,
                 user = new UserDto()
                 {
-                    UserName = userInfo.User.Username,
-                    Email = userInfo.User.Email,
+                    UserName = userInfoDomain.User.Username,
+                    Email = userInfoDomain.User.Email,
                 }
             };
             return userInfoDto;

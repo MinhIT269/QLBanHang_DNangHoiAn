@@ -5,8 +5,8 @@ namespace QLBanHang_API.Services.IService
     public interface IReviewService
     {
         Task<List<ReviewDto>> GetAllReview(Guid? productId);
-        Task<ReviewDto> AddReview(ReviewDto reviewAdd);
-        Task<ReviewDto> UpdateReview(ReviewDto reviewUpdate);
+        Task<ReviewDto> AddReview(AddReviewDto reviewAdd);
+        Task<ReviewDto> UpdateReview(UpReviewDto reviewUpdate);
         Task<ReviewDto> DeleteReview (Guid reviewId);
     }
 }
