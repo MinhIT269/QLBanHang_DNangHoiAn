@@ -42,7 +42,9 @@ namespace QLBanHang_API.Repositories.Repository
         //Get Brand async
         public async Task<Brand> GetBrandByNameAsync(string brandName)
         {
-            var brand = await dbContext.Brands.Where(x => x.BrandName.Contains(brandName)).FirstOrDefaultAsync();
+            brandName = brandName.Trim().ToLower();
+            var brands = dbContext.Brands.Include("Locations").AsQueryable();
+            var brand = await brands.Where(p => EF.Functions.Collate(p.BrandName, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName)).FirstOrDefaultAsync();
             if (brand == null)
             {
                 return null;

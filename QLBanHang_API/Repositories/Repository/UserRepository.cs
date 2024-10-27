@@ -25,6 +25,7 @@ namespace QLBanHang_API.Repositories.Repository
                 return null;
             }
             dbContext.Users.Remove(user);
+            await dbContext.SaveChangesAsync();
             return user;
         }
 
