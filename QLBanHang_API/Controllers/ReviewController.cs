@@ -34,7 +34,7 @@ namespace QLBanHang_API.Controllers
         // URL - /api/Review/Add
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> AddReviewForProduct([FromBody] ReviewDto addReviewDTO)
+        public async Task<IActionResult> AddReviewForProduct([FromBody] AddReviewDto addReviewDTO)
         {
             var reviewDTO = await reviewService.AddReview(addReviewDTO);
             if (reviewDTO == null)
@@ -62,7 +62,7 @@ namespace QLBanHang_API.Controllers
         // URL - /api/Review/Update
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> UpdateReview([FromBody] ReviewDto reviewUpdate)
+        public async Task<IActionResult> UpdateReview([FromBody] UpReviewDto reviewUpdate)
         {
             var reviewDTO = await reviewService.UpdateReview(reviewUpdate);
             if (reviewDTO == null)

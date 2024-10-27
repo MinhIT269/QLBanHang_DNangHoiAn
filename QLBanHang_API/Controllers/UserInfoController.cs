@@ -48,7 +48,7 @@ namespace QLBanHang_API.Controllers
         // /api/UserInfo/Add/username=?
         [HttpPost]
         [Route("Add/{username}")]
-        public async Task<IActionResult> AddUserInfo([FromRoute]string username,UserInfoDto userInfoDto)
+        public async Task<IActionResult> AddUserInfo([FromRoute]string username,AddUserInfoDto userInfoDto)
         {
             var userInfo = await userInfoService.AddUserInfo(username, userInfoDto);
             if (userInfo == null)
