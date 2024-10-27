@@ -2,9 +2,8 @@
 
 namespace QLBanHang_API.Dto
 {
-    public class AddUpLocationDto
+    public class AddLocationDto
     {
-        public Guid LocationId { get; set; }  // Primary Key
         [Required, MaxLength(200)]
         public string? Name { get; set; }
         [MaxLength(400)]
