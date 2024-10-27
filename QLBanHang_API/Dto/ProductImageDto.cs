@@ -1,4 +1,4 @@
-﻿using PBL6_QLBH.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace QLBanHang_API.Request
