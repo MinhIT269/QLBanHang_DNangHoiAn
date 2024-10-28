@@ -54,8 +54,15 @@ namespace QLBanHang_API.Controllers
         {
             try
             {
-                await _productService.AddProductAsync(model, mainImage, additionalImages);
-                return Ok();
+                bool isSuccess = await _productService.AddProductAsync(model, mainImage, additionalImages);
+                if (isSuccess)
+                {
+                    return Ok("Product created successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to create product. Please check the provided data.");
+                }
             }
             catch (Exception ex)
             {
@@ -68,8 +75,15 @@ namespace QLBanHang_API.Controllers
         {
             try
             {
-                await _productService.UpdateProductAsync(model, mainImage, additionalImages, oldImageUrls);
-                return Ok(); // Cập nhật thành công
+                bool isSuccess = await _productService.UpdateProductAsync(model, mainImage, additionalImages, oldImageUrls);
+                if (isSuccess)
+                {
+                    return Ok("Product updated successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to update product. Please check the provided data.");
+                }
             }
             catch (KeyNotFoundException ex)
             {

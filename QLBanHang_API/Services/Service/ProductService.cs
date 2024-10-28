@@ -34,16 +34,20 @@ namespace QLBanHang_API.Service
 
             return _mapper.Map<List<ProductDto>>(products);
         }
-
+        public async Task<ProductDto> GetProductByIdAsync(Guid id)
+        {
+            var product = await _productRepository.GetProductByIdAsync(id);
+            return _mapper.Map<ProductDto>(product);    
+        }
         public async Task<int> CountProductAsync(string searchQuery)
         {
             var totalProducts = string.IsNullOrEmpty(searchQuery)
                 ? await _productRepository.CountProductAsync()
                 : (await _productRepository.FindProductsByNameAsync(searchQuery)).Count();
-            var totalPages = (int)Math.Ceiling((double)totalProducts / 1);
+            var totalPages = (int)Math.Ceiling((double)totalProducts / 10);
             return totalPages;
         }
-        public async Task AddProductAsync(ProductDto model, IFormFile mainImage, IList<IFormFile> additionalImages)
+        public async Task<bool> AddProductAsync(ProductDto model, IFormFile mainImage, IList<IFormFile> additionalImages)
         {
             var imagePaths = new List<string>();
             if (mainImage != null & mainImage.Length > 0)
@@ -74,10 +78,10 @@ namespace QLBanHang_API.Service
                 ImageUrl = path
             }).ToList();
 
-            await _productRepository.AddProductAsync(product);
+            return await _productRepository.AddProductAsync(product);
         }
 
-        public async Task UpdateProductAsync(ProductDto model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls)
+        public async Task<bool> UpdateProductAsync(ProductDto model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls)
         {
             // Lấy sản phẩm hiện tại từ CSDL
             var product = await _productRepository.GetProductByIdAsync(model.ProductId);
@@ -120,7 +124,7 @@ namespace QLBanHang_API.Service
             model.ProductImages = _mapper.Map<List<ProductImageDto>>(productImages);
 
             // Gọi Repository để lưu thay đổi
-            await _productRepository.UpdateProductAsync(product);
+            return await _productRepository.UpdateProductAsync(product);
         }
         public async Task<bool> DeleteProductAsync(Guid id)
         {

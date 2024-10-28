@@ -24,19 +24,19 @@ namespace QLBanHang_API.Service
 			var category = await _categoryRepository.GetCategoryByIdAsync(id);
 			return _mapper.Map<CategoryDto>(category);
 		}
-		public async Task CreateCategoryAsync(CategoryDto model)
+		public async Task<bool> CreateCategoryAsync(CategoryDto model)
 		{
 		 	var category = _mapper.Map<Category>(model);
-			await _categoryRepository.CreateCategoryAsync(category);
+			return await _categoryRepository.CreateCategoryAsync(category);
 		}
-		public async Task UpdateCategoryAsync(CategoryDto model)
+		public async Task<bool> UpdateCategoryAsync(CategoryDto model)
 		{
 			var category = _mapper.Map<Category>(model);
-			await _categoryRepository.UpdateCategoryAsync(category);
+            return await _categoryRepository.UpdateCategoryAsync(category);
 		}
-		public async Task DeleteCategoryAsync(Guid categoryId)
+		public async Task<bool> DeleteCategoryAsync(Guid categoryId)
 		{
-			await _categoryRepository.DeleteCategoryAsync(categoryId);
+			return await _categoryRepository.DeleteCategoryAsync(categoryId);
 		}
 
 	}

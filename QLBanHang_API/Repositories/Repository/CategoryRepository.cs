@@ -20,24 +20,28 @@ namespace QLBanHang_API.Repositories.Repository
 		{
 			return await _dataContext.Categories.FindAsync(id);
 		}
-		public async Task CreateCategoryAsync(Category category)
+		public async Task<bool> CreateCategoryAsync(Category category)
 		{
 			_dataContext.Categories.Add(category);
-		    await _dataContext.SaveChangesAsync();
+            int result = await _dataContext.SaveChangesAsync();
+			return result > 0;
 		}
-		public async Task UpdateCategoryAsync(Category category)
+		public async Task<bool> UpdateCategoryAsync(Category category)
 		{
 			_dataContext.Categories.Update(category);
-			await _dataContext.SaveChangesAsync();
-		}
-		public async Task DeleteCategoryAsync(Guid categoryId)
+            int result = await _dataContext.SaveChangesAsync();
+            return result > 0;
+        }
+		public async Task<bool>  DeleteCategoryAsync(Guid categoryId)
 		{
 			var category = await GetCategoryByIdAsync(categoryId);
 			if (category != null)
 			{
 				_dataContext.Categories.Remove(category);
-				await _dataContext.SaveChangesAsync();
-			}
-		}
+                int result = await _dataContext.SaveChangesAsync();
+                return result > 0;
+            }
+            return false;
+        }
 	}
 }

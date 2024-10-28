@@ -19,7 +19,7 @@ namespace QLBanHang_API.Repositories.Repository
 
             if (!string.IsNullOrEmpty(username))
             {
-                orders = orders.Where(x => x.User.Username == username);
+                orders = orders.Where(x => x.User!.Username == username);
             }
             else
             {

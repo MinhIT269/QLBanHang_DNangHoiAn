@@ -871,9 +871,6 @@
 		// Tính toán các sản phẩm của trang hiện tại
 		async function renderTable(page) {
 			const paginatedProducts = await GetProduct(searchQuery, page, itemsPerPage, sortCriteria); // lấy đến phần tử thứ itemsPerPage, không bao gồm phần tử ở chỉ số itemsPerPage
-			console.log("Search Query:", searchQuery);
-			console.log("Page:", page);
-			console.log("Sort Criteria:", sortCriteria);
 			// Chèn dữ liệu vào bảng
 			const tableBody = document.getElementById('productTableBody');
 			tableBody.innerHTML = ''; // Xóa nội dung hiện tại của bảng
@@ -889,7 +886,6 @@
 
 			try {
 				const url = `https://localhost:7069/api/admin/DeleteProduct/${encodeURIComponent(productId)}`;
-				console.log("Hel")
 				console.log(url)
 				await $.ajax({
 					url: url,
@@ -921,9 +917,7 @@
 			// Tính toán phạm vi các trang cần hiển thị
 			let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
 			let endPage = Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
-			console.log(startPage);
-			console.log("HIII");
-			console.log(endPage);
+
 			// Điều chỉnh start và end page nếu số lượng trang không đủ để hiển thị
 			if (endPage - startPage + 1 < maxVisiblePages) {
 				if (endPage === totalPages) {
@@ -1043,9 +1037,7 @@
 			});
 			console.log(searchQuery);
 
-			// Tính số trang và kiểm tra nếu số trang là 0
-			var totalPages = Math.ceil(response / 10);
-			return totalPages > 0 ? totalPages : 1; // Nếu `totalPages` là 0 thì trả về 1
+			return response > 0 ? response : 1; // Nếu `totalPages` là 0 thì trả về 1
 		}
 
 		// Xử lý sự kiện tìm kiếm
