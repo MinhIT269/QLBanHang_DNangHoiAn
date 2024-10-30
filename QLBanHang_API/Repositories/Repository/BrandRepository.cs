@@ -44,7 +44,7 @@ namespace QLBanHang_API.Repositories.Repository
         {
             brandName = brandName.Trim().ToLower();
             var brands = dbContext.Brands.Include("Locations").AsQueryable();
-            var brand = await brands.Where(p => EF.Functions.Collate(p.BrandName, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName)).FirstOrDefaultAsync();
+            var brand = await brands.Where(p => EF.Functions.Collate(p.BrandName!, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName)).FirstOrDefaultAsync();
             if (brand == null)
             {
                 return null;

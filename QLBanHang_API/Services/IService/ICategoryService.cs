@@ -6,8 +6,8 @@ namespace QLBanHang_API.Service
 	{
 		Task<List<CategoryDto>> GetAllCategoriesAsync();
 		Task<CategoryDto?> GetCategoryByIdAsync(Guid id);
-		Task CreateCategoryAsync(CategoryDto category);
-		Task UpdateCategoryAsync(CategoryDto category);
-		Task DeleteCategoryAsync(Guid id);
+		Task<bool> CreateCategoryAsync(CategoryDto category);
+		Task<bool> UpdateCategoryAsync(CategoryDto category);
+		Task<bool> DeleteCategoryAsync(Guid id);
 	}
 }
