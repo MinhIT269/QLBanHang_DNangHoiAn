@@ -48,13 +48,13 @@ namespace PBL6.Dto
 
 
         // 1 Product có nhiều ProductCategories
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        //public ICollection<ProductCategory>? ProductCategories { get; set; }
 
-        // 1 Product có nhiều Reviews
-        public ICollection<Review>? Reviews { get; set; }
+        //// 1 Product có nhiều Reviews
+        //public ICollection<Review>? Reviews { get; set; }
 
-        public ICollection<ProductImage>? ProductImages { get; set; }
+        //public ICollection<ProductImage>? ProductImages { get; set; }
 
-        public ICollection<CartItem>? CartItems { get; set; }
+        //public ICollection<CartItem>? CartItems { get; set; }
     }
 }

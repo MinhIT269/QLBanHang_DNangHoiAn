@@ -8,5 +8,6 @@
         public double Ammount { get; set; }
         
         public DateTime CreatedDate { get; set; }
+        //public string CallbackUrl { get; set; }
     }
 }

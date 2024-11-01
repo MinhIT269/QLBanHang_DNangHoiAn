@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using PBL6_QLBH.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace PBL6_QLBH.Models
+namespace PBL6.Dto
 {
-    public class Review
+    public class ReviewDto
     {
         [Key]
         public Guid ReviewId { get; set; }    // Primary Key
@@ -19,8 +19,8 @@ namespace PBL6_QLBH.Models
         public string? Comment { get; set; }
         public DateTime ReviewDate { get; set; }
 
-        public Product? Product { get; set; }  // Navigation property
+        public ProductDto? Product { get; set; }
 
-        public User? User { get; set; }        // Navigation property
+        public UserDto? User { get; set; }        // Navigation property
     }
 }

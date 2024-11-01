@@ -15,5 +15,7 @@ namespace PBL6.Repositories.IRepository
         Task<bool> DeleteProductAsync(Guid id);
 
         Task<List<Product>> GetTrendingProducts(int skip, int take);
+
+        Task<List<Product>> GetProductsByCategory(string category,int skip,int take);
     }
 }

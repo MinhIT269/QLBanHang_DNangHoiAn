@@ -125,6 +125,8 @@ namespace PBL6.Repositories.Repository
                  .ToListAsync();
         }
 
+   
+
         public async Task<List<Product>> GetTrendingProducts(int skip, int take)
         {
             try
@@ -159,5 +161,26 @@ namespace PBL6.Repositories.Repository
                 return new List<Product>();
             }
         }
+        public async Task<List<Product>> GetProductsByCategory(string category, int skip, int take)
+        {
+            var categoryId = await _dataContext.Categories
+                .Where(c => c.CategoryName ==  category)
+                .Select(c => c.CategoryId).FirstOrDefaultAsync();
+
+
+            var productIds = await _dataContext.ProductCategories
+                .Where(pc => pc.CategoryId == categoryId)
+                .Select(pc => pc.ProductId)
+                .ToListAsync();
+            if(productIds == null || productIds.Count == 0) { return new List<Product>(); }
+
+            return await _dataContext.Products
+              .Where(p => productIds.Contains(p.ProductId))
+              .Skip(skip)
+              .Take(take)
+              .ToListAsync();
+
+        }
+
     }
 }

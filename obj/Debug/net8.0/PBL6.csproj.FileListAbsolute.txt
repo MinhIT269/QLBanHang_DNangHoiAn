@@ -137,3 +137,4 @@ E:\PBL6\PBL6_UPDATED\PBL6\PBL6\obj\Debug\net8.0\ref\PBL6.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\RestSharp.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\AutoMapper.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\obj\Debug\net8.0\PBL6.sourcelink.json

@@ -34,5 +34,13 @@ namespace PBL6.Controllers
             var products = await _productService.GetProductsTrending( skip, size);
             return Ok(products);
         }
+
+        [HttpGet("getProductByCategory")]
+        public async Task<IActionResult> getProductsByCatagory([FromQuery] string categoryName, [FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsByCategory(categoryName, skip, size);
+            return Ok(products);
+        }
     }
 }

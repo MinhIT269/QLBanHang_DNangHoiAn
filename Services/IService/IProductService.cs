@@ -14,5 +14,7 @@ namespace PBL6.Services.Service
 
         Task<List<ProductDto>> GetProductsTrending( int skip, int size);
 
+        Task<List<ProductDto>> GetProductsByCategory(string  categoryName, int skip,int size);
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using PBL6.Mapping;
 using PBL6.Repositories.IRepository;
 using PBL6.Repositories.Repository;
+using PBL6.Services.IService;
 using PBL6.Services.Service;
 using PBL6.Services.ServiceImpl;
 using PBL6_BackEnd.Config;
@@ -22,6 +23,15 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<IReviewService,ReviewService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.Configure<ZaloPayConfig>(builder.Configuration.GetSection(ZaloPayConfig.ConfigName));

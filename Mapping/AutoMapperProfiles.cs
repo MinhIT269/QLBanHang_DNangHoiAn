@@ -10,6 +10,8 @@ namespace PBL6.Mapping
         {
             CreateMap<ProductDto, Product>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<ReviewDto, Review>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
         }
     }
 }
