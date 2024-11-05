@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using QLBanHang_API.CustomActionFilters;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Request;
 using QLBanHang_API.Service;
 using QLBanHang_API.Services.IService;
+using QLBanHang_API.Services.Service;
+using System.Text.RegularExpressions;
 
 namespace QLBanHang_API.Controllers
 {
@@ -22,7 +25,7 @@ namespace QLBanHang_API.Controllers
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
-            _imageService = imageService;
+            _imageService =imageService;
         }
 
         [HttpGet("GetAllProduct")]
@@ -31,6 +34,8 @@ namespace QLBanHang_API.Controllers
             var product = await _productService.GetAllProductAsync();
             return Ok(product);
         }
+
+
         [HttpGet("GetFilteredProducts")]
         public async Task<IActionResult> GetFilteredProducts([FromQuery] string? searchQuery, [FromQuery] int page = 1,
                                                      [FromQuery] string sortCriteria = "name",
@@ -50,11 +55,12 @@ namespace QLBanHang_API.Controllers
 
         [HttpPost("CreateProduct")]
         [ValidateModel]
-        public async Task<IActionResult> CreateProduct([FromForm] ProductDto model, IFormFile mainImage, IList<IFormFile> additionalImages)
+        public async Task<IActionResult> CreateProduct([FromForm] ProductRequest model, IFormFile ImageUrl, IList<IFormFile> additionalImages)
         {
             try
             {
-                bool isSuccess = await _productService.AddProductAsync(model, mainImage, additionalImages);
+                model.Description = await _imageService.ProcessDescriptionAndUploadImages(model.Description!, model.ProductId);
+                bool isSuccess = await _productService.AddProductAsync(model, ImageUrl, additionalImages);
                 if (isSuccess)
                 {
                     return Ok("Product created successfully.");
@@ -69,12 +75,18 @@ namespace QLBanHang_API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
         [HttpPut("UpdateProduct")]
         [ValidateModel]
-        public async Task<IActionResult> UpdateProduct([FromBody] ProductDto model, IFormFile? mainImage, IList<IFormFile>? additionalImages, [FromForm] List<string>? oldImageUrls)
+        public async Task<IActionResult> UpdateProduct([FromForm] ProductRequest model, IFormFile? mainImage, IList<IFormFile> additionalImages, [FromForm] string? oldImageUrlsJson)
         {
             try
             {
+                var oldImageUrls = string.IsNullOrEmpty(oldImageUrlsJson) ? new List<string>() 
+                    : Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(oldImageUrlsJson);
+
+                model.Description = await _imageService.ProcessDescriptionAndUploadImages(model.Description!, model.ProductId);
                 bool isSuccess = await _productService.UpdateProductAsync(model, mainImage, additionalImages, oldImageUrls);
                 if (isSuccess)
                 {
@@ -90,6 +102,8 @@ namespace QLBanHang_API.Controllers
                 return NotFound(ex.Message); // Trả về 404 nếu không tìm thấy sản phẩm
             }
         }
+
+
         [HttpDelete("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] Guid id)
         {
@@ -100,15 +114,16 @@ namespace QLBanHang_API.Controllers
             }
             return Ok();
         }
-        [HttpPost("UploadPicture")]
-        public async Task<IActionResult> UploadImages(IFormFile files)
+
+        [HttpPost("Upload-Picture")]
+        public async Task<IActionResult> UploadImages(IFormFile files, Guid productId)
         {
             if (files == null)
             {
                 return BadRequest("No files were uploaded.");
             }
 
-            var uploadedImageUrls = await _imageService.UploadImageAsync(files);
+            var uploadedImageUrls = await _imageService.UploadImageAsync(files, productId);
             return Ok(new { urls = uploadedImageUrls }); // Trả về danh sách đường dẫn hình ảnh dưới dạng JSON
         }
     }

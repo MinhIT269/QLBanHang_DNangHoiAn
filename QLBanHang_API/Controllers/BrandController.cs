@@ -15,6 +15,19 @@ namespace QLBanHang_API.Controllers
         {
             this.brandService = brandService;
         }
+
+        // api/Brands/GetAllBrands
+        [HttpGet("GetAllBrands")]
+        public async Task<IActionResult> GetAllBrands()
+        {
+            var brandDTO = await brandService.GetAllBrands();
+            if (brandDTO == null)
+            {
+                return NotFound();
+            }
+            return Ok(brandDTO);
+        }
+
         // Get Brand - /api/Brands/Get/brandName=?
         [HttpGet]
         [Route("Get/{brandName}")]

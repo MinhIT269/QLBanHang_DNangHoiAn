@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QLBanHang_API.Service;
 
 namespace QLBanHang_API.Controllers
@@ -13,24 +12,32 @@ namespace QLBanHang_API.Controllers
         {
             _productService = productService;
         }
+
+
         [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProduct()
         {
             var product = await _productService.GetAllProductAsync();
             return Ok(product);
         }
+
+
         [HttpGet("GetProductById/{id}")]
-        public async Task<IActionResult> GetProductById([FromRoute]Guid id)
+        public async Task<IActionResult> GetProductById([FromRoute] Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             return Ok(product);
         }
+
+
         [HttpGet("TotalPagesProduct")]
         public async Task<IActionResult> GetTotalPagesForAllProducts([FromQuery] string? searchQuery) // Tính tổng số trang dựa trên toàn bộ sản phẩm csdl
         {
             var totalPages = await _productService.CountProductAsync(searchQuery ?? string.Empty);
             return Ok(totalPages);
         }
+
+
         [HttpGet("GetSearchAndFilteredProducts")]
         public async Task<IActionResult> GetFilteredProducts([FromQuery] string? searchQuery, [FromQuery] int page = 1,
                                              [FromQuery] string sortCriteria = "name",

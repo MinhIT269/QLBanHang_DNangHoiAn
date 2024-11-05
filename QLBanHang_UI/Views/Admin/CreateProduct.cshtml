@@ -1,11 +1,15 @@
-﻿
+﻿﻿@using QLBanHang_UI.Models
+@model QLBanHang_UI.Models.Request.ProductRequest
+@{
+	var categories = ViewBag.Categories as List<CategoryDto>;
+	var brands = ViewBag.Brands as List<BrandDto>;
+}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<!-- Title Meta -->
 	<meta charset="utf-8" />
-	<title>Product List | Larkon - Responsive Admin Dashboard Template</title>
+	<title>Tạo sản phẩm | ĐN-Hoi An Admin Dashboard</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="A fully responsive premium admin dashboard template" />
 	<meta name="author" content="Techzaa" />
@@ -23,8 +27,30 @@
 	<!-- App css (Require in all Page) -->
 	<link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
 
+	<link href="~/css/main-design-image.css" rel="stylesheet" />
+
 	<!-- Theme Config js (Require in all Page) -->
 	<script src="~/js/config.js"></script>
+
+	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+	<style>
+		.ck-editor__editable {
+			min-height: 300px; /* Chiều cao tối thiểu của CKEditor */
+		}
+
+		#preview-images-additional {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px; /* Khoảng cách giữa các ảnh */
+			margin-top: 10px;
+		}
+
+			#preview-images-main img, #preview-images-additional img {
+				max-width: 100px;
+				height: auto;
+			}
+	</style>
+
 </head>
 
 <body>
@@ -46,7 +72,7 @@
 
 						<!-- Menu Toggle Button -->
 						<div class="topbar-item">
-							<h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Product List</h4>
+							<h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Tạo Sản Phẩm</h4>
 						</div>
 					</div>
 
@@ -208,13 +234,6 @@
 							</div>
 						</div>
 
-						<!-- App Search-->
-						<form class="app-search d-none d-md-block ms-2">
-							<div class="position-relative">
-								<input type="search" name="searchQuery" class="form-control" placeholder="Tìm kiếm sản phẩm..." autocomplete="off" value="">
-								<iconify-icon icon="solar:magnifer-linear" class="search-widget-icon"></iconify-icon>
-							</div>
-						</form>
 					</div>
 				</div>
 			</div>
@@ -504,10 +523,10 @@
 						<div class="collapse" id="sidebarProducts">
 							<ul class="nav sub-navbar-nav">
 								<li class="sub-nav-item">
-									<a class="sub-nav-link" href="@Url.Action("Product", "admin")">Danh Sách </a>
+									<a class="sub-nav-link" href="@Url.Action("Product", "admin")">Danh Sách</a>
 								</li>
 								<li class="sub-nav-item">
-									<a class="sub-nav-link" href="@Url.Action("CreateProduct", "admin")">Tạo Mới</a>
+									<a class="sub-nav-link" href="@Url.Action("Createproduct", "admin")">Tạo Mới</a>
 								</li>
 							</ul>
 						</div>
@@ -518,7 +537,7 @@
 							<span class="nav-icon">
 								<iconify-icon icon="solar:clipboard-list-bold-duotone"></iconify-icon>
 							</span>
-							<span class="nav-text"> Danh Mục</span>
+							<span class="nav-text"> Danh Mục Sản Phẩm</span>
 						</a>
 						<div class="collapse" id="sidebarCategory">
 							<ul class="nav sub-navbar-nav">
@@ -775,69 +794,151 @@
 		<div class="page-content">
 
 			<!-- Start Container Fluid -->
-			<div class="container-fluid">
-
-				<div class="row">
-					<div class="col-xl-12">
-						<div class="card">
-							<div class="card-header d-flex justify-content-between align-items-center gap-1">
-								<h4 class="card-title flex-grow-1">All Product List</h4>
-
-								<a href="/admin/createproduct" class="btn btn-sm btn-primary">
-									Thêm Sản Phẩm
-								</a>
-
-								<div class="dropdown">
-									<a href="#" class="dropdown-toggle btn btn-sm btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false">
-										Sắp xếp
-									</a>
-									<div class="dropdown-menu dropdown-menu-end">
-										<!-- item-->
-										<a href="#!" class="dropdown-item" onclick="setSortCriteria('category')">Loại sản phẩm</a>
-										<!-- item-->
-										<a href="#!" class="dropdown-item" onclick="setSortCriteria('stock')">Tồn kho</a>
-										<!-- item-->
-										<a href="#!" class="dropdown-item" onclick="setSortCriteria('name')">Tên sản phẩm</a>
-										<!-- item-->
-										<a href="#!" class="dropdown-item" onclick="setSortCriteria('price')">Giá tiền</a>
+			<div class="container-xxl">
+				<form id="product-form" method="post" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-xl-3 col-lg-4">
+							<div class="card">
+								<div class="card-body">
+									<img id="main-image-preview" src="~/images/product/p-1.png" alt="Ảnh chính sản phẩm" class="img-fluid rounded bg-light d-block mx-auto">
+									<div class="mt-3 text-center">
+										<h4>Ảnh Chính</h4>
+										<!-- Thay thế nút chọn ảnh -->
+									</div>
+								</div>
+								<div class="card-footer bg-light-subtle">
+									<div class="row g-2">
+										<div class="col-lg-12">
+											<input type="file" id="product-image-main" name="ImageUrl" class="form-control d-none" accept="image/*" required />
+											<label for="product-image-main" class="btn btn-outline-secondary w-100">Chọn ảnh</label>
+											<p id="file-limit-message-main" style="color: red; display: none;">You can select up to 1 image only.</p>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div>
-								<div class="table-responsive">
-									<table class="table align-middle mb-0 table-hover table-centered">
-										<thead class="bg-light-subtle">
-											<tr>
-												<th style="width: 7px; padding-left: 10px; padding-right: 0;">STT</th>
-												<th>Tên Sản Phẩm</th>
-												<th>Giá Tiền</th>
-												<th>Giá Khuyến Mãi</th>
-												<th>Số lượng</th>
-												<th>Thương Hiệu</th>
-												<th>Danh mục</th>
-												<th>Bảo Hành</th>
-												<th>Đánh Giá</th>
-												<th>Hành Động</th>
-											</tr>
-										</thead>
-										<tbody id="productTableBody">
-											<!--Du lieu san pham duoc chen-->
-										</tbody>
-									</table>
+						</div>
+						<div class="col-xl-9 col-lg-8 ">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title fw-bold">Ảnh Phụ</h4>
 								</div>
-								<!-- end table-responsive -->
+								<div class="card-body" style="padding-top: 0px;">
+									<div class="wrap">
+										<div class="dandev-reviews">
+											<div class="form_upload">
+												<label class="dandev_insert_attach">
+													<span>Đính kèm ảnh</span>
+												</label>
+											</div>
+											<div class="list_attach">
+												<ul class="dandev_attach_view">
+												</ul>
+												<span class="dandev_insert_attach">
+													<i class="dandev-plus">+</i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="card-footer border-top">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination justify-content-end mb-0" id="pagination">
-									</ul>
-								</nav>
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title fw-bold">Thông Tin Sản Phẩm</h4>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="product-name" class="form-label fw-bold">Tên Sản Phẩm</label>
+												<input type="text" id="product-name" name="Name" class="form-control" placeholder="Tên sản phẩm" required />
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="product-name" class="form-label fw-bold">Tên Meta</label>
+												<input type="text" id="product-name" name="MetaTitle" class="form-control" placeholder="Tên meta" required />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<label for="product-categories" class="form-label fw-bold">Loại Sản Phẩm</label>
+											<select class="form-control" id="product-categories" name="CategoryIds[]" multiple data-choices data-choices-groups data-placeholder="Chọn thể loại " required>
+												@foreach (var item in categories!)
+												{
+													<option value="@item.CategoryId">@item.CategoryName</option>
+												}
+											</select>
+										</div>
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="product-brand" class="form-label fw-bold">Thương Hiệu</label>
+												<select class="form-control" id="product-brand" data-choices data-choices-groups data-placeholder="Chọn thương hiệu" name="BrandId" required>
+													<option value="" disabled selected>Chọn thương hiệu</option>
+													@foreach (var item in brands!)
+													{
+														<option value="@item.BrandId">@item.BrandName</option>
+													}
+												</select>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="product-name" class="form-label fw-bold">Thời Gian Bảo Hành</label>
+												<input type="text" id="product-name" name="Warranty" class="form-control" placeholder="Thời gian" required />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12 pt-1">
+											<div class="mb-3">
+												<label for="description" class="form-label fw-bold">Mô Tả Meta</label>
+												<textarea class="form-control bg-light-subtle" id="description-meta" rows="7" name="MetaDescription" placeholder="Mô tả ngắn gọn về sản phẩm" oninput="limitWords(this, 30)" required></textarea>
+												<small id="wordCount" class="text-muted">Tối đa 30 từ</small>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="mb-3">
+												<label for="product-stock" class="form-label fw-bold">Tồn Kho</label>
+												<input type="number" id="product-stock" class="form-control" name="Stock" placeholder="Số lượng" min="0" step="1" max="999" required />
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<label for="product-price" class="form-label fw-bold">Giá(VND)</label>
+											<div class="input-group mb-3">
+												<span class="input-group-text fs-20"><i class='fs-6'>VND</i></span>
+												<input type="text" id="product-price" name="Price" class="form-control" placeholder="000" required />
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<label for="product-price" class="form-label fw-bold">Giá Khuyến Mãi (nếu có)</label>
+											<div class="input-group mb-3">
+												<span class="input-group-text fs-20"><i class='fs-6'>VND</i></span>
+												<input type="text" id="product-PromotionPrice" name="PromotionPrice" class="form-control" placeholder="000" />
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="mb-3">
+												<label for="description" class="form-label fw-bold">Mô Tả Sản Phẩm</label>
+												<textarea class="form-control bg-light-subtle ckeditor" id="description" name="Description" placeholder="Mô tả chi tiết về sản phẩm"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-12">
+											<button type="submit" class="btn btn-primary">Tạo Sản Phẩm</button>
+											<button type="button" id="cancel-button" class="btn btn-secondary">Hủy</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-
-				</div>
-
+				</form>
 			</div>
 			<!-- End Container Fluid -->
 			<!-- ========== Footer Start ========== -->
@@ -857,223 +958,299 @@
 		<!-- End Page Content -->
 		<!-- ==================================================== -->
 
+
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<script>
-		const itemsPerPage = 10;
-		let currentPage = 1;
-		const maxVisiblePages = 5;
-		let searchQuery = ''; // Biến lưu trữ từ khóa tìm kiếm
-		let sortCriteria = 'name'; // Cập nhật tiêu chí sắp xếp mặc định
-
-		function updateUrlParameters() {
-			const url = new URL(window.location);
-			url.searchParams.set('searchQuery', searchQuery);
-			url.searchParams.set('sortCriteria', sortCriteria);
-			url.searchParams.set('currentPage', currentPage);
-			window.history.pushState({}, '', url);
-		}
-		// Chọn lựa tiêu chí để săp xếp
-		function setSortCriteria(criteria) {
-			sortCriteria = criteria; // Cập nhật tiêu chí sắp xếp
-			currentPage = 1; // Reset trang về đầu tiên khi thay đổi tiêu chí sắp xếp
-			updateUrlParameters(); // Cập nhật URL với các tham số hiện tại
-			renderTable(currentPage); // Tải lại bảng với tiêu chí sắp xếp mới
-			renderPagination(); // Cập nhật phân trang
-		}
-
-		// Tính toán các sản phẩm của trang hiện tại
-		async function renderTable(page) {
-			const paginatedProducts = await GetProduct(searchQuery, page, itemsPerPage, sortCriteria); // lấy đến phần tử thứ itemsPerPage, không bao gồm phần tử ở chỉ số itemsPerPage
-			// Chèn dữ liệu vào bảng
-			const tableBody = document.getElementById('productTableBody');
-			tableBody.innerHTML = ''; // Xóa nội dung hiện tại của bảng
-			paginatedProducts.forEach((item, index) => {
-				tableBody.innerHTML += HTMLProduct(item,(page - 1) * itemsPerPage + index);
-			});
-		}
-
-
-		async function deleteProduct(productId) {
-			const confirmDelete = confirm('Are you sure you want to delete this product?');
-			if (!confirmDelete) return;
-
-			try {
-				const url = `https://localhost:7069/api/admin/DeleteProduct/${encodeURIComponent(productId)}`;
-				console.log(url)
-				await $.ajax({
-					url: url,
-					type: 'DELETE',
-					success: function (result) {
-						alert('Product deleted successfully!');
-						// Tải lại bảng sau khi xóa
-						renderTable(currentPage);
-						renderPagination();
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error('Error: ', textStatus, errorThrown);
-						alert('Failed to delete the product.');
-					}
-				});
-			} catch (error) {
-				console.error('Error: ', error);
-				alert('Failed to delete the product');
-			}
-		}
-
-		// Quản lí việc hiển thị các số trang trên thanh phân trang
-		async function renderPagination() {
-			const totalPages = await GetTotalPages(); // Lấy tổng số trang từ API
-
-			const pagination = document.getElementById('pagination');
-			pagination.innerHTML = '';
-
-			// Tính toán phạm vi các trang cần hiển thị
-			let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-			let endPage = Math.min(totalPages, currentPage + Math.floor(maxVisiblePages / 2));
-
-			// Điều chỉnh start và end page nếu số lượng trang không đủ để hiển thị
-			if (endPage - startPage + 1 < maxVisiblePages) {
-				if (endPage === totalPages) {
-					startPage = Math.max(1, endPage - maxVisiblePages + 1);
-				} else {
-					endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-				}
-			}
-
-			// Nút Previous
-			pagination.innerHTML += `
-													<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-														<a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage - 1})">Previous</a>
-													</li>
-												`;
-
-			// Các số trang
-			for (let i = startPage; i <= endPage; i++) {
-				pagination.innerHTML += `
-														<li class="page-item ${i === currentPage ? 'active' : ''}">
-															<a class="page-link" href="javascript:void(0);" onclick="changePage(${i})">${i}</a>
-														</li>
-													`;
-			}
-
-			// Nút Next
-			pagination.innerHTML += `
-													<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-														<a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage + 1})">Next</a>
-													</li>
-												`;
-		}
-
-		async function changePage(page) {
-			const totalPages = await GetTotalPages(); // Đảm bảo GetTotalPages trả về tổng số trang
-			if (page < 1 || page > totalPages) return; // Bỏ qua các trang ngoài phạm vi
-
-			currentPage = page;
-			await renderTable(page); // Đợi renderTable hoàn tất
-			renderPagination(); // Hiển thị phân trang sau khi bảng đã được làm mới
-		}
-		//Load dữ liệu sản phẩm
-		function HTMLProduct(item,index) {
-			console.log(item);
-			
-			// Đảm bảo item.Price là một số
-			const price = parseFloat(item.price);
-			const formattedPrice = isNaN(price) ? '0' : price.toLocaleString('vi-VN');
-			const pricePromotion = parseFloat(item.promotionPrice);
-			const formattedPricePromtion = isNaN(pricePromotion) ? '0' : pricePromotion.toLocaleString('vi-VN');
-			const html = `
-													<tr>
-														<td style="padding-left: 10px; padding-right: 0;">${index + 1}</td>
-														<td>
-															<div class="d-flex align-items-center gap-2">
-																<div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-																					<img src="https://localhost:7069/${item.imageUrl}" alt="" class="avatar-md">
-																</div>
-																<div>
-																	<a href="/admin/EditProduct/${item.productId}" class="text-dark fw-medium fs-15">${item.name}</a>
-																</div>
-															</div>
-														</td>
-														<td>${formattedPrice} <small>đ</small></td>
-														<td>${formattedPricePromtion} <small>đ</small></td>
-														<td>
-															<p class="mb-1 text-muted"><span class="text-dark fw-medium">${item.stock} sp</span></p>
-															<p class="mb-0 text-muted">0 Sold</p>
-														</td>
-														<td>${item.brandName}</td>
-														<td>${item.categoryNames}</td>
-														<td>${item.warranty}</td>
-														<td><span class="badge p-1 bg-light text-dark fs-12 me-1"><i class="bx bxs-star align-text-top fs-14 text-warning me-1"></i> 4.5</span> 55 Review</td>
-														<td>
-															<div class="d-flex gap-2">
-																<a href="/admin/EditProduct/${item.productId}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-																<a href="/admin/EditProduct/${item.productId}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-																<a href="#!" class="btn btn-soft-danger btn-sm" onclick="deleteProduct('${item.productId}')">
-																		 <iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon>
-															</div>
-														</td>
-													</tr>
-												`;
-			return html;
-		}
-
-		async function GetProduct(textsearch, page, limit, sortCriteria) {
-			const url = `https://localhost:7069/api/admin/GetFilteredProducts?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=false`;
-
-			return new Promise((resolve, reject) => {
-				$.ajax({
-					url: url,
-					type: 'GET',
-					dataType: 'json',
-					success: function (data) {
-						console.log('Data received:', data);
-						resolve(data); // Trả về dữ liệu nhận được từ API
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error('Error:', textStatus, errorThrown);
-						reject(errorThrown); // Đưa lỗi ra ngoài Promise
-					}
-				});
-			});
-		}
-
-		async function GetTotalPages() {
-			const response = await $.ajax({
-				url: 'https://localhost:7069/api/Admin/TotalPagesProduct?searchQuery=' + encodeURIComponent(searchQuery),
-				type: 'GET',
-				dataType: 'json'
-			});
-			console.log(searchQuery);
-
-			return response > 0 ? response : 1; // Nếu `totalPages` là 0 thì trả về 1
-		}
-
-		// Xử lý sự kiện tìm kiếm
-		document.querySelector('input[name="searchQuery"]').addEventListener('keydown', async (event) => {
-			if (event.key === 'Enter') {
-				event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter trong form
-
-				searchQuery = event.target.value; // Cập nhật từ khóa tìm kiếm
-				currentPage = 1; // Reset trang về 1 khi tìm kiếm mới
-				await renderTable(currentPage);
-				await renderPagination();
-			}
-		});
-
-		// Khởi tạo
-		renderTable(currentPage);
-		renderPagination();
-	</script>
-
-
 	<!-- END Wrapper -->
 	<!-- Vendor Javascript (Require in all Page) -->
 	<script src="~/js/vendor.js"></script>
 
 	<!-- App Javascript (Require in all Page) -->
 	<script src="~/js/app.js"></script>
+	<script src="~/js/jquery.min.js"></script>
 
+	<script>
+		// Giới hạn kích thước ảnh chính
+		document.getElementById('product-image-main').addEventListener('change', function (event) {
+			const file = event.target.files[0];
+			const maxSize = 1 * 1024 * 1024; // 1MB
+
+			if (file && file.size > maxSize) {
+				document.getElementById('file-limit-message-main').style.display = 'block';
+				document.getElementById('file-limit-message-main').textContent = 'Ảnh chính không được vượt quá 1MB.';
+				event.target.value = ''; // Xóa file nếu vượt quá giới hạn
+			} else {
+				document.getElementById('file-limit-message-main').style.display = 'none';
+			}
+		});
+
+		// Hàm định dạng số với dấu chấm phân cách hàng nghìn và giới hạn 9 chữ số
+		function formatCurrency(input) {
+			let value = input.value.replace(/\D/g, '');
+
+			// Giới hạn tối đa 9 chữ số
+			if (value.length > 9) {
+				value = value.slice(0, 9);
+			}
+
+			// Định dạng giá trị với dấu chấm phân cách hàng nghìn
+			input.value = new Intl.NumberFormat('vi-VN').format(value);
+		}
+
+		// Thêm sự kiện 'input' cho cả hai trường nhập
+		document.getElementById("product-price").addEventListener("input", function () {
+			formatCurrency(this);
+		});
+
+		document.getElementById("product-PromotionPrice").addEventListener("input", function () {
+			formatCurrency(this);
+		});
+
+		function limitWords(textarea, maxWords) {
+			const words = textarea.value.split(/\s+/).filter(word => word.length > 0);
+			if (words.length > maxWords) {
+				textarea.value = words.slice(0, maxWords).join(" ");
+			}
+			document.getElementById('wordCount').textContent = `Tối đa ${maxWords} từ. Bạn đã nhập ${words.length} từ.`;
+		}
+
+		class MyUploadAdapter {
+			constructor(loader) {
+				// The file loader instance to use during the upload. It sounds scary but do not
+				// worry — the loader will be passed into the adapter later on in this guide.
+				this.loader = loader;
+				this.imageUrls = []; // Mảng lưu trữ URL hình ảnh đã upload
+			}
+
+			upload() {
+				return this.loader.file
+					.then(file => new Promise((resolve, reject) => {
+						this._initRequest();
+						this._initListeners(resolve, reject, file);
+						this._sendRequest(file);
+					}));
+			}
+
+			// Aborts the upload process.
+			abort() {
+				if (this.xhr) {
+					this.xhr.abort();
+				}
+			}
+			// Initializes the XMLHttpRequest object using the URL passed to the constructor.
+			_initRequest() {
+				const xhr = this.xhr = new XMLHttpRequest();
+
+				// Note that your request may look different. It is up to you and your editor
+				// integration to choose the right communication channel. This example uses
+				// a POST request with JSON as a data structure but your configuration
+				// could be different.
+				xhr.open('POST', 'https://localhost:7069/api/Image/upload-temp', true);
+				xhr.responseType = 'json';
+			};
+
+			_initListeners(resolve, reject, file) {
+				const xhr = this.xhr;
+				const loader = this.loader;
+				const genericErrorText = `Couldn't upload file: ${file.name}.`;
+
+				xhr.addEventListener('error', () => reject(genericErrorText));
+				xhr.addEventListener('abort', () => reject());
+				xhr.addEventListener('load', () => {
+					const response = xhr.response;
+					console.log("Image URL:", response.urls);
+					// This example assumes the XHR server's "response" object will come with
+					// an "error" which has its own "message" that can be passed to reject()
+					// in the upload promise.
+					//
+					// Your integration may handle upload errors in a different way so make sure
+					// it is done properly. The reject() function must be called when the upload fails.
+					if (!response || response.error) {
+						return reject(response && response.error ? response.error.message : genericErrorText);
+					}
+					// If the upload is successful, resolve the upload promise with an object containing
+					// at least the "default" URL, pointing to the image on the server.
+					// This URL will be used to display the image in the content. Learn more in the
+					// UploadAdapter#upload documentation.
+					resolve({
+						default: response.urls
+					});
+				});
+
+				// Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
+				// properties which are used e.g. to display the upload progress bar in the editor
+				// user interface.
+				if (xhr.upload) {
+					xhr.upload.addEventListener('progress', evt => {
+						if (evt.lengthComputable) {
+							loader.uploadTotal = evt.total;
+							loader.uploaded = evt.loaded;
+						}
+					});
+				}
+			}
+			// Prepares the data and sends the request.
+			_sendRequest(file) {
+				// Prepare the form data.
+				const data = new FormData();
+
+				data.append('files', file);
+
+				// Important note: This is the right place to implement security mechanisms
+				// like authentication and CSRF protection. For instance, you can use
+				// XMLHttpRequest.setRequestHeader() to set the request headers containing
+				// the CSRF token generated earlier by your application.
+
+				// Send the request.
+				this.xhr.send(data);
+			}
+		}
+
+		function MyCustomUploadAdapterPlugin(editor) {
+			editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+				// Configure the URL to the upload script in your backend here!
+				return new MyUploadAdapter(loader);
+			};
+		}
+		// Khởi tạo CKEditor
+		ClassicEditor
+			.create(document.querySelector('#description'), {
+				extraPlugins: [MyCustomUploadAdapterPlugin],
+			})
+			.then(editor => {
+				editorInstance = editor;
+			})
+			.catch(error => {
+				console.error('CKEditor initialization error:', error);
+			});
+
+
+
+		document.getElementById('cancel-button').addEventListener('click', function () {
+			// Hiện thông báo xác nhận trước khi hủy
+			const confirmCancel = confirm("Bạn có chắc chắn muốn hủy các thay đổi không?");
+
+			if (confirmCancel) {
+				// Xóa tất cả giá trị của các trường input text
+				const textInputs = document.querySelectorAll('#product-form input[type="text"], #product-form textarea, #product-form input[type="number"]');
+				textInputs.forEach(input => {
+					input.value = ''; // Đặt giá trị của mỗi trường thành rỗng
+				});
+
+				// Xóa ảnh xem trước nếu có (ảnh chính)
+				const previewImage = document.getElementById('main-image-preview');
+				previewImage.src = 'images/product/p-1.png'; // Đặt lại ảnh chính về mặc định
+				previewImage.style.display = 'none';
+
+				// Xóa giá trị của trường file cho ảnh chính
+				const fileInputMain = document.getElementById('product-image-main');
+				fileInputMain.value = ''; // Xóa ảnh chính đã chọn
+
+				// Xóa tất cả ảnh phụ đã thêm
+				const imageList = document.querySelectorAll('.dandev_attach_view li');
+				imageList.forEach(item => {
+					item.remove(); // Xóa từng phần tử ảnh phụ
+				});
+
+				// Đặt lại bộ đếm số lượng ảnh phụ
+				imageCount = 0;
+
+				// Ẩn thông báo vượt quá dung lượng nếu có
+				document.getElementById('file-limit-message-main').style.display = 'none';
+			}
+		});
+
+
+		const MAX_IMAGES = 5;
+		let imageCount = 0; // Đếm số lượng ảnh hiện có
+		$('.dandev_insert_attach').click(function () {
+			if ($('.list_attach').hasClass('show-btn') === false) {
+				$('.list_attach').addClass('show-btn');
+			}
+			// Kiểm tra số lượng ảnh đã thêm
+			if (imageCount >= MAX_IMAGES) {
+				alert('Bạn chỉ có thể thêm tối đa ' + MAX_IMAGES + ' ảnh phụ.');
+				return;
+			}
+
+			// Kiểm tra file trước đó
+			var _lastimg = jQuery('.dandev_attach_view li').last().find('input[type="file"]').val();
+
+			if (_lastimg != '') {
+				var d = new Date();
+				var _time = d.getTime();
+				var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';
+				_html += '<div class="img-wrap">';
+				_html += '<span class="close" onclick="DelImg(this)">×</span>';
+				_html += ' <div class="img-wrap-box"></div>';
+				_html += '</div>';
+				_html += '<div class= "' + _time + '">';
+				_html += '<input type="file" name="additionalImages" class="hidden"  onchange="uploadImg(this)" id="files_' + _time + '"   />';
+				_html += '</div>';
+				_html += '</li>';
+				jQuery('.dandev_attach_view').append(_html);
+				jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();
+			} else {
+				if (_lastimg == '') {
+					jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();
+				} else {
+					if ($('.list_attach').hasClass('show-btn') === true) {
+						$('.list_attach').removeClass('show-btn');
+					}
+				}
+			}
+		});
+
+		function uploadImg(el) {
+			var file_data = $(el).prop('files')[0];
+			// Kiểm tra kích thước file
+			const maxSize = 1 * 1024 * 1024; // 1MB
+			if (file_data.size > maxSize) {
+				alert('Ảnh phụ không được vượt quá 1MB.');
+				return;
+			}
+
+			// Tăng số lượng ảnh
+			imageCount++;
+
+			var fileReader = new FileReader();
+			fileReader.onload = function (fileLoadedEvent) {
+				var srcData = fileLoadedEvent.target.result;
+
+				var newImage = document.createElement('img');
+				newImage.src = srcData;
+				var _li = $(el).closest('li');
+				if (_li.hasClass('li_file_hide')) {
+					_li.removeClass('li_file_hide');
+				}
+				_li.find('.img-wrap-box').append(newImage.outerHTML);
+			}
+			fileReader.readAsDataURL(file_data);
+		}
+
+		function DelImg(el) {
+			jQuery(el).closest('li').remove();
+			imageCount--;
+		}
+
+		$(document).ready(function () {
+			$('#product-image-main').on('change', function (event) {
+				var file = event.target.files[0];
+				var reader = new FileReader();
+
+				if (file) {
+					reader.onload = function (e) {
+						// Cập nhật ảnh chính
+						$('#main-image-preview').attr('src', e.target.result);
+					};
+
+					reader.readAsDataURL(file);
+				}
+			});
+		});
+
+	</script>
 </body>
+
+
+<!-- Mirrored from techzaa.getappui.com/larkon/admin/product-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Aug 2024 07:44:37 GMT -->
 </html>

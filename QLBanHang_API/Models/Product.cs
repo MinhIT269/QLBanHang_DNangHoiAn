@@ -20,11 +20,9 @@ namespace PBL6_QLBH.Models
         public string? MetaDescription { get; set; }
 
         [Required, Range(0, double.MaxValue)]
-        [Column(TypeName = "decimal(18, 3)")]
         public decimal Price { get; set; }
 
-        [Required, Range(0, double.MaxValue)]
-        [Column(TypeName = "decimal(18, 3)")]
+        [Range(0, double.MaxValue)]
         public decimal? PromotionPrice { get; set; }
 
         [Required, Range(0, int.MaxValue)]
@@ -35,7 +33,7 @@ namespace PBL6_QLBH.Models
 
         public DateTime CreatedDate { get; set; }
 
-        public int Warranty { get; set; }
+        public string? Warranty { get; set; }
         // Foreign Key
         [Required]
         public Guid BrandId { get; set; }
