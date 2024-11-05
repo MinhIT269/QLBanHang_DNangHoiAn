@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Theme: Larkon - Responsive Bootstrap 5 Admin Dashboard
 * Author: Techzaa
 * Module/App: Main Js
@@ -185,7 +185,7 @@ class FormAdvanced {
             var choiceData = {};
             var isChoicesVal = item.attributes;
             if (isChoicesVal["data-choices-groups"]) {
-                choiceData.placeholderValue = "This is a placeholder set in the config";
+                choiceData.placeholderValue = "Có thể chọn nhiều mục";
             }
             if (isChoicesVal["data-choices-search-false"]) {
                 choiceData.searchEnabled = false;

@@ -12,7 +12,11 @@ namespace QLBanHang_API.Repositories.Repository
         {
             this.dbContext = dbContext;
         }
-
+        //GetAll 
+        public async Task<List<Brand>> GetAllBrandAsync()
+        {
+            return await dbContext.Brands.ToListAsync();
+        }
         //Add Async 
         public async Task<Brand> AddBrandAsync(Brand brand)
         {

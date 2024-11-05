@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace QLBanHang_API.Repositories
 {
@@ -13,12 +14,17 @@ namespace QLBanHang_API.Repositories
 		}
 		public async Task<List<Product>> GetAllProductAsync()
 		{
-			return await _dataContext.Products.ToListAsync();
+			return await _dataContext.Products
+				.Include(p => p.Brand)
+				.Include(p => p.ProductCategories!) 
+					.ThenInclude(pc => pc.Category)
+				.Include(p => p.ProductImages).ToListAsync();
 		}
 
 		public async Task<Product?> GetProductByIdAsync(Guid id)
 		{
 			return await _dataContext.Products
+				.Include(p => p.Brand)
 				.Include(p => p.ProductCategories!) // Null-forgiving: Đảm bảo không null
 					.ThenInclude(pc => pc.Category)
 				.Include(p => p.ProductImages)
@@ -27,9 +33,10 @@ namespace QLBanHang_API.Repositories
 		}
 		public IQueryable<Product> GetAllProducts()
 		{
-			return _dataContext.Products
+			return _dataContext.Products.Include(p => p.Brand)
 				.Include(p => p.ProductCategories!)
-				.ThenInclude(pc => pc.Category);
+				.ThenInclude(pc => pc.Category)
+				.Include(p => p.ProductImages);
 		}
 		public IQueryable<Product> FilterBySearchQuery(IQueryable<Product> query, string searchQuery)
 		{
@@ -76,20 +83,22 @@ namespace QLBanHang_API.Repositories
 		public async Task<List<Product>> FindProductsAsync(string name, Guid id)
 		{
             var searchTerm = name.Trim();
-            return await _dataContext.Products
+            return await _dataContext.Products.Include(p => p.Brand)
 				.Include(p => p.ProductCategories!)
 				.ThenInclude(pc => pc.Category)
-                .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm) &&
+				.Include(p => p.ProductImages)
+				.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm) &&
 							p.ProductCategories!.Any(pc => pc.CategoryId == id))
 				.ToListAsync();
 		}
 		public async Task<List<Product>> FindProductsByNameAsync(string name)
 		{
             var searchTerm = name.Trim();
-            return await _dataContext.Products
+            return await _dataContext.Products.Include(p => p.Brand)
 				 .Include(p => p.ProductCategories!)
 				 .ThenInclude(pc => pc.Category)
-                 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm))
+				 .Include(p => p.ProductImages)
+				 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm))
                  .ToListAsync();
 		}
 		public async Task<int> CountProductAsync()
@@ -102,13 +111,49 @@ namespace QLBanHang_API.Repositories
             int result = await _dataContext.SaveChangesAsync();
             return result > 0;
         }
-		public async Task<bool> UpdateProductAsync(Product product)
-		{
-            _dataContext.Products.Update(product);
-            int result = await _dataContext.SaveChangesAsync();
-            return result > 0;
+
+        public async Task<bool> UpdateProductAsync(Product product)
+        {
+            try
+            {
+				if (product.ProductImages != null)
+				{
+					foreach (var image in product.ProductImages)
+					{
+						if (_dataContext.Entry(image).State == EntityState.Detached)
+						{
+							_dataContext.Entry(image).State = EntityState.Added;
+						}
+					}
+				}
+                _dataContext.Products.Update(product);
+                int result = await _dataContext.SaveChangesAsync();
+                return result > 0;
+            }
+            catch (DbUpdateConcurrencyException dbEx)
+            {
+                // Xử lý lỗi liên quan đến cơ sở dữ liệu
+                Console.WriteLine($"Database Update Error: {dbEx.Message}");
+                if (dbEx.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {dbEx.InnerException.Message}");
+                }
+                return false;
+            }
+            catch (ValidationException valEx)
+            {
+                // Xử lý lỗi xác thực dữ liệu
+                Console.WriteLine($"Validation Error: {valEx.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi khác
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return false;
+            }
         }
-		public async Task<bool> DeleteProductAsync(Guid id)
+        public async Task<bool> DeleteProductAsync(Guid id)
 		{
 			var product = await _dataContext.Products.FindAsync(id);
 			if (product != null)

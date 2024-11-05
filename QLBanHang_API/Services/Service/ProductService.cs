@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Repositories;
+using QLBanHang_API.Repositories.IRepository;
 using QLBanHang_API.Request;
 using QLBanHang_API.Services.IService;
+using System.Text.RegularExpressions;
 
 namespace QLBanHang_API.Service
 {
@@ -11,11 +16,13 @@ namespace QLBanHang_API.Service
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly IImageService _imageService;
-        public ProductService(IProductRepository productService, IMapper mapper, IImageService imageService)
+        private readonly IProductImageRepository _productImageRepository;
+        public ProductService(IProductRepository productService, IMapper mapper, IImageService imageService, IProductImageRepository productImageRepository)
         {
             _productRepository = productService;
             _mapper = mapper;
             _imageService = imageService;
+            _productImageRepository = productImageRepository;
         }
 
         public async Task<List<ProductDto>> GetAllProductAsync()
@@ -34,11 +41,13 @@ namespace QLBanHang_API.Service
 
             return _mapper.Map<List<ProductDto>>(products);
         }
+
         public async Task<ProductDto> GetProductByIdAsync(Guid id)
         {
             var product = await _productRepository.GetProductByIdAsync(id);
             return _mapper.Map<ProductDto>(product);    
         }
+
         public async Task<int> CountProductAsync(string searchQuery)
         {
             var totalProducts = string.IsNullOrEmpty(searchQuery)
@@ -47,42 +56,35 @@ namespace QLBanHang_API.Service
             var totalPages = (int)Math.Ceiling((double)totalProducts / 10);
             return totalPages;
         }
-        public async Task<bool> AddProductAsync(ProductDto model, IFormFile mainImage, IList<IFormFile> additionalImages)
+
+        public async Task<bool> AddProductAsync(ProductRequest model, IFormFile mainImage, IList<IFormFile> additionalImages)
         {
             var imagePaths = new List<string>();
-            if (mainImage != null & mainImage.Length > 0)
+
+            if (mainImage != null & mainImage!.Length > 0)
             {
-                imagePaths.Add(await _imageService.UploadImageAsync(mainImage));
+                imagePaths.Add(await _imageService.UploadImageAsync(mainImage, model.ProductId));
             }
+
             if (additionalImages != null)
             {
                 foreach (var image in additionalImages.Where(img => img.Length > 0))
                 {
-                    imagePaths.Add(await _imageService.UploadImageAsync(image));
+                    imagePaths.Add(await _imageService.UploadImageAsync(image, model.ProductId));
                 }
             }
-            if (additionalImages != null)
-            {
-                foreach (var image in additionalImages.Where(img => img.Length > 0))
-                {
-                    imagePaths.Add(await _imageService.UploadImageAsync(image));
-                }
-            }
-            // Ánh xạ từ ProductDto sang Product
-            var product = _mapper.Map<Product>(model);
+
+			model.AdditionalImageUrls = imagePaths.Skip(1).ToList();
+			// Ánh xạ từ ProductRequest sang Product
+			var product = _mapper.Map<Product>(model);
             product.ImageUrl = imagePaths.FirstOrDefault(); // Cap nhat duong dan hinh anh
-            product.ProductImages = imagePaths.Skip(1).Select(path => new ProductImage
-            {
-                ProductImageId = Guid.NewGuid(),
-                ProductId = product.ProductId,
-                ImageUrl = path
-            }).ToList();
 
             return await _productRepository.AddProductAsync(product);
         }
 
-        public async Task<bool> UpdateProductAsync(ProductDto model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls)
+        public async Task<bool> UpdateProductAsync(ProductRequest model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls)
         {
+            var imagePaths = new List<string>();
             // Lấy sản phẩm hiện tại từ CSDL
             var product = await _productRepository.GetProductByIdAsync(model.ProductId);
             if (product == null)
@@ -90,46 +92,84 @@ namespace QLBanHang_API.Service
                 throw new KeyNotFoundException("Sản phẩm không tồn tại");
             }
 
-            // Cập nhật thông tin cơ bản của sản phẩm
-            _mapper.Map(model, product);  // Ánh xạ dữ liệu từ ProductDto sang Product
+            _mapper.Map(model, product);  // Ánh xạ dữ liệu từ ProductRequest sang Product
 
-            // Xử lý ảnh chính nếu có ảnh mới
-            if (mainImage != null && mainImage.Length > 0)
+            var allImageUrls = await _imageService.GetAllImageUrlsForProductAsync(model.ProductId);
+
+            var oldImageSet = new HashSet<string>(oldImageUrls ?? new List<string>());  // Tạo một tập hợp các URL cũ để giữ lại
+
+            var descriptionImageUrls = ExtractImageUrlsFromDescription(model.Description);
+            foreach (var url in descriptionImageUrls)
             {
-                var mainImageUrl = await _imageService.UploadImageAsync(mainImage);
-                product.ImageUrl = mainImageUrl;  // Cập nhật URL của ảnh chính
+                    oldImageSet.Add(url); // Nếu chưa có thì thêm vào oldImageSet
             }
 
-            // Xử lý ảnh phụ
-            var imageUrls = oldImageUrls != null ? new List<string>(oldImageUrls) : new List<string>();
+            foreach (var imageUrl in allImageUrls)
+            {
+                if (!oldImageSet.Contains(imageUrl))
+                {
+                    await _imageService.DeleteImageAsync(imageUrl); // Xóa ảnh nếu không nằm trong oldImageUrls
+                }
+                else if (!descriptionImageUrls.Contains(imageUrl))
+                {
+                    imagePaths.Add(imageUrl);
+                }
+            }
+            if (mainImage != null && mainImage.Length > 0)    // Xử lý ảnh chính nếu có ảnh mới
+            {
+                var mainImageUrl = await _imageService.UploadImageAsync(mainImage, model.ProductId);
+                product.ImageUrl = mainImageUrl;  // Cập nhật URL của ảnh chính
+            }
+            else
+            {
+                var firstOldImageUrl = oldImageUrls[0];
+
+                // Xóa phần tử đầu tiên này nếu nó tồn tại trong imagePaths
+                imagePaths.Remove(firstOldImageUrl);
+            }
 
             if (additionalImages != null && additionalImages.Count > 0)
             {
-                foreach (var image in additionalImages)
+                foreach (var image in additionalImages.Where(img => img.Length > 0))
                 {
-                    var imageUrl = await _imageService.UploadImageAsync(image);
-                    imageUrls.Add(imageUrl);  // Thêm URL ảnh mới
+                    imagePaths.Add(await _imageService.UploadImageAsync(image, model.ProductId));
                 }
             }
 
-            // Cập nhật danh sách ProductImages
-            var productImages = imageUrls.Select(url => new ProductImage
+            if (product.ProductImages == null)
             {
-                ProductImageId = Guid.NewGuid(),
-                ProductId = product.ProductId,
-                ImageUrl = url
-            }).ToList();
-
-            // Ánh xạ ProductImages thành ProductImageDto
-            model.ProductImages = _mapper.Map<List<ProductImageDto>>(productImages);
-
-            // Gọi Repository để lưu thay đổi
+                product.ProductImages = new List<ProductImage>();
+            }
+            foreach (var url in imagePaths)
+            {
+                product.ProductImages.Add(new ProductImage
+                {
+                    ProductImageId = Guid.NewGuid(),
+                    ProductId = model.ProductId,
+                    ImageUrl = url
+                });
+            }
             return await _productRepository.UpdateProductAsync(product);
         }
+
         public async Task<bool> DeleteProductAsync(Guid id)
         {
             var result = await _productRepository.DeleteProductAsync(id);
             return result;
+        }
+        private List<string> ExtractImageUrlsFromDescription(string description)
+        {
+            var urls = new List<string>();
+            var regex = new Regex("<img[^>]+?src=[\"'](?<url>.+?)[\"'][^>]*>", RegexOptions.IgnoreCase);
+
+            var matches = regex.Matches(description);
+            foreach (Match match in matches)
+            {
+                var url = match.Groups["url"].Value;
+                urls.Add(url);
+            }
+
+            return urls;
         }
     }
 }

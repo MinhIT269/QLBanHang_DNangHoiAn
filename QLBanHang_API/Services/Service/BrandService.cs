@@ -14,8 +14,14 @@ namespace QLBanHang_API.Service
 			this.mapper = mapper;
 		}
 
-		//Get Brand by Name
-		public async Task<BrandDto> GetBrandByName(string brandName)
+		// Get All Brands
+		public async Task<List<BrandDto>> GetAllBrands()
+		{
+			var brands = await brandRepository.GetAllBrandAsync();
+			return mapper.Map<List<BrandDto>>(brands);
+		}
+        //Get Brand by Name
+        public async Task<BrandDto> GetBrandByName(string brandName)
 		{
 			var brand = await brandRepository.GetBrandByNameAsync(brandName);
 			var brandDto = mapper.Map<BrandDto>(brand);
