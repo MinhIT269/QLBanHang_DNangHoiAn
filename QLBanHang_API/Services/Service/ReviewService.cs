@@ -44,7 +44,7 @@ namespace QLBanHang_API.Services.Service
 
         public async Task<ReviewDto> DeleteReview(Guid reviewId)
         {
-            if (reviewId == null)
+            if (reviewId == Guid.Empty)
             {
                 return null;
             }
