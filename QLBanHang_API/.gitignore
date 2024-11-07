@@ -1,2 +1,8 @@
+# Ignore build directories
 .vs/
+/obj/
+/bin/
 
+# Ignore user-specific files
+*.user
+*.suo

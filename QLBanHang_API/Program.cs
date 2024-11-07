@@ -8,6 +8,12 @@ using QLBanHang_API.Repositories;
 using QLBanHang_API.Services.IService;
 using QLBanHang_API.Services.Service;
 using Microsoft.Extensions.FileProviders;
+using PBL6_QLBH.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,12 +56,40 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
 builder.Services.AddScoped<IUserInfoService, UserInfoService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+//Setting Identity 
+builder.Services.AddIdentityCore<User>()
+    .AddRoles<Role>()
+    .AddTokenProvider<DataProtectorTokenProvider<User>>("")
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
+builder.Services.Configure<IdentityOptions>(options =>
+    {
+        options.Password.RequireDigit = true;//Yeu cau ki tu so
+        options.Password.RequireLowercase = true; // 1 chu Lower
+        options.Password.RequireUppercase = true; // 1 chu Upper
+        options.Password.RequireNonAlphanumeric = false; // Ko ki tu dac biet
+        options.Password.RequiredLength = 6; // Chieu dai toi thieu mat khau
+    }
+    );
+//Add Authentication 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    });
 
 var app = builder.Build();
 // Cấu hình Static Files
@@ -76,6 +110,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 // Kích hoạt CORS
 app.UseCors("AllowSpecificOrigin");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

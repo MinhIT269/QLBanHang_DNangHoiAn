@@ -17,7 +17,7 @@ namespace QLBanHang_API.Repositories.Repository
         // Get UserInfo By ID
         public async Task<UserInfo> GetByUserNameAsync(string username)
         {
-            var userInfo = await dbContext.UserInfos.Include("User").FirstOrDefaultAsync(x => x.User.Username == username);
+            var userInfo = await dbContext.UserInfos.Include("User").FirstOrDefaultAsync(x => x.User.UserName == username);
             if (userInfo == null)
             {
                 return null;
@@ -30,7 +30,7 @@ namespace QLBanHang_API.Repositories.Repository
         {
             var userInfo = await dbContext.UserInfos
                 .Include(u => u.User) // Tải đối tượng User
-                .FirstOrDefaultAsync(x => x.User.Username == username);
+                .FirstOrDefaultAsync(x => x.User.UserName == username);
 
             // Kiểm tra xem userInfo có null hay không
             if (userInfo == null)
@@ -58,7 +58,7 @@ namespace QLBanHang_API.Repositories.Repository
         //Add
         public async Task<UserInfo> AddUserInfoAsync(string username, UserInfo userInfo)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 return null;

@@ -29,7 +29,7 @@ namespace QLBanHang_API.Services.Service
                 Gender = userInfo.Gender,
                 user = new UserDto()
                 {
-                    UserName = userInfo.User.Username,
+                    UserName = userInfo.User.UserName,
                     Email = userInfo.User.Email,
                 }
             };
@@ -49,7 +49,7 @@ namespace QLBanHang_API.Services.Service
                 Gender = userInfo.Gender,
                 user = new UserDto()
                 {
-                    UserName = userInfo.User.Username,
+                    UserName = userInfo.User.UserName,
                     Email = userInfo.User.Email,
                 }
             };
@@ -70,7 +70,7 @@ namespace QLBanHang_API.Services.Service
                 Gender = userInfo.Gender,
                 user = new UserDto()
                 {
-                    UserName = userInfoDomain.User.Username,
+                    UserName = userInfoDomain.User.UserName,
                     Email = userInfoDomain.User.Email,
                 }
             };
