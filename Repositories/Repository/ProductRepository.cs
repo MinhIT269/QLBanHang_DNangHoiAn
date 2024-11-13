@@ -119,6 +119,7 @@ namespace PBL6.Repositories.Repository
             return await _dataContext.Products
                  .Include(p => p.ProductCategories!)
                     .ThenInclude(pc => pc.Category)
+                .Include(p => p.Video)
                  .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(normalizedSearchTerm))
                  .Skip(skip)
                  .Take(take)

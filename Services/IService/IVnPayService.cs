@@ -8,6 +8,6 @@ namespace PBL6_BackEnd.Services.Service
     {
         string CreatePaymentUrl(HttpContext httpContext, VnPaymentRequestModel model);
         VnPaymentResponseModel PaymentExecute(IQueryCollection collections);
-        public Task<decimal> CalculateTotalPriceOfAOrder(Order order);
+        public Task<decimal> CalculateTotalPriceOfAOrder(Order order,string promoteId);
     }
 }

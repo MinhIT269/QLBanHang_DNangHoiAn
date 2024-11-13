@@ -1,6 +1,32 @@
 [
   {
     "ContainingType": "PBL6.Controllers.CartController",
+    "Method": "AddProductToCart",
+    "RelativePath": "Cart/addProductToCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PBL6.Dto.CartDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PBL6.Controllers.CartController",
     "Method": "CheckOut",
     "RelativePath": "Cart/checkout",
     "HttpMethod": "POST",
@@ -73,6 +99,32 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[PBL6_QLBH.Models.Promotion, PBL6, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PBL6.Controllers.CartController",
+    "Method": "getCartOfUser",
+    "RelativePath": "Cart/getCartOfUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PBL6.Dto.CartDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -200,6 +252,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PBL6.Controllers.PromotionController",
+    "Method": "getPromotionByPromotionCode",
+    "RelativePath": "Promotion/getPromotionCode/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PBL6.Dto.PromotionDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "PBL6.Controllers.ReviewController",

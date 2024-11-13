@@ -28,11 +28,13 @@ namespace PBL6_BackEnd.Services.ServiceImpl
             await _orderRepository.AddOrderAsync(order);
         }
 
-        public async Task<Order> AddOrderWithDetailsAsync(Order newOrder)
+        public async Task<Order> AddOrderWithDetailsAsync(Order newOrder,string promoteId)
         {
+
+
             newOrder.OrderId = Guid.NewGuid();
             newOrder.OrderDate = DateTime.Now;
-            newOrder.TotalAmount = await _vnPayService.CalculateTotalPriceOfAOrder(newOrder);
+            newOrder.TotalAmount = await _vnPayService.CalculateTotalPriceOfAOrder(newOrder,promoteId);
             newOrder.UserId = Guid.Parse("d4e56743-ff2c-41d3-957d-576e9f574c5d");
             newOrder.PromotionId = Guid.Parse("78913b9e-9d5a-40c4-89ad-813c72d4b1f7");
 

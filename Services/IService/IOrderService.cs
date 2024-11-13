@@ -9,7 +9,7 @@ namespace PBL6_BackEnd.Services.Service
         public Task AddOrderAsync(Order order);
         public Task SaveChangeAsync();
 
-        public Task<Order> AddOrderWithDetailsAsync(Order newOrder);
+        public Task<Order> AddOrderWithDetailsAsync(Order newOrder,string promoteId);
 
         Task<Order> GetOrderByIdAsync(Guid orderId);
     }

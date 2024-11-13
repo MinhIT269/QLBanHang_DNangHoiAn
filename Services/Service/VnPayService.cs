@@ -14,7 +14,7 @@ namespace PBL6_BackEnd.Services.ServiceImpl
         private readonly IConfiguration _config = config;
         private readonly DataContext _context = context;
        
-        public async Task<decimal> CalculateTotalPriceOfAOrder(Order order)
+        public async Task<decimal> CalculateTotalPriceOfAOrder(Order order,string promoteId)
         {
             decimal totalPrice = 0;
             foreach (OrderDetail detail in order.OrderDetails)
@@ -33,6 +33,18 @@ namespace PBL6_BackEnd.Services.ServiceImpl
                     Console.WriteLine($"Product with ID {detail.ProductId} not found.");
                 }
             }
+            if (!string.IsNullOrEmpty(promoteId))
+            {
+                var promotion = await _context.Promotions.FirstOrDefaultAsync(p => p.PromotionId == Guid.Parse(promoteId));
+
+                if (promotion != null && promotion.Percentage > 0)
+                {
+                    decimal discountAmount = totalPrice * (promotion.Percentage / 100);
+                    totalPrice -= discountAmount;
+                }
+            }
+
+
             Console.WriteLine($"Total Price: {totalPrice}");
             return totalPrice;
         }

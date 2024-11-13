@@ -2,6 +2,8 @@
 using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PBL6.Dto;
+using PBL6.Services.IService;
 using PBL6.Services.Service;
 using PBL6_BackEnd.Config;
 using PBL6_BackEnd.Helpers;
@@ -25,12 +27,13 @@ namespace PBL6.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IProductService _productService;
         private readonly IPromotionService _promotionService;
+        private readonly ICartService _cartService;
 
         public CartController(DataContext context, IVnPayService vnPayService,
             IMomoService momoService, ZaloPayConfig zaloPayConfig,
             IOrderService orderService, IOrderDetailService orderDetailService,
             ITransactionService transactionService, IProductService productService,
-            IPromotionService promotionService)
+            IPromotionService promotionService, ICartService cartService)
         {
             _vnPayService = vnPayService;
             _context = context;
@@ -41,10 +44,8 @@ namespace PBL6.Controllers
             _orderDetailService = orderDetailService;
             _productService = productService;
             _promotionService = promotionService;
+            _cartService = cartService;
         }
-
-
-
 
 
         [HttpPost("checkout")]
@@ -58,7 +59,12 @@ namespace PBL6.Controllers
 
             try
             {
-                var savedOrder = await _orderService.AddOrderWithDetailsAsync(newOrder);
+                if(newOrder.PromotionId == null)
+                {
+                    Console.WriteLine("id is null");
+                }
+                var savedOrder = await _orderService.AddOrderWithDetailsAsync(newOrder,newOrder.PromotionId.ToString());
+                Console.WriteLine("promotionId:" + newOrder.PromotionId);
 
 
 
@@ -77,7 +83,7 @@ namespace PBL6.Controllers
 
                 var model = new VnPaymentRequestModel
                 {
-                    Ammount = (double)newOrder.TotalAmount,
+                    Ammount = (int)(Math.Floor(savedOrder.TotalAmount )),
                     CreatedDate = DateTime.Now,
                     Description = $"Thanh toán đơn hàng {DateTime.Now}",
                     FullName = "Ngo Gia Bao",
@@ -99,6 +105,76 @@ namespace PBL6.Controllers
             }
 
         }
+        private string GeneratePaymentHtml(string message, string transactionId, decimal amount, string statusText, string statusClass)
+        {
+            return $@"
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Kết quả thanh toán</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f2f5;
+            }}
+            .payment-result-container {{
+                text-align: center;
+                padding: 2rem;
+                border-radius: 8px;
+                max-width: 400px;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }}
+            .payment-status.success {{
+                color: #4CAF50;
+            }}
+            .payment-status.failed {{
+                color: #E74C3C;
+            }}
+            .payment-details {{
+                margin-top: 1rem;
+                font-size: 1rem;
+                color: #333;
+            }}
+            .return-button {{
+                margin-top: 1.5rem;
+                display: inline-block;
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+                color: #fff;
+                background-color: #3498DB;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }}
+            .return-button:hover {{
+                background-color: #2980B9;
+            }}
+        </style>
+    </head>
+    <body>
+
+    <div class='payment-result-container'>
+        <h1 class='payment-status {statusClass}'>{message}</h1>
+        <div class='payment-details'>
+            <p><strong>Mã giao dịch:</strong> {transactionId}</p>
+            <p><strong>Số tiền:</strong> {amount} VND</p>
+            <p><strong>Trạng thái:</strong> {statusText}</p>
+        </div>
+        <a href='/' class='return-button'>Quay về trang chủ</a>
+    </div>
+
+    </body>
+    </html>";
+        }
+
 
         [HttpGet("PaymentBack")]
 
@@ -106,6 +182,14 @@ namespace PBL6.Controllers
         {
 
             var response = _vnPayService.PaymentExecute(Request.Query);
+            string htmlContent;
+
+            if (response == null || response.VnPayResponseCode != "00")
+            {
+                htmlContent = GeneratePaymentHtml("Giao dịch thất bại", "Không xác định", 0, "Thất bại", "failed");
+                return Content(htmlContent, "text/html");
+            }
+
             var orderId = Guid.Parse(response.OrderDescription);
 
 
@@ -121,12 +205,8 @@ namespace PBL6.Controllers
             await _transactionService.SaveChangeAsync();
 
 
-            if (response == null || response.VnPayResponseCode != "00")
-            {
-                return NotFound();
-            }
-
-            return Ok(new { payment = response.Success });
+            htmlContent = GeneratePaymentHtml("Giao dịch thành công", transaction.TransactionId.ToString(), transaction.Amount, "Hoàn thành", "success");
+            return Content(htmlContent, "text/html");
         }
 
 
@@ -199,5 +279,24 @@ namespace PBL6.Controllers
 
             return Ok(promotion);
         }
+
+        [HttpPost("addProductToCart")]
+        public async Task<ActionResult<CartDto>> AddProductToCart([FromQuery] Guid productId)
+        {
+
+            var cart = await _cartService.AddProductToCart(productId);
+            return Ok(cart);
+        }
+
+
+        [HttpGet("getCartOfUser")]
+
+        public async Task<ActionResult<CartDto>> getCartOfUser([FromQuery] Guid userId)
+        {
+            var cart = await _cartService.GetCartOfUser(userId);    
+
+            return Ok(cart);
+        }
+
     }
 }

@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PBL6_QLBH.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace PBL6_QLBH.Models
+namespace PBL6.Dto
 {
-    public class Video
+    public class VideoDto
     {
-        [Key]
         public Guid VideoId { get; set; }
 
-        [Required, MaxLength(500)]
+   
         public string? VideoUrl { get; set; }
         public string? Description { get; set; }
 
+      
     }
 }
