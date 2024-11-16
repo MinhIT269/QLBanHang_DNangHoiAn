@@ -19,7 +19,7 @@ namespace QLBanHang_API.Repositories.Repository
         }
         public async Task<User> DeleteUserAsync(string userName)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Username == userName);
+            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             if (user == null)
             {
                 return null;

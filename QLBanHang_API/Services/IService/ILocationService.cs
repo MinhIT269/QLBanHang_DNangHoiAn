@@ -9,7 +9,7 @@ namespace QLBanHang_API.Services.IService
         Task<List<LocationDto>> GetListByName(string name);
         Task<LocationDto> GetLocationById(Guid id);
         Task<LocationDto> AddLocation(LocationRequest location);
-        Task<LocationDto> UpdateLocation(Guid id,UpLocationDto upLocation);
+        Task<LocationDto> UpdateLocation(Guid id, UpLocationDto upLocation);
         Task<LocationDto> DeleteLocation(Guid id);
     }
 }

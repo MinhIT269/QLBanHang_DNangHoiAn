@@ -15,7 +15,7 @@ namespace QLBanHang_API.Repositories.Repository
         //GetAll 
         public async Task<List<Brand>> GetAllBrandAsync()
         {
-            return await dbContext.Brands.ToListAsync();
+            return await dbContext.Brands.Include( b=> b.Locations).ToListAsync();
         }
 
         //Add Async 

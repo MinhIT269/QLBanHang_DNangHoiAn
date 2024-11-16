@@ -4,6 +4,9 @@ using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
 using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Service;
+using QLBanHang_API.Services.IService;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace QLBanHang_API.Controllers
 {
@@ -12,9 +15,11 @@ namespace QLBanHang_API.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrandService brandService;
-        public BrandController(IBrandService brandService)
+        private readonly ILocationService locationService;
+        public BrandController(IBrandService brandService, ILocationService locationService)
         {
             this.brandService = brandService;
+            this.locationService = locationService;
         }
 
         // api/Brands/GetAllBrands

@@ -11,6 +11,5 @@ namespace QLBanHang_API.Dto
         public string? Description { get; set; }
         public string? YoutubeLink { get; set; }
 
-        public Guid BrandId { get; set; }
     }
 }

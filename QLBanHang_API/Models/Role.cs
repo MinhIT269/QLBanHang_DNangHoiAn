@@ -1,15 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace PBL6_QLBH.Models
 {
-    public class Role
+    public class Role : IdentityRole<Guid>
     {
-        [Key]
-        public Guid RoleId { get; set; }
-
-        [Required, MaxLength(10)]
-        public string RoleName { get; set; }
-
+        
         [MaxLength(200)]
         public string Description { get; set; }
 
