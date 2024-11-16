@@ -6,8 +6,8 @@ namespace QLBanHang_API.Repositories.IRepository
     {
         Task<List<Brand>> GetAllBrandAsync();
         Task<Brand> AddBrandAsync(Brand brand);
-        Task<Brand> UpdateBrandAsync(Guid id, Brand brand);
-        Task<Brand> GetBrandByNameAsync(string brandName);
+        Task<Brand> UpdateBrandAsync(Guid id, Brand brandUpdate);
+		Task<Brand> GetBrandByNameAsync(string brandName);
         Task<Brand?> GetBrandByIdAsync(Guid id);
 		Task<Brand> DeleteBrandAsync(Guid id);
         Task<List<Brand>> GetAllDetailBrand();

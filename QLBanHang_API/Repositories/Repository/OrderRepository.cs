@@ -2,6 +2,8 @@
 using PBL6_QLBH.Models;
 using QLBanHang_API.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
+using QLBanHang_API.Dto;
+using System.Numerics;
 namespace QLBanHang_API.Repositories.Repository
 {
     public class OrderRepository : IOrderRepository
@@ -15,20 +17,24 @@ namespace QLBanHang_API.Repositories.Repository
         // Get All Order By Username 
         public async Task<List<Order>> GetAllOrderAsync(string? username)
         {
-            var orders = dbContext.Orders.Include("User").AsQueryable();
-
             if (!string.IsNullOrEmpty(username))
             {
-                orders = orders.Where(x => x.User!.Username == username);
+                var orders = await dbContext.Orders.Include(x => x.User)
+                .Include(x => x.Promotion).AsQueryable()
+                .Where(x=> x.User!.UserName == username)
+                .Select(order => new Order
+                {
+                    OrderId = order.OrderId,
+                    UserId = order.UserId,
+                    OrderDate = order.OrderDate,
+                    TotalAmount = order.TotalAmount,
+                    Status = order.Status,
+                    PromotionId = order.PromotionId ?? Guid.Empty
+                }).ToListAsync();
+                return orders;
             }
-            else
-            {
-                return null; // Trả về danh sách rỗng thay vì null
-            }
-
-            return await orders.ToListAsync();
+            return new List<Order>();
         }
-
 
         //Get info Order by OrderID
         public async Task<List<OrderDetail>> GetOrderDetailAsync(Guid? id)

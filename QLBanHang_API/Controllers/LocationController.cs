@@ -50,7 +50,7 @@ namespace QLBanHang_API.Controllers
         [Route("Update")]
         public async Task<IActionResult> UpdateLocation([FromQuery] Guid id, [FromBody] UpLocationDto locationUpdate)
         {
-            var locationDTO = await locationService.UpdateLocation(id, locationUpdate);
+            var locationDTO = await locationService.UpdateLocation(id,locationUpdate);
             if (locationDTO == null)
             {
                 return NotFound();
@@ -58,9 +58,9 @@ namespace QLBanHang_API.Controllers
             return Ok(locationDTO);
         }
 
-        //Delete Location
-        //URL -/api/Location/Delete/id=?
-        [HttpDelete]
+		//Delete Location
+		//URL -/api/Location/Delete/id=?
+		[HttpDelete]
         [Route("Delete/{id:guid}")]
         public async Task<IActionResult> DeleteLocation([FromRoute]Guid id)
         {
