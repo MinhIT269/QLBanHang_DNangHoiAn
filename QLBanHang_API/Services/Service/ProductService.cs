@@ -171,5 +171,24 @@ namespace QLBanHang_API.Service
 
             return urls;
         }
-    }
+
+        public async Task<int> GetTotalProduct()
+        {
+			var products = await _productRepository.GetAllProductAsync();
+            return products.Count;
+		}
+		public async Task<int> AvailableProducts()
+		{
+           return await _productRepository.GetAvailableProduct();
+		}
+        public async Task<int> GetLowStockProducts()
+        {
+            return await _productRepository.GetLowStockProducts();
+        }
+        public async Task<int> GetNewProducts()
+        {
+            return await _productRepository.GetNewProducts();
+           
+        }
+	}
 }

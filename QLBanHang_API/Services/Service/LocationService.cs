@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Repositories.IRepository;
 using QLBanHang_API.Services.IService;
 using System.Runtime.CompilerServices;
@@ -34,7 +35,7 @@ namespace QLBanHang_API.Services.Service
         }
 
         //Add Location 
-        public async Task<LocationDto> AddLocation(AddLocationDto addLocation)
+        public async Task<LocationDto> AddLocation(LocationRequest addLocation)
         {
             var location = mapper.Map<Location>(addLocation);
             var locationDomain = await locationRepository.AddLocationAsync(location);

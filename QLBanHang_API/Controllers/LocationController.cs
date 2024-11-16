@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QLBanHang_API.Dto;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Services.IService;
 
 namespace QLBanHang_API.Controllers
@@ -75,7 +76,7 @@ namespace QLBanHang_API.Controllers
         //URL -/api/Location/Add
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> AddLocation([FromBody] AddLocationDto addLocation)
+        public async Task<IActionResult> AddLocation([FromBody] LocationRequest addLocation)
         {
             var location = await locationService.AddLocation(addLocation);
             if (location == null)

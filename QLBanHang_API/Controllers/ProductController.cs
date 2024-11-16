@@ -47,5 +47,22 @@ namespace QLBanHang_API.Controllers
             var products = await _productService.GetProductsAsync(searchQuery, page, 10, sortCriteria, isDescending);
             return Ok(products);
         }
+
+        [HttpGet("GetProductStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalProducts = await _productService.GetTotalProduct();
+            var availableProducts = await _productService.AvailableProducts();
+            var lowStockProducts = await _productService.GetLowStockProducts();
+            var newProducts = await _productService.GetNewProducts();
+
+            return Ok( new
+            {
+                TotalProducts = totalProducts,
+                AvailableProducts = availableProducts,
+                LowStockProducts = lowStockProducts,
+                NewProducts = newProducts
+            });
+        }
     }
 }
