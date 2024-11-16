@@ -49,7 +49,7 @@ namespace QLBanHang_API.Controllers
         [Route("Update")]
         public async Task<IActionResult> UpdateLocation([FromQuery] Guid id, [FromBody] UpLocationDto locationUpdate)
         {
-            var locationDTO = await locationService.UpdateLocation(id, locationUpdate);
+            var locationDTO = await locationService.UpdateLocation(locationUpdate);
             if (locationDTO == null)
             {
                 return NotFound();

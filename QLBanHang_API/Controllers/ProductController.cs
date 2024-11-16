@@ -18,6 +18,10 @@ namespace QLBanHang_API.Controllers
         public async Task<IActionResult> GetAllProduct()
         {
             var product = await _productService.GetAllProductAsync();
+            if (product == null)
+            {
+                return BadRequest();
+            }
             return Ok(product);
         }
 

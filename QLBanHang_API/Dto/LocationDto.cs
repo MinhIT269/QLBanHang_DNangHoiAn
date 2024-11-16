@@ -1,4 +1,5 @@
 ﻿using PBL6_QLBH.Models;
+using System.Text.Json.Serialization;
 
 namespace QLBanHang_API.Dto
 {
@@ -8,7 +9,6 @@ namespace QLBanHang_API.Dto
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? YoutubeLink { get; set; }
-        public Guid BrandId { get; set; }
         public BrandDto? Brand { get; set; }
     }
 }

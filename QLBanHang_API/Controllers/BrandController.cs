@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Service;
+using QLBanHang_API.Services.IService;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace QLBanHang_API.Controllers
 {
@@ -11,9 +15,11 @@ namespace QLBanHang_API.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrandService brandService;
-        public BrandController(IBrandService brandService)
+        private readonly ILocationService locationService;
+        public BrandController(IBrandService brandService, ILocationService locationService)
         {
             this.brandService = brandService;
+            this.locationService = locationService;
         }
 
         // api/Brands/GetAllBrands
@@ -54,17 +60,47 @@ namespace QLBanHang_API.Controllers
             return Ok();
         }
 
-        // Update Brand - /api/Brands/Update/id=?
+        //Update Brand - /api/Brands/Update/id=?
         [HttpPut]
-        [Route("Update")]
-        public async Task<IActionResult> UpdateBrandById([FromRoute] Guid id, [FromBody] UpBrandDto brand)
+        [Route("UpdateBrandLocation")]
+        public async Task<IActionResult> UpdateBrandLocationById([FromBody] JsonArray array)
         {
-            var brandDTO = await brandService.UpdateBrand(id, brand);
-            if (brandDTO == null)
+            var upBrand = new UpBrandDto();
+            var upLocations = new List<UpLocationDto>();
+            foreach (JsonNode item in array)
             {
-                return NotFound();
+                var type = item["Type"]?.ToString();
+                if (type == "Brand")
+                {
+                    upBrand = item.Deserialize<UpBrandDto>();
+                }
+                else if(type == "Location")
+                {
+                    var updateLocation = item.Deserialize<UpLocationDto>();
+                    upLocations.Add(updateLocation);
+                }
+                else
+                {
+                    Console.WriteLine("Unrecognized type: " + type);
+                }
             }
-            return Ok(brandDTO);
+            var locations = await locationService.UpdateListLocation(upLocations);
+            var brandDto = await brandService.UpdateBrand(upBrand);
+            
+            if (brandDto != null && locations.Any())
+            {
+                return Ok(brandDto);
+            }
+            else if (brandDto != null)
+            {
+                return Ok(brandDto);
+            }
+            else if (upLocations.Any())
+            {
+                return Ok(locations);
+            }
+
+            return BadRequest();
         }
 
         // Create Brand - /api/Brands/Add
