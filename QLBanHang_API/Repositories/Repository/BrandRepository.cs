@@ -15,24 +15,20 @@ namespace QLBanHang_API.Repositories.Repository
         //GetAll 
         public async Task<List<Brand>> GetAllBrandAsync()
         {
-            return await dbContext.Brands.ToListAsync();
+            return await dbContext.Brands.Include( b=> b.Locations).ToListAsync();
         }
         //Add Async 
         public async Task<Brand> AddBrandAsync(Brand brand)
         {
             //Nếu ko trùng thoát vòng lặp
-            while (await dbContext.Brands.AnyAsync(x=>x.BrandId == brand.BrandId))
-            {
-                brand.BrandId = Guid.NewGuid();
-            }
             await dbContext.Brands.AddAsync(brand);
             await dbContext.SaveChangesAsync();
             return brand;
         }
         //Update async
-        public async Task<Brand> UpdateBrandAsync(Guid id, Brand brandUpdate)
+        public async Task<Brand> UpdateBrandAsync(Brand brandUpdate)
         {
-            var brand = await dbContext.Brands.FirstOrDefaultAsync(x => x.BrandId == id);
+            var brand = await dbContext.Brands.Include("Locations").FirstOrDefaultAsync(x => x.BrandId == brandUpdate.BrandId);
             if (brand == null)
             {
                 return null;

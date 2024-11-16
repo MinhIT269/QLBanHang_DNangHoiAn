@@ -7,7 +7,8 @@ namespace QLBanHang_API.Repositories.IRepository
         Task<List<Location>> GetListByNameAsync(string? name);
         Task<Location> GetLocationByIdAsync(Guid id);
         Task<Location> AddLocationAsync(Location location);
-        Task<Location> UpdateLocationAsync(Guid id, Location location);
+        Task<List<Location>> UpdateListLocationAsync(List<Location> location);
+        Task<Location> UpdateLocationAsync(Location location);
         Task<Location> DeleteLocationAsync(Guid id);
     }
 }

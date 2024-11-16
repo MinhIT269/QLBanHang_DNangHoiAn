@@ -30,11 +30,17 @@ namespace QLBanHang_API.Mapping
             CreateMap<CategoryDto, Category>().ReverseMap();
             CreateMap<ProductImageDto, ProductImage>().ReverseMap();
             //Brand
-            CreateMap<Brand, BrandDto>().ReverseMap();
+            CreateMap<Brand, BrandDto>()
+                .ForMember(dest => dest.locationDtos, opt => opt.MapFrom(src=> src.Locations));
             CreateMap<Brand, UpBrandDto>().ReverseMap();
             CreateMap<Brand, AddBrandDto>().ReverseMap();
             //Location
-            CreateMap<Location, LocationDto>().ReverseMap();
+            CreateMap<Location, LocationDto>()
+                .ForMember(dest=> dest.Brand, opt => opt.MapFrom(src => new BrandDto()
+                {
+                    BrandId = src.BrandId,
+                    BrandName = src.Brand.BrandName
+                }));
             CreateMap<Location, UpLocationDto>().ReverseMap();
             CreateMap<Location, AddLocationDto>().ReverseMap();
             //Order

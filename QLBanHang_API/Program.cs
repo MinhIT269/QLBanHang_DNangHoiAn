@@ -20,13 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Thêm dịch vụ CORS
+//// Thêm dịch vụ CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
-            builder.WithOrigins("https://localhost:7080")
+            builder.WithOrigins("https://localhost:7080")  // Cổng của UI
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
@@ -62,6 +62,9 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+//Add Email Service 
+builder.Services.AddTransient<IEmailService, EmailService>();
+
 //Setting Identity 
 builder.Services.AddIdentityCore<User>()
     .AddRoles<Role>()
@@ -75,7 +78,7 @@ builder.Services.Configure<IdentityOptions>(options =>
         options.Password.RequireLowercase = true; // 1 chu Lower
         options.Password.RequireUppercase = true; // 1 chu Upper
         options.Password.RequireNonAlphanumeric = false; // Ko ki tu dac biet
-        options.Password.RequiredLength = 6; // Chieu dai toi thieu mat khau
+        options.Password.RequiredLength = 8; // Chieu dai toi thieu mat khau
     }
     );
 //Add Authentication 
