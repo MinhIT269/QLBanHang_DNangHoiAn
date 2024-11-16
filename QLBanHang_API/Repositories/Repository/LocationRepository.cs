@@ -2,6 +2,7 @@
 using PBL6_QLBH.Models;
 using Microsoft.EntityFrameworkCore;
 using QLBanHang_API.Repositories.IRepository;
+using System.Net;
 namespace QLBanHang_API.Repositories.Repository
 {
     public class LocationRepository : ILocationRepository
@@ -47,10 +48,31 @@ namespace QLBanHang_API.Repositories.Repository
             return location;
         }
 
-        // Update Location
-        public async Task<Location> UpdateLocationAsync(Guid id, Location locationUpdate)
+        // Update List Location
+        public async Task<List<Location>> UpdateListLocationAsync(List<Location> locationUpdate)
         {
-            var location = await dbContext.Locations.FirstOrDefaultAsync(x => x.LocationId == id);
+            var locations = new List<Location>();
+            foreach (Location item in locationUpdate)
+            {
+                var location = await dbContext.Locations.FirstOrDefaultAsync(x => x.LocationId == item.LocationId);
+                if (location == null)
+                {
+                    continue;
+                }
+                location.Name = item.Name;
+                location.Description = item.Description;
+                location.YoutubeLink = item.YoutubeLink;
+                
+                locations.Add(location);
+            }
+            await dbContext.SaveChangesAsync();
+            return locations;
+        }
+
+        //Update Location
+        public async Task<Location> UpdateLocationAsync(Location locationUpdate)
+        {
+            var location = await dbContext.Locations.FirstOrDefaultAsync(x => x.LocationId == locationUpdate.LocationId);
             if (location == null)
             {
                 return null;
@@ -59,7 +81,6 @@ namespace QLBanHang_API.Repositories.Repository
             location.Description = locationUpdate.Description;
             location.YoutubeLink = locationUpdate.YoutubeLink;
             await dbContext.SaveChangesAsync();
-
             return location;
         }
 
