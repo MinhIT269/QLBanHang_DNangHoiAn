@@ -8,7 +8,8 @@ namespace QLBanHang_API.Services.IService
         Task<List<LocationDto>> GetListByName(string name);
         Task<LocationDto> GetLocationById(Guid id);
         Task<LocationDto> AddLocation(AddLocationDto location);
-        Task<LocationDto> UpdateLocation(Guid id,UpLocationDto upLocation);
+        Task<List<LocationDto>> UpdateListLocation(List<UpLocationDto> upLocation);
+        Task<LocationDto> UpdateLocation(UpLocationDto location);
         Task<LocationDto> DeleteLocation(Guid id);
     }
 }
