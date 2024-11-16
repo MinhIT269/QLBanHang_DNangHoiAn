@@ -164,5 +164,24 @@ namespace QLBanHang_API.Repositories
 			}
 			return false;
 		}
+		public async Task<int> GetAvailableProduct()
+		{ 
+			var product = await _dataContext.Products.Where( p => p.Stock >= 10).CountAsync();
+			return product;
+		}
+
+		public async Task<int> GetLowStockProducts()
+		{
+			var product = await _dataContext.Products.Where(p => p.Stock < 10).CountAsync();
+			return product;
+		}
+
+		public async Task<int> GetNewProducts()
+		{
+			var recentDate = DateTime.Now.AddDays(-3);  // Lấy sản phẩm mới trong 
+			var newProducts = await _dataContext.Products.Where(p => p.CreatedDate >= recentDate).ToListAsync();
+
+			return newProducts.Count;
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
+using QLBanHang_API.Dto.Request;
 
 namespace QLBanHang_API.Services.IService
 {
@@ -7,9 +8,8 @@ namespace QLBanHang_API.Services.IService
     {
         Task<List<LocationDto>> GetListByName(string name);
         Task<LocationDto> GetLocationById(Guid id);
-        Task<LocationDto> AddLocation(AddLocationDto location);
-        Task<List<LocationDto>> UpdateListLocation(List<UpLocationDto> upLocation);
-        Task<LocationDto> UpdateLocation(UpLocationDto location);
+        Task<LocationDto> AddLocation(LocationRequest location);
+        Task<LocationDto> UpdateLocation(Guid id, UpLocationDto upLocation);
         Task<LocationDto> DeleteLocation(Guid id);
     }
 }
