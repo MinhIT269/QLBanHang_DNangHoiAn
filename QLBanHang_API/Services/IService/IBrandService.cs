@@ -6,7 +6,7 @@ namespace QLBanHang_API.Service
 	{
 		Task<List<BrandDto>> GetAllBrands();
 		Task<BrandDto> GetBrandByName(string brandName);
-		Task<BrandDto> UpdateBrand(Guid id, UpBrandDto brandUpdate);
+		Task<BrandDto> UpdateBrand(UpBrandDto brandUpdate);
 		Task<BrandDto> DeleteBrand(Guid id);
 		Task<BrandDto> AddBrand(AddBrandDto brand);
 	}

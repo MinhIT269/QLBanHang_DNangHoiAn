@@ -29,10 +29,10 @@ namespace QLBanHang_API.Service
 		}
 
 		//Update Brand
-		public async Task<BrandDto> UpdateBrand(Guid id, UpBrandDto brandUpdate)
+		public async Task<BrandDto> UpdateBrand(UpBrandDto brandUpdate)
 		{
 			var brand = mapper.Map<Brand>(brandUpdate);
-			var brandDomain = await brandRepository.UpdateBrandAsync(id, brand);
+			var brandDomain = await brandRepository.UpdateBrandAsync(brand);
 			var brandDto = mapper.Map<BrandDto>(brand);
 			return brandDto;
 		}

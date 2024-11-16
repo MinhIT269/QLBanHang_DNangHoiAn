@@ -42,11 +42,20 @@ namespace QLBanHang_API.Services.Service
             return locationDto;
         }
 
-        //Update Location
-        public async Task<LocationDto> UpdateLocation(Guid id,UpLocationDto upLocation)
+        //Update List Location
+        public async Task<List<LocationDto>> UpdateListLocation(List<UpLocationDto> upLocation)
+        {
+            var location = mapper.Map<List<Location>>(upLocation);
+            var locationDomain = await locationRepository.UpdateListLocationAsync(location);
+            var locationDto = mapper.Map<List<LocationDto>>(locationDomain);
+            return locationDto;
+        }
+
+        //Update Location 
+        public async Task<LocationDto> UpdateLocation (UpLocationDto upLocation)
         {
             var location = mapper.Map<Location>(upLocation);
-            var locationDomain = await locationRepository.UpdateLocationAsync(id,location);
+            var locationDomain = await locationRepository.UpdateLocationAsync(location);
             var locationDto = mapper.Map<LocationDto>(locationDomain);
             return locationDto;
         }
