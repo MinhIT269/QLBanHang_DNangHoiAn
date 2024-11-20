@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PBL6.Dto;
 using PBL6.Services.Service;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
@@ -40,6 +41,15 @@ namespace PBL6.Controllers
         {
             int skip = (page - 1) * size;
             var products = await _productService.GetProductsByCategory(categoryName, skip, size);
+            return Ok(products);
+        }
+
+        [HttpGet("getProductNotYetReview")]
+
+        public async Task<IActionResult> getProducsNotYetReview([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductNotYetReview(skip, size);
             return Ok(products);
         }
     }

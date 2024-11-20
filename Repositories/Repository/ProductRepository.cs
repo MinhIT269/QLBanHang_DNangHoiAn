@@ -183,5 +183,50 @@ namespace PBL6.Repositories.Repository
 
         }
 
+        public async Task<List<Product>> GetProductNotYetReview(Guid id, int skip, int take)
+        {
+
+            if (skip < 0 || take <= 0)
+            {
+                throw new ArgumentException("Skip must be non-negative and take must be greater than zero.");
+            }
+
+            var completedOrders = await _dataContext.Orders
+                .AsNoTracking()
+                .Where(o => o.UserId == id && o.Status == "done")
+                .Include(o => o.OrderDetails)
+                .ToListAsync();
+
+            if (!completedOrders.Any())
+            {
+                return new List<Product>();
+            }
+
+
+            var productIdsInOrders = completedOrders
+               .SelectMany(o => o.OrderDetails)
+               .Select(od => od.ProductId)
+               .ToList();
+
+
+            var reviewedProductIds = await _dataContext.Reviews
+                 .Where(r => productIdsInOrders.Contains(r.ProductId)) 
+                 .Select(r => r.ProductId)
+                 .Distinct()
+                 .ToListAsync();
+
+            var notReviewedProductIds = productIdsInOrders
+                .Except(reviewedProductIds) 
+                .ToList();
+
+
+            var productsNotReviewed = await _dataContext.Products
+             .Where(p => notReviewedProductIds.Contains(p.ProductId))
+             .Skip(skip)
+             .Take(take)
+             .ToListAsync();
+
+            return productsNotReviewed;
+        }
     }
 }

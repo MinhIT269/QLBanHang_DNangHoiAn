@@ -31,6 +31,8 @@ namespace PBL6.Services.ServiceImpl
             return _mapper.Map<List<ProductDto>>(products);
         }
 
+    
+
         public async Task<List<ProductDto>> GetProductsAsync(string searchQuery, int page, int limit, string sortCriteria, bool isDescending)
         {
             if (page < 1) page = 1;
@@ -58,6 +60,14 @@ namespace PBL6.Services.ServiceImpl
         {
             var products = await _productRepository.GetTrendingProducts(skip,size);
             return _mapper.Map<List<ProductDto>>(products);
+        }
+
+
+        public async Task<List<ProductDto>> GetProductNotYetReview(int skip, int size)
+        {
+            Guid id = Guid.Parse("d4e56743-ff2c-41d3-957d-576e9f574c5d");
+            var notReviewedProducts = await _productRepository.GetProductNotYetReview(id,skip,size);   
+            return _mapper.Map<List<ProductDto>>(notReviewedProducts);
         }
     }
 }
