@@ -16,7 +16,10 @@ namespace PBL6.Services.Service
 
         Task<List<ProductDto>> GetProductsByCategory(string  categoryName, int skip,int size);
 
-        Task<List<ProductDto>> GetProductNotYetReview(int skip,int size);    
+        Task<List<ProductDto>> GetProductNotYetReview(int skip,int size);
+
+
+        Task<List<ProductDto>> GetProductsNew(int skip, int size);
 
     }
 }

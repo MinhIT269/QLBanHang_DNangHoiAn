@@ -228,5 +228,29 @@ namespace PBL6.Repositories.Repository
 
             return productsNotReviewed;
         }
+
+        public async Task<List<Product>> GetNewProducts(int skip, int take)
+        {
+            try
+            {
+                var newproducts = await _dataContext.Products
+                    .OrderBy(p => p.CreatedDate)
+                    .ToListAsync();
+
+
+                var paginatedProducts = newproducts
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+                return paginatedProducts;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching new products.");
+
+                return new List<Product>();
+            }
+
+        }
     }
 }

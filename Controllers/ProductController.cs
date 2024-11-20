@@ -52,5 +52,13 @@ namespace PBL6.Controllers
             var products = await _productService.GetProductNotYetReview(skip, size);
             return Ok(products);
         }
+
+        [HttpGet("getProductNew")]
+        public async Task<IActionResult> getProductNew([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsNew(skip, size);
+            return Ok(products);
+        }
     }
 }

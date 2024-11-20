@@ -234,6 +234,27 @@
   },
   {
     "ContainingType": "PBL6.Controllers.ProductController",
+    "Method": "getProductNew",
+    "RelativePath": "Product/getProductNew",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PBL6.Controllers.ProductController",
     "Method": "getProducsNotYetReview",
     "RelativePath": "Product/getProductNotYetReview",
     "HttpMethod": "GET",
