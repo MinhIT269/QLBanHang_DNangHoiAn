@@ -24,7 +24,7 @@
 
                         <!-- Menu Toggle Button -->
                         <div class="topbar-item">
-                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Coupons Add</h4>
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">TẠO MÃ KHUYẾN MÃI</h4>
                         </div>
                     </div>
 
@@ -32,13 +32,6 @@
 
                         @await Html.PartialAsync("_Topbar")
 
-                        <!-- App Search-->
-                        <form class="app-search d-none d-md-block ms-2">
-                            <div class="position-relative">
-                                <input type="search" class="form-control" placeholder="Search..." autocomplete="off" value="">
-                                <iconify-icon icon="solar:magnifer-linear" class="search-widget-icon"></iconify-icon>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -58,168 +51,83 @@
             <!-- Start Container Fluid -->
             <div class="container-xxl">
 
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Coupon Status</h4>
+                <form id="couponForm" method="post" enctype="multipart/form-data">
+                    <form id="product-form" method="post" enctype="multipart/form-data">
+                        @if (ViewData.ModelState[""]?.Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger mt-3">
+                                @foreach (var error in ViewData.ModelState[""]?.Errors)
+                                {
+                                    <p>@error.ErrorMessage</p>
+                                }
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault9" checked="">
-                                                <label class="form-check-label" for="flexRadioDefault9">
-                                                    Active
-                                                </label>
-                                            </div>
-
-                                        </div>
+                        }
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Lịch Ngày</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="start-date" class="form-label text-dark">Ngày Bắt Đầu</label>
+                                        <input type="text" id="start-date" name="StartDate" class="form-control" placeholder="yyyy-mm-dd" required>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault10">
-                                            <label class="form-check-label" for="flexRadioDefault10">
-                                                In Active
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault11">
-                                            <label class="form-check-label" for="flexRadioDefault11">
-                                                Future Plan
-                                            </label>
-                                        </div>
+                                    <div class="mb-3">
+                                        <label for="end-date" class="form-label text-dark">Ngày Kết Thúc</label>
+                                        <input type="text" id="end-date" name="EndDate" class="form-control" placeholder="yyyy-mm-dd" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Date Schedule</h4>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="start-date" class="form-label text-dark">Start Date</label>
-                                        <input type="text" id="start-date" class="form-control flatpickr-input active" placeholder="dd-mm-yyyy" readonly="readonly">
+
+                        <div class="col-lg-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Thông Tin Phiếu Giảm Giá</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="coupons-code" class="form-label">Mã Giảm Giá</label>
+                                                <input type="text" id="coupons-code" name="Code" class="form-control" placeholder="Nhập mã giảm giá" pattern=".{5,}" title="Mã giảm giá phải có ít nhất 5 ký tự" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="coupons-limits" class="form-label">Giới Hạn Sử Dụng</label>
+                                                <input type="number" id="coupons-limits" name="MaxUsage" class="form-control" placeholder="Nhập số lượng tối đa" min="0" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="end-date" class="form-label text-dark">End Date</label>
-                                        <input type="text" id="end-date" class="form-control flatpickr-input active" placeholder="dd-mm-yyyy" readonly="readonly">
+                                    <h4 class="card-title mb-3 mt-2">Loại Phiếu Giảm Giá</h4>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="DiscountType" value="Percentage" id="flexRadioDefault13" required>
+                                                <label class="form-check-label" for="flexRadioDefault13">
+                                                    Phần Trăm
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="">
+                                                <label for="discount-value" class="form-label">Giá Trị Giảm Giá</label>
+                                                <input type="number" id="discount-value" name="Percentage" class="form-control" placeholder="Nhập giá trị" min="0" max="100" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer border-top">
+                                    <button type="submit" id="submit-button-id" class="btn btn-primary">Tạo Phiếu Giảm Giá</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-7">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Coupon Information</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="coupons-code" class="form-label">Coupons Code</label>
-                                            <input type="text" id="coupons-code" name="coupons-code" class="form-control" placeholder="Code enter">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <form>
-                                            <label for="product-categories" class="form-label">Discount Products</label>
-                                            <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="choices-single-groups">
-                                                <option value="">Choose a categories</option>
-                                                <option value="Fashion">Fashion</option>
-                                                <option value="Electronics">Electronics</option>
-                                                <option value="Footwear">Footwear</option>
-                                                <option value="Sportswear">Sportswear</option>
-                                                <option value="Watches">Watches</option>
-                                                <option value="Furniture">Furniture</option>
-                                                <option value="Appliances">Appliances</option>
-                                                <option value="Headphones">Headphones</option>
-                                                <option value="Other Accessories">Other Accessories</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <form>
-                                            <label for="choices-country" class="form-label">Discount Country</label>
-                                            <select class="form-control" id="choices-country" data-choices data-choices-groups data-placeholder="Select Country" name="choices-country">
-                                                <option value="">Choose a country</option>
-                                                <optgroup label="">
-                                                    <option value="">United Kingdom</option>
-                                                    <option value="Fran">France</option>
-                                                    <option value="Netherlands">Netherlands</option>
-                                                    <option value="U.S.A">U.S.A</option>
-                                                    <option value="Denmark">Denmark</option>
-                                                    <option value="Canada">Canada</option>
-                                                    <option value="Australia">Australia</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Germany">Germany</option>
-                                                    <option value="Spain">Spain</option>
-                                                    <option value="United Arab Emirates">United Arab Emirates</option>
-                                                </optgroup>
-                                            </select>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="coupons-limits" class="form-label">Coupons Limits</label>
-                                            <input type="number" id="coupons-limits" name="coupons-limits" class="form-control" placeholder="limits nu">
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 class="card-title mb-3 mt-2">Coupons Types</h4>
-                                <div class="row mb-3">
-                                    <div class="col-lg-4">
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault12" checked="">
-                                                <label class="form-check-label" for="flexRadioDefault12">
-                                                    Free Shipping
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault13">
-                                            <label class="form-check-label" for="flexRadioDefault13">
-                                                Percentage
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault14">
-                                            <label class="form-check-label" for="flexRadioDefault14">
-                                                Fixed Amount
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="">
-                                            <label for="discount-value" class="form-label">Discount Value</label>
-                                            <input type="text" id="discount-value" name="discount-value" class="form-control" placeholder="value enter">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer border-top">
-                                <a href="#!" class="btn btn-primary">Create Coupon</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
 
             </div>
             <!-- End Container Fluid -->
@@ -240,6 +148,44 @@
     <!-- App Javascript (Require in all Page) -->
     <script src="~/js/app.js"></script>
     <script src="~/js/pages/coupons-add.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('#submit-button-id').addEventListener('click', function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi submit mặc định
+
+                // Lấy form và kiểm tra validation HTML mặc định
+                const form = document.querySelector('#couponForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity(); // Hiển thị các thông báo lỗi mặc định
+                    return;
+                }
+
+                const startDate = document.getElementById('start-date').value;
+                const endDate = document.getElementById('end-date').value;
+                // Kiểm tra định dạng ngày (dd-mm-yyyy)
+                const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+                if (!datePattern.test(startDate) || !datePattern.test(endDate)) {
+                    alert('Định dạng ngày không hợp lệ. Vui lòng nhập ngày theo định dạng yyyy-mm-dd.');
+                    return;
+                }
+
+                // Chuyển đổi chuỗi ngày thành đối tượng Date
+                const startDateObj = new Date(startDate);
+                const endDateObj = new Date(endDate);
+
+                // Kiểm tra logic ngày
+                if (startDateObj > endDateObj) {
+                    alert('Ngày bắt đầu không được lớn hơn ngày kết thúc.');
+                    return;
+                }
+
+                // Nếu tất cả hợp lệ, submit form
+                form.submit();
+            });
+        });
+
+    </script>
 </body>
 
 </html>

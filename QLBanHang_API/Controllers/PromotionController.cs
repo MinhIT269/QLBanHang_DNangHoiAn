@@ -34,7 +34,7 @@ namespace QLBanHang_API.Controllers
          //URL - /api/Promotions/GetOne/code=?
         [HttpGet]
         [Route("GetOne/{code}")]
-        public async Task<IActionResult> GetPromotionByCode([FromRoute] string code)
+        public async Task<IActionResult> GetPromotionByCode([FromRoute] Guid code)
         {
             var promotionDTO = await promotionService.GetPromotion(code);
             if (promotionDTO == null)
@@ -76,16 +76,33 @@ namespace QLBanHang_API.Controllers
         //URL -/api/Promotion/Delete/id=?
         [HttpDelete]
         [Route("Delete/{id:guid}")]
-        public async Task<IActionResult> DeletePromotion([FromRoute]Guid id)
+        public async Task<IActionResult> DeletePromotion(Guid id)
         {
-            var promotion = await promotionService.DeletePromotion(id);
-            if (promotion == null)
+            try
             {
-                return NotFound();
+                var promotionDto = await promotionService.DeletePromotion(id);
+                return Ok(new { message = "Promotion đã được xóa thành công.", promotion = promotionDto });
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
+        [HttpGet("GetFilteredPromotions")]
+        public async Task<IActionResult> GetFilteredPromotions([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+           var promotions = await promotionService.GetFilteredPromotionsQuery(page, pageSize, searchQuery, sortCriteria, isDescending);
+            return Ok(promotions);
+        }
+
+        [HttpGet("TotalPagesPromotions")]
+        public async Task<IActionResult> GetTotalPagesPromotion([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await promotionService.GetTotalPromotionAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
 
     }
 }

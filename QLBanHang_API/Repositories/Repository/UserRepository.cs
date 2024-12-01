@@ -37,5 +37,24 @@ namespace QLBanHang_API.Repositories.Repository
             await dbContext.SaveChangesAsync();
             return user;
         }
+
+        public IQueryable<User> GetFilteredUsers(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = dbContext.Users
+                .Include(c => c.UserInfo)
+                .Include(c => c.Orders).AsQueryable();
+            if(!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(c => EF.Functions.Collate(c.UserName, "SQL_Latin1_General_CP1_CI_AI")!.Contains(searchQuery) || c.PhoneNumber!.Contains(searchQuery));
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending ? query.OrderByDescending(c => c.UserName) : query.OrderBy(c => c.UserName),
+                "phone" => isDescending ? query.OrderByDescending(c => c.UserInfo!.PhoneNumber) : query.OrderBy(c => c.UserInfo!.PhoneNumber),     
+                _ => query
+            };
+            return query;
+        } 
     }
 }

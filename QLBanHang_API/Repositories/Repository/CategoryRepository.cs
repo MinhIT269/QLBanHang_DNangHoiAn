@@ -69,7 +69,6 @@ namespace QLBanHang_API.Repositories.Repository
                 "productCount" => isDescending ? query.OrderByDescending(c => c.ProductCategories!.Sum(pc => pc.Product.Stock)) : query.OrderBy(c => c.ProductCategories.Sum(pc => pc.Product.Stock)),
                 _ => query
             };
-
             return query;
         }
 
