@@ -3,6 +3,7 @@ using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
 using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Request;
+using System.Reflection;
 
 namespace QLBanHang_API.Mapping
 {
@@ -57,11 +58,38 @@ namespace QLBanHang_API.Mapping
 			CreateMap<Location, LocationRequest>().ReverseMap();
 
 			//Order
-			CreateMap<Order, OrderDto>().ReverseMap();
-			CreateMap<OrderDetail, OrderDetailDto>().ReverseMap();
+			CreateMap<Order, OrderDto>()
+				.ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User!.UserName))
+				.ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User!.Email))
+				.ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.Transaction!.PaymentMethod!.Name))
+				.ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Promotion!.Code))
+                .ForMember(dest => dest.totalProduct, opt => opt.MapFrom(src => src.OrderDetails!.Select(od => od.ProductId).Distinct().Count()));
 
-			//Promotion
-			CreateMap<Promotion, PromotionDto>().ReverseMap();
+			CreateMap<Order, OrderDetailDto>()
+				.ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.OrderDetails!.Select(od => new ProductDetailOrder
+				{
+                    PromotionPrice = od.Product.PromotionPrice,
+					ImageUrl = od.Product.ImageUrl,
+				    Warranty = od.Product.Warranty,
+                    Name = od.Product.Name,
+					Price = od.UnitPrice,
+					Quantity = od.Quantity
+				})))
+				.ForMember(dest => dest.UserInfo, opt => opt.MapFrom(src => new UserInfoDto
+				{
+                    FirstName = src.User!.UserInfo!.FirstName,
+                    LastName = src.User.UserInfo.LastName,
+					Email = src.User.Email!,
+					PhoneNumber = src.User.UserInfo.PhoneNumber,
+					Address = src.User.UserInfo.Address,
+					UserName = src.User.UserName!,
+                    Gender = src.User.UserInfo.Gender,
+                }))
+				;
+
+
+            //Promotion
+            CreateMap<Promotion, PromotionDto>().ReverseMap();
 			CreateMap<Promotion, UpPromotionDto>().ReverseMap();
 			CreateMap<Promotion, AddPromotionDto>().ReverseMap();
 
@@ -75,7 +103,14 @@ namespace QLBanHang_API.Mapping
 			CreateMap<UserInfo, AddUserInfoDto>().ReverseMap();
 			CreateMap<User, AddUserDto>().ReverseMap();
 			CreateMap<User, UserDto>().ReverseMap();
+			CreateMap<User, UserAdminDto> ()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.UserInfo!.PhoneNumber))
+                .ForMember(dest => dest.Order, opt => opt.MapFrom(src => src.Orders!.Count()))
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Orders!.Sum(order => order.TotalAmount)));
 
-		}
+
+        }
 	}
 }

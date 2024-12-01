@@ -38,7 +38,6 @@ namespace QLBanHang_API.Controllers
             {
                 return NotFound();
             }
-
             return Ok(orderDetailDTO);
         }
 
@@ -54,6 +53,46 @@ namespace QLBanHang_API.Controllers
             }
 
             return Ok(orderDTO);
+        }
+
+        [HttpGet("GetFilterOrdered")]
+        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var orders = await orderService.GetFilteredOrders(page, pageSize, searchQuery, sortCriteria, isDescending);
+
+            return Ok(orders);
+        }
+
+        [HttpGet("TotalPagesOrdered")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await orderService.GetTotalOrdersAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("TotalOrders")]
+        public async Task<IActionResult> TotalOrders()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            return Ok(totalOrders);
+        }
+
+        [HttpGet("GetOrdersStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            var totalOrdersPending = await orderService.TotalOrdersPending();
+            var totalOrdersSuccess= await orderService.TotalOrdersSuccess();
+            var totalOrdersCancel = await orderService.TotalOrdersCancel();
+
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                OrderCancel = totalOrdersCancel
+            });
         }
     }
 }

@@ -187,6 +187,7 @@
 		const maxVisiblePages = 5;
 		let searchQuery = '';
 		let sortCriteria = 'name';
+		let isDescending = false;
 
 		function updateUrlParameters() {
 			const url = new URL(window.location);
@@ -197,12 +198,19 @@
 			console.log('Updated URL:', url.toString());
 		}
 
-		function setSortCriteria(criteria) {
+		async function setSortCriteria(criteria) {
+			if (sortCriteria === criteria) {
+				// Nếu tiêu chí sắp xếp giống lần trước, đổi trạng thái isDescending
+				isDescending = !isDescending;
+			} else {
+				// Nếu tiêu chí sắp xếp thay đổi, đặt isDescending về false
+				isDescending = false;
+			}
 			sortCriteria = criteria;
 			currentPage = 1;
 			updateUrlParameters();
-			renderCategoryTable(currentPage);
-			renderPagination();
+			await renderCategoryTable(currentPage);
+			await renderPagination();
 		}
 
 		async function renderCategoryTable(page) {
@@ -309,7 +317,7 @@
 		}
 
 		async function GetCategory(textsearch, page, limit, sortCriteria) {
-			const url = `https://localhost:7069/api/Category/GetFilteredCategories?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=false`;
+			const url = `https://localhost:7069/api/Category/GetFilteredCategories?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=${isDescending}`;
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					url: url,

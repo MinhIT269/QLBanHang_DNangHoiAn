@@ -146,11 +146,11 @@
 									</a>
 									<div class="dropdown-menu dropdown-menu-end">
 										<!-- item-->
+										<a href="#!" class="dropdown-item" onclick="setSortCriteria('name')">Tên sản phẩm</a>
+										<!-- item-->
 										<a href="#!" class="dropdown-item" onclick="setSortCriteria('category')">Loại sản phẩm</a>
 										<!-- item-->
 										<a href="#!" class="dropdown-item" onclick="setSortCriteria('stock')">Tồn kho</a>
-										<!-- item-->
-										<a href="#!" class="dropdown-item" onclick="setSortCriteria('name')">Tên sản phẩm</a>
 										<!-- item-->
 										<a href="#!" class="dropdown-item" onclick="setSortCriteria('price')">Giá tiền</a>
 									</div>
@@ -165,9 +165,9 @@
 												<th>Sản Phẩm</th>
 												<th>Giá Tiền</th>
 												<th>Giá Khuyến Mãi</th>
-												<th>Số lượng</th>
+												<th>Số Lượng</th>
 												<th>Thương Hiệu</th>
-												<th>Danh mục</th>
+												<th>Danh Mục</th>
 												<th>Bảo Hành</th>
 												<th>Đánh Giá</th>
 												<th>Hành Động</th>
@@ -211,6 +211,7 @@
 		const maxVisiblePages = 5;
 		let searchQuery = ''; // Biến lưu trữ từ khóa tìm kiếm
 		let sortCriteria = 'name'; // Cập nhật tiêu chí sắp xếp mặc định
+		let isDescending = false;
 
 		function updateUrlParameters() {
 			const url = new URL(window.location);
@@ -221,6 +222,13 @@
 		}
 		// Chọn lựa tiêu chí để săp xếp
 		function setSortCriteria(criteria) {
+			if (sortCriteria === criteria) {
+				// Nếu tiêu chí sắp xếp giống lần trước, đổi trạng thái isDescending
+				isDescending = !isDescending;
+			} else {
+				// Nếu tiêu chí sắp xếp thay đổi, đặt isDescending về false
+				isDescending = false;
+			}
 			sortCriteria = criteria; // Cập nhật tiêu chí sắp xếp
 			currentPage = 1; // Reset trang về đầu tiên khi thay đổi tiêu chí sắp xếp
 			updateUrlParameters(); // Cập nhật URL với các tham số hiện tại
@@ -364,7 +372,7 @@
 		}
 
 		async function GetProduct(textsearch, page, limit, sortCriteria) {
-			const url = `https://localhost:7069/api/admin/GetFilteredProducts?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=false`;
+			const url = `https://localhost:7069/api/admin/GetFilteredProducts?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=${isDescending}`;
 
 			return new Promise((resolve, reject) => {
 				$.ajax({

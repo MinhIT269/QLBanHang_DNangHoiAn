@@ -24,4 +24,7 @@ app.MapControllerRoute(
 	name: "Areas",
     pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
+string wwwroot = app.Environment.WebRootPath;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(wwwroot, "rotativa");
+
 app.Run();

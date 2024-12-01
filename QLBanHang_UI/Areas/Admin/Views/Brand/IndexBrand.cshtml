@@ -211,6 +211,7 @@
 		const maxVisiblePages = 5;
 		let searchQuery = '';
 		let sortCriteria = 'name';
+		let isDescending = false;
 
 		function updateUrlParameters() {
 			const url = new URL(window.location);
@@ -222,6 +223,13 @@
 		}
 
 		function setSortCriteria(criteria) {
+			if (sortCriteria === criteria) {
+				// Nếu tiêu chí sắp xếp giống lần trước, đổi trạng thái isDescending
+				isDescending = !isDescending;
+			} else {
+				// Nếu tiêu chí sắp xếp thay đổi, đặt isDescending về false
+				isDescending = false;
+			}
 			sortCriteria = criteria;
 			currentPage = 1;
 			updateUrlParameters();
@@ -332,7 +340,7 @@
 
 
 		async function GetCategory(textsearch, page, limit, sortCriteria) {
-			const url = `https://localhost:7069/api/Brand/GetFilteredBrands?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=false`;
+			const url = `https://localhost:7069/api/Brand/GetFilteredBrands?searchQuery=${encodeURIComponent(textsearch)}&page=${page}&sortCriteria=${encodeURIComponent(sortCriteria)}&isDescending=${isDescending}`;
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					url: url,
