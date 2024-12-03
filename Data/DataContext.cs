@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL6_QLBH.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PBL6_QLBH.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User, Role, Guid>
     {
         public DataContext() { }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
@@ -145,5 +146,7 @@ namespace PBL6_QLBH.Data
 
                base.OnModelCreating(modelBuilder);
            }*/
+
+
     }
 }

@@ -22,7 +22,7 @@ namespace PBL6_QLBH.Models
 
         public ICollection<OrderDetail>? OrderDetails { get; set; }  // Navigation property for related OrderDetails
 
-        public Guid PromotionId { get; set; }    // Foreign Key to Promotion
+        public Guid? PromotionId { get; set; }    // Foreign Key to Promotion
         public Promotion? Promotion { get; set; }
         public Transaction? Transaction { get; set; }
     }

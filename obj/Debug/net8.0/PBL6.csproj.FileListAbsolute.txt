@@ -138,3 +138,11 @@ E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Newtonsoft.Json.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\RestSharp.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\AutoMapper.dll
 E:\PBL6\PBL6_UPDATED\PBL6\PBL6\obj\Debug\net8.0\PBL6.sourcelink.json
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\obj\Debug\net8.0\PBL6.RazorAssemblyInfo.cache
+E:\PBL6\PBL6_UPDATED\PBL6\PBL6\obj\Debug\net8.0\PBL6.RazorAssemblyInfo.cs

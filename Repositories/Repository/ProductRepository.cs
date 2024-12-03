@@ -2,6 +2,7 @@
 using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace PBL6.Repositories.Repository
 {
@@ -90,15 +91,52 @@ namespace PBL6.Repositories.Repository
         {
             return await _dataContext.Products.CountAsync();
         }
-        public async Task AddProductAsync(Product product)
+        public async Task<bool> AddProductAsync(Product product)
         {
             _dataContext.Products.Add(product);
-            await _dataContext.SaveChangesAsync();
+            int result = await _dataContext.SaveChangesAsync();
+            return result > 0;
         }
-        public async Task UpdateProductAsync(Product product)
+        public async Task<bool> UpdateProductAsync(Product product)
         {
-            _dataContext.Products.Update(product);
-            await _dataContext.SaveChangesAsync();
+            try
+            {
+                if (product.ProductImages != null)
+                {
+                    foreach (var image in product.ProductImages)
+                    {
+                        if (_dataContext.Entry(image).State == EntityState.Detached)
+                        {
+                            _dataContext.Entry(image).State = EntityState.Added;
+                        }
+                    }
+                }
+                _dataContext.Products.Update(product);
+                int result = await _dataContext.SaveChangesAsync();
+                return result > 0;
+            }
+            catch (DbUpdateConcurrencyException dbEx)
+            {
+                // Xử lý lỗi liên quan đến cơ sở dữ liệu
+                Console.WriteLine($"Database Update Error: {dbEx.Message}");
+                if (dbEx.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {dbEx.InnerException.Message}");
+                }
+                return false;
+            }
+            catch (ValidationException valEx)
+            {
+                // Xử lý lỗi xác thực dữ liệu
+                Console.WriteLine($"Validation Error: {valEx.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi khác
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return false;
+            }
         }
         public async Task<bool> DeleteProductAsync(Guid id)
         {
@@ -112,13 +150,15 @@ namespace PBL6.Repositories.Repository
             return false;
         }
 
-        public async Task<List<Product>> FindProductsByNameAsync(string name, int skip, int take)
+        public async Task<List<Product>> GetProductsByNameAsync(string name, int skip, int take)
         {
 
             var normalizedSearchTerm = name.Trim().ToLower();
             return await _dataContext.Products
                  .Include(p => p.ProductCategories!)
                     .ThenInclude(pc => pc.Category)
+                 .Include(p => p.Brand)
+                     .ThenInclude(b => b.Locations)
                 .Include(p => p.Video)
                  .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(normalizedSearchTerm))
                  .Skip(skip)
@@ -126,7 +166,18 @@ namespace PBL6.Repositories.Repository
                  .ToListAsync();
         }
 
-   
+        public async Task<List<Product>> FindProductsByNameAsync(string name)
+        {
+            var searchTerm = name.Trim();
+            return await _dataContext.Products.Include(p => p.Brand)
+                 .Include(p => p.ProductCategories!)
+                 .ThenInclude(pc => pc.Category)
+                 .Include(p => p.ProductImages)
+                 .Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchTerm))
+                 .ToListAsync();
+        }
+
+
 
         public async Task<List<Product>> GetTrendingProducts(int skip, int take)
         {
@@ -148,6 +199,8 @@ namespace PBL6.Repositories.Repository
                     .ToList();
 
                 var products = await _dataContext.Products
+                    .Include(p => p.Brand)
+                        .ThenInclude(b => b.Locations)
                     .Where(p => trendingProducts.Select(tp => tp.ProductId).Contains(p.ProductId))
                     .Skip(skip)
                     .Take(take)
@@ -162,26 +215,40 @@ namespace PBL6.Repositories.Repository
                 return new List<Product>();
             }
         }
-        public async Task<List<Product>> GetProductsByCategory(string category, int skip, int take)
+        public async Task<List<Product>> GetProductsByCategory(string category, int skip = 0, int take = 0, bool getAll = false)
         {
+            // Tìm CategoryId từ tên danh mục
             var categoryId = await _dataContext.Categories
-                .Where(c => c.CategoryName ==  category)
-                .Select(c => c.CategoryId).FirstOrDefaultAsync();
+                .Where(c => c.CategoryName == category)
+                .Select(c => c.CategoryId)
+                .FirstOrDefaultAsync();
 
-
+            // Lấy danh sách ProductId thuộc Category
             var productIds = await _dataContext.ProductCategories
                 .Where(pc => pc.CategoryId == categoryId)
                 .Select(pc => pc.ProductId)
                 .ToListAsync();
-            if(productIds == null || productIds.Count == 0) { return new List<Product>(); }
 
-            return await _dataContext.Products
-              .Where(p => productIds.Contains(p.ProductId))
-              .Skip(skip)
-              .Take(take)
-              .ToListAsync();
+            if (productIds == null || productIds.Count == 0)
+            {
+                return new List<Product>();
+            }
 
+            // Lấy danh sách sản phẩm (bao gồm cả thông tin Brand và Locations)
+            var query = _dataContext.Products
+                .Include(p => p.Brand)
+                .ThenInclude(b => b.Locations)
+                .Where(p => productIds.Contains(p.ProductId));
+
+            // Nếu không yêu cầu lấy tất cả, áp dụng phân trang
+            if (!getAll)
+            {
+                query = query.Skip(skip).Take(take);
+            }
+
+            return await query.ToListAsync();
         }
+
 
         public async Task<List<Product>> GetProductNotYetReview(Guid id, int skip, int take)
         {
@@ -235,6 +302,8 @@ namespace PBL6.Repositories.Repository
             {
                 var newproducts = await _dataContext.Products
                     .OrderBy(p => p.CreatedDate)
+                    .Include(p => p.Brand)
+                        .ThenInclude(b => b.Locations)
                     .ToListAsync();
 
 
@@ -251,6 +320,56 @@ namespace PBL6.Repositories.Repository
                 return new List<Product>();
             }
 
+        }
+
+        public async Task<List<Product>> GetSuggestedProductsByCategory(Guid userId,int skip,int take)
+        {
+            var completedOrders = await _dataContext.Orders
+              .Where(o => o.Status == "done" 
+              && o.UserId == userId 
+              && o.OrderDate >= DateTime.Now.AddDays(-7)) 
+              .Include(o => o.OrderDetails)
+              .ThenInclude(od => od.Product)
+               .ThenInclude(p => p.ProductCategories)  // Bao gồm thông tin về ProductCategories
+        .ThenInclude(pc => pc.Category)
+             .AsSplitQuery()
+              .ToListAsync();
+
+            var categoryIds = await _dataContext.Orders
+     .Where(o => o.Status == "done" && o.UserId == userId && o.OrderDate >= DateTime.Now.AddDays(-7))
+     .SelectMany(o => o.OrderDetails)
+     .Select(od => od.Product.ProductCategories)
+     .SelectMany(pc => pc.Select(p => p.CategoryId))
+     .Distinct()
+     .ToListAsync();
+
+
+            return await _dataContext.Products
+              .Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)))
+              .Skip(skip)
+              .Take(take)
+              .ToListAsync();
+        }
+
+
+        public async Task<int> GetAvailableProduct()
+        {
+            var product = await _dataContext.Products.Where(p => p.Stock >= 10).CountAsync();
+            return product;
+        }
+
+        public async Task<int> GetLowStockProducts()
+        {
+            var product = await _dataContext.Products.Where(p => p.Stock < 10).CountAsync();
+            return product;
+        }
+
+        public async Task<int> GetNewProducts()
+        {
+            var recentDate = DateTime.Now.AddDays(-3);  // Lấy sản phẩm mới trong 
+            var newProducts = await _dataContext.Products.Where(p => p.CreatedDate >= recentDate).ToListAsync();
+
+            return newProducts.Count;
         }
     }
 }

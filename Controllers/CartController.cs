@@ -3,6 +3,7 @@ using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PBL6.Dto;
+using PBL6.Dto.Request;
 using PBL6.Services.IService;
 using PBL6.Services.Service;
 using PBL6_BackEnd.Config;
@@ -10,6 +11,7 @@ using PBL6_BackEnd.Helpers;
 using PBL6_BackEnd.Request;
 using PBL6_BackEnd.Services.Service;
 using PBL6_QLBH.Data;
+using PBL6_QLBH.Dto.Request;
 using PBL6_QLBH.Models;
 
 namespace PBL6.Controllers
@@ -28,12 +30,15 @@ namespace PBL6.Controllers
         private readonly IProductService _productService;
         private readonly IPromotionService _promotionService;
         private readonly ICartService _cartService;
+        private readonly IEmailSender _emailSender;
 
         public CartController(DataContext context, IVnPayService vnPayService,
             IMomoService momoService, ZaloPayConfig zaloPayConfig,
             IOrderService orderService, IOrderDetailService orderDetailService,
             ITransactionService transactionService, IProductService productService,
-            IPromotionService promotionService, ICartService cartService)
+            IPromotionService promotionService, ICartService cartService
+            ,IEmailSender emailSender
+            )
         {
             _vnPayService = vnPayService;
             _context = context;
@@ -45,6 +50,7 @@ namespace PBL6.Controllers
             _productService = productService;
             _promotionService = promotionService;
             _cartService = cartService;
+            _emailSender = emailSender; 
         }
 
 
@@ -182,31 +188,72 @@ namespace PBL6.Controllers
         {
 
             var response = _vnPayService.PaymentExecute(Request.Query);
+            var orderId = Guid.Parse(response.OrderDescription);
+
             string htmlContent;
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+            var transaction = await _transactionService.GetTransactionByOrderIdAsync(order.OrderId);
+
 
             if (response == null || response.VnPayResponseCode != "00")
             {
                 htmlContent = GeneratePaymentHtml("Giao dịch thất bại", "Không xác định", 0, "Thất bại", "failed");
+                order.Status = "cancelled";
+                transaction.Status = "cancelled";
+                await _orderService.SaveChangeAsync();
+                return Content(htmlContent, "text/html");
+            }
+            else
+            {
+                
+
+                order.Status = "done";
+                transaction.Status = "done";
+                await _orderService.UpdateOrderAfterCompleteTransaction(order);
+                await _transactionService.SaveChangeAsync();
+                Console.WriteLine("order orderdetails:" + order.OrderDetails);
+
+                var emailOrderDetail = new EmailOrderModel
+                {
+                    TotalAmount = order.TotalAmount,
+                    Orders = order.OrderDetails,
+                    OrderDate = order.OrderDate,
+                    OrderNumber = order.OrderId.ToString(),  // Số hóa đơn
+                    CustomerName = order.User.UserName,  // Tên khách hàng
+                    CustomerAddress = order.User.UserInfo.Address,  // Địa chỉ khách hàng (nếu có)
+                    CustomerPhone = order.User.PhoneNumber,  // Số điện thoại khách hàng (nếu có)
+                    CustomerEmail = order.User.Email,  // Email khách hàng
+                    SellerName = "Hoàn-DNG.INC",  // Tên người bán
+                    SellerAddress = "54 Nguyễn Lương Bằng, Đà Nẵng",  // Địa chỉ người bán
+                    SellerPhone = "0912346789",  // Số điện thoại người bán
+                    SellerEmail = "hoandng@gmail.com",  // Email người bán
+                    Discount = order.Promotion?.Percentage,  // Giảm giá (nếu có)
+                    Tax = 0,  // Thuế, nếu có
+                };
+
+
+                var emailOrder = new
+                {
+                    //user = order.User.Username,  
+                    total = order.TotalAmount,
+                    orders = order.OrderDetails,
+                    date = order.OrderDate
+                };
+
+                var viewName = "EmailTemplates/OrderConfirmation"; // Tên view của bạn trong Views/EmailTemplates
+                await _emailSender.SendEmailWithViewAsync("baobap2082003@gmail.com", "Xác nhận đơn hàng", viewName, emailOrderDetail);
+
+
+
+
+                htmlContent = GeneratePaymentHtml("Giao dịch thành công", transaction.TransactionId.ToString(), transaction.Amount, "Hoàn thành", "success");
                 return Content(htmlContent, "text/html");
             }
 
-            var orderId = Guid.Parse(response.OrderDescription);
 
 
 
-            var order = await _orderService.GetOrderByIdAsync(orderId);
-
-            var transaction = await _transactionService.GetTransactionByOrderIdAsync(order.OrderId);
-
-
-            order.Status = "done";
-            transaction.Status = "done";
-
-            await _transactionService.SaveChangeAsync();
-
-
-            htmlContent = GeneratePaymentHtml("Giao dịch thành công", transaction.TransactionId.ToString(), transaction.Amount, "Hoàn thành", "success");
-            return Content(htmlContent, "text/html");
+           
         }
 
 
@@ -252,7 +299,7 @@ namespace PBL6.Controllers
        
 
         [HttpGet("getAllProduct")]
-        public async Task<ActionResult<List<Product>>> GetAllProduct([FromQuery] int page = 1, [FromQuery] int size = 10)
+        public async Task<ActionResult<List<ProductDto>>> GetAllProduct([FromQuery] int page = 1, [FromQuery] int size = 10)
         {
             int skip = (page - 1) * size;
 

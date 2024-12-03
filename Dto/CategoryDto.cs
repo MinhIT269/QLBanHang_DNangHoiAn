@@ -15,6 +15,6 @@ namespace PBL6.Dto
         public string? Description { get; set; }
 
         // Nhiều Categories có thể có nhiều Products (n-n)
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        //public ICollection<ProductCategory>? ProductCategories { get; set; }
     }
 }

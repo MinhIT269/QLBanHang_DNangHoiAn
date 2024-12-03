@@ -20,14 +20,21 @@ namespace PBL6.Dto
 
         public string? Warranty { get; set; }
         // Foreign Key
-        public string? BrandName { get; set; }
+        //public string? BrandName { get; set; }
+
+        public BrandDto Brand { get; set; }
 
         // Foreign Key to Video
   
         public List<string>? CategoryNames { get; set; }
-        public List<string>? ProductImages { get; set; }
+        //public List<string>? ProductImages { get; set; }
 
 
         public VideoDto? Video { get; set; }
+        public string? BrandName { get; set; }
+
+        public ICollection<ProductCategoryDto>? ProductCategories { get; set; }
+        public List<string>? ProductImages { get; set; }
+
     }
 }

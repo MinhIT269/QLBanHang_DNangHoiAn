@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using PBL6.Mapping;
@@ -10,6 +11,7 @@ using PBL6_BackEnd.Config;
 using PBL6_BackEnd.Services.Service;
 using PBL6_BackEnd.Services.ServiceImpl;
 using PBL6_QLBH.Data;
+using PBL6_QLBH.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,14 @@ builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IReviewService,ReviewService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IUserInfoService, UserInfoService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
+
+
 
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -35,6 +45,30 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
+
+
+builder.Services.AddIdentityCore<User>()
+    .AddRoles<Role>()
+    .AddTokenProvider<DataProtectorTokenProvider<User>>("")
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;//Yeu cau ki tu so
+    options.Password.RequireLowercase = true; // 1 chu Lower
+    options.Password.RequireUppercase = true; // 1 chu Upper
+    options.Password.RequireNonAlphanumeric = false; // Ko ki tu dac biet
+    options.Password.RequiredLength = 8; // Chieu dai toi thieu mat khau
+}
+    );
 
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
@@ -44,6 +78,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"));
 });
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -60,6 +95,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+  // Đảm bảo thêm dịch vụ Razor vào DI container
+
 
 app.UseRouting();
 
