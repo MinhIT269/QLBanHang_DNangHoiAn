@@ -1,0 +1,148 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model QLBanHang_UI.Models.Request.RegisterRequest
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <title>Sign Up | Your Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up for your application" />
+    <meta name="author" content="Your Name" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+    <link href="~/css/vendor.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="h-100">
+    <div class="d-flex flex-column h-100 p-3">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="row h-100">
+                <div class="col-xxl-7">
+                    <div class="row justify-content-center h-100">
+                        <div class="col-lg-6 py-lg-1">
+                            <div class="d-flex flex-column h-100 justify-content-center">
+                                <div class="auth-logo mb-4">
+                                    <a href="index.html" class="logo-light">
+                                        <img src="~/images/logo-light.png" height="24" alt="logo light">
+                                    </a>
+                                </div>
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                                <div>
+                                    <!-- Form đăng ký với Tag Helpers -->
+                                    
+                                   @*   @if(ViewData){
+                                        
+                                    } *@
+
+                                    <form method="post" asp-area="User" asp-controller="Auth" asp-action="Register" class="authentication-form">
+                                        <!-- <div class="mb-3">
+                                            <input asp-for="FullName" class="form-control" placeholder="Enter your name" required />
+                                            <span asp-validation-for="FullName" class="text-danger"></span>
+                                        </div>-->
+
+                                        <div class="mb-3">
+                                            <input asp-for="UserName" class="form-control" placeholder="Enter your username" required />
+                                            <span asp-validation-for="UserName" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <input asp-for="Email" class="form-control" placeholder="Enter your email" required />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+
+                                        <!--
+                                            <div class="mb-3">
+                                            <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" required />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                        -->
+
+                                        <div class="mb-3">
+                                            <small class="form-text text-muted">
+                                                Mật khẩu phải có ít nhất một chữ cái thường, một chữ cái hoa, một chữ số và ít nhất 8 ký tự.
+                                            </small>
+
+                                            <input asp-for="Password" class="form-control" placeholder="Enter your password"
+                                                   required type="password"
+                                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                                   title="Mật khẩu phải có ít nhất một chữ cái thường, một chữ cái hoa, một chữ số và ít nhất 8 ký tự." />
+
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="mb-3">
+                                            <input name="ConfirmPassword" class="form-control" placeholder="Repeat your password" required type="password" />
+                                            <span name="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="checkbox-signup" required />
+                                                <label class="form-check-label" for="checkbox-signup">I accept <a href="#!">Terms and Conditions</a></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-1 text-center d-grid">
+                                            <button class="btn btn-soft-primary" type="submit">Sign Up</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <p class="mt-auto text-danger text-center">I already have an account  <a asp-area="User" asp-controller="Auth" asp-action="Login" class="text-dark fw-bold ms-1">Sign In</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-5 d-none d-xxl-flex">
+                    <div class="card h-100 mb-0 overflow-hidden">
+                        <div class="d-flex flex-column h-100">
+                            <img src="~/images/small/img-10.jpg" alt="" class="w-100 h-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Success -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @ViewBag.Message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var successMessage = "@ViewBag.Message";
+            if (successMessage) {
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            }
+        });
+    </script>
+
+    <script src="~/js/vendor.js"></script>
+    <script src="~/js/app.js"></script>
+</body>
+</html>
