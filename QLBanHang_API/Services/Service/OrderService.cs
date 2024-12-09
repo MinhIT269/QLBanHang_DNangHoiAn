@@ -19,13 +19,23 @@ namespace QLBanHang_API.Services.Service
             this.mapper = mapper;
         }
 
-        public async Task<List<OrderDto>> GetAllOrders(string username)
+        public async Task<List<OrderDto>> GetAllOrders(Guid id, string searchQuery, int page = 1, int pageSize = 5)
         {
-            var ordersDomain = await orderRepository.GetAllOrderAsync(username);
+            // Lấy danh sách đơn hàng từ repository
+            var ordersDomain = await orderRepository.GetAllOrderAsync(id, searchQuery);
+
             if (ordersDomain == null || !ordersDomain.Any())
             {
                 return null;
             }
+
+            // Áp dụng phân trang
+            ordersDomain = ordersDomain
+                .Skip((page - 1) * pageSize) // Bỏ qua số lượng phần tử của các trang trước đó
+                .Take(pageSize) // Lấy số lượng phần tử giới hạn cho trang hiện tại
+                .ToList();
+
+            // Chuyển đổi sang DTO
             var ordersDto = mapper.Map<List<OrderDto>>(ordersDomain);
             return ordersDto;
         }
@@ -85,5 +95,24 @@ namespace QLBanHang_API.Services.Service
         {
             return await orderRepository.TotalOrdersCancel();
         }
-	}
+
+        public async Task<int> TotalOrdersByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersByUser(userId);
+        }
+        public async Task<int> TotalOrdersSuccessByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersSuccessByUser(userId);
+        }
+        public async Task<int> TotalOrdersPendingByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersPendingByUser(userId);
+        }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
+        {
+            return await orderRepository.SumCompletedOrdersAmountByUser(userId);
+        }
+
+
+    }
 }

@@ -104,5 +104,19 @@ namespace QLBanHang_API.Controllers
             return Ok(totalPages);
         }
 
+        [HttpGet("GetStats")]
+        public async Task<IActionResult> GetPromotionStats()
+        {
+            try
+            {
+                var stats = await promotionService.GetPromotionStatsAsync();
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }

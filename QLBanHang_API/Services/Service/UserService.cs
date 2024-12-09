@@ -28,5 +28,11 @@ namespace QLBanHang_API.Services.Service
                               .ToListAsync();
             return pagedUsers;
         }
+
+        public async Task<int> GetTotalUserAsync(string searchQuery)
+        {
+            var query = _userRepository.GetFilteredUsers(searchQuery, "name", false);
+            return await query.CountAsync();
+        }
     }
 }

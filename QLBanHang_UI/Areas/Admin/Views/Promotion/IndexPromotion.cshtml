@@ -95,15 +95,14 @@
                     <div class="col-md-6 col-xl-3">
                         <div class="card bg-primary-subtle">
                             <div class="card-body">
-                                <h4 class="mb-1">4 Coupons</h4>
-                                <p>Small nice summer coupons pack</p>
+                                <h4 class="mb-1">Tổng Mã Giảm Giá</h4>
+                                <p>Những mã giảm giá có trên hệ thống</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h3 class="text-primary fw-semibold">$140.00</h3>
-                                        <p class="mb-0">Duration : 1 Year</p>
+                                        <h3 id ="TotalPromotions" class="text-primary fw-semibold">$140.00</h3>
                                     </div>
                                     <div>
-                                        <a href="#!" class="btn btn-primary">Buy Now</a>
+                                        <a href="@Url.Action("CreatePromotion", "Promotion")" class="btn btn-primary">Tạo Ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -112,15 +111,14 @@
                     <div class="col-md-6 col-xl-3">
                         <div class="card bg-info-subtle">
                             <div class="card-body">
-                                <h4 class=" mb-1">8 Coupons</h4>
-                                <p class="">Medium nice summer coupons pack</p>
+                                <h4 class=" mb-1">Mã Hiệu Lực</h4>
+                                <p class="">Còn thời gian chương trình</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h3 class="text-info fw-semibold">$235.00</h3>
-                                        <p class="mb-0">Duration : 1 Year</p>
+                                        <h3 id="ValidPromotions" class="text-info fw-semibold">$235.00</h3>
                                     </div>
                                     <div>
-                                        <a href="#!" class="btn btn-info">Buy Now</a>
+                                        <a href="@Url.Action("CreatePromotion", "Promotion")" class="btn btn-info">Tạo Ngay</a>
                                     </div>
                                 </div>
                             </div>
@@ -133,15 +131,15 @@
                                 <div class="d-flex flex-wrap rounded-3 gap-2 align-items-center">
                                     <iconify-icon icon="solar:bag-smile-bold-duotone" class="fs-48 text-primary"></iconify-icon>
                                     <div class="d-block">
-                                        <h3 class=" fw-semibold">30% Special discounts for customers</h3>
-                                        <h5 class=" mb-0">25 November - 2 December</h5>
+                                        <h3 class=" fw-semibold">Các Chương Trình Khuyến Mãi Sắp Đến</h3>
+                                        <h5 id="PromotionsNext" class=" mb-0 fw-semibold">25 November - 2 December</h5>
                                     </div>
                                     <div class="ms-auto">
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer pt-2">
-                                <a href="#!" class="btn btn-primary fw-semibold">View Plan</a>
+                                <a href="#!" class="btn btn-primary fw-semibold">Xem Kế Hoạch</a>
                             </div>
                             <div class="position-absolute top-100 start-100 translate-middle z-n1 opacity-75">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800" height="400" width="400">
@@ -455,7 +453,21 @@
                 alert('Lỗi khi xóa mã!');
             }
         }
+        async function loadPromotionsStats() {
+            try {
+                const response = await fetch(`https://localhost:7069/api/Promotion/GetStats`);
+                const stats = await response.json();
+                console.log(stats);
+                document.getElementById('TotalPromotions').innerText = `${stats.totalPromotions}`;
+                document.getElementById('ValidPromotions').innerText = `${stats.activePromotions}`;
+                document.getElementById('PromotionsNext').innerText = `${stats.upcomingPromotions}`;
+            } catch (error) {
+                console.error("Failed to load orders stats: ", error);
+            }
 
+        }
+
+        loadPromotionsStats();
         renderPromotionTable(currentPage);
         renderPagination();
     </script>

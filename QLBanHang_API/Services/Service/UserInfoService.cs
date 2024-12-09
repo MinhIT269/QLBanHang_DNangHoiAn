@@ -21,9 +21,11 @@ namespace QLBanHang_API.Services.Service
             var userInfo = await userInfoRepository.GetByUserNameAsync(userName);
             var userInfoDto = new UserInfoDto()
             {
-                UserInfoId = userInfo.UserInfoId,
+                UserInfoId = userInfo.UserId,
                 Address = userInfo.Address,
                 PhoneNumber = userInfo.PhoneNumber,
+                Email = userInfo.User!.Email!,
+                UserName = userName,
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
                 Gender = userInfo.Gender,

@@ -37,14 +37,27 @@ namespace QLBanHang_API.Repositories.Repository
         }
 
         // Get All Order By Username 
-        public async Task<List<Order>> GetAllOrderAsync(string? username)
+        public async Task<List<Order>> GetAllOrderAsync(Guid? id, string searchQuery)
         {
-            if (!string.IsNullOrEmpty(username))
+            if (id != null)
             {
-                var orders = await dbContext.Orders.Include(x => x.User)
-                .Include(x => x.Promotion).AsQueryable()
-                .Where(x=> x.User!.UserName == username)
-                .Select(order => new Order
+                var query = dbContext.Orders
+                    .Include(x => x.User)
+                    .Include(x => x.Promotion)
+                    .AsQueryable();
+
+                // Lọc theo UserId
+                query = query.Where(x => x.UserId == id);
+
+                // Lọc theo searchQuery (nếu không null hoặc rỗng)
+                if (!string.IsNullOrEmpty(searchQuery))
+                {
+                    query = query.Where(order =>
+                        order.OrderId.ToString().Substring(0,8).Contains(searchQuery));
+                }
+
+                // Lấy danh sách kết quả
+                var orders = await query.Select(order => new Order
                 {
                     OrderId = order.OrderId,
                     UserId = order.UserId,
@@ -53,8 +66,10 @@ namespace QLBanHang_API.Repositories.Repository
                     Status = order.Status,
                     PromotionId = order.PromotionId ?? Guid.Empty
                 }).ToListAsync();
+
                 return orders;
             }
+
             return new List<Order>();
         }
 
@@ -108,5 +123,32 @@ namespace QLBanHang_API.Repositories.Repository
 		{
 			return await dbContext.Orders.Where(c => c.Status == "Cancel").CountAsync();
 		}
-	}
+
+        public async Task<int> TotalOrdersByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId)
+                .CountAsync();
+        }
+
+        public async Task<int> TotalOrdersSuccessByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .CountAsync();
+        }
+
+        public async Task<int> TotalOrdersPendingByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && (o.Status == "Pending" || o.Status == "Cancel"))
+                .CountAsync();
+        }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .SumAsync(o => o.TotalAmount);
+        }
+    }
 }
