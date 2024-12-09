@@ -59,6 +59,13 @@ namespace QLBanHang_API.Mapping
             CreateMap<UserInfo, AddUserInfoDto>().ReverseMap();
             CreateMap<User, AddUserDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
+            //Cart Item
+            CreateMap<CartItem, CartItemDto>()
+                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
+            CreateMap<CartItem, CartItemRequest>();
+            //.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
+            //.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
+            CreateMap<OrderDetail,OrderDetailsRequest>().ReverseMap();
 
         }
     }

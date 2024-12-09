@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
+using QLBanHang_API.Request;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Permissions;
 
 namespace QLBanHang_API.Repositories
 {
@@ -23,6 +25,7 @@ namespace QLBanHang_API.Repositories
 
 		public async Task<Product?> GetProductByIdAsync(Guid id)
 		{
+			//trả về null nếu ko có đối tượng 
 			return await _dataContext.Products
 				.Include(p => p.Brand)
 				.Include(p => p.ProductCategories!) // Null-forgiving: Đảm bảo không null
@@ -164,5 +167,26 @@ namespace QLBanHang_API.Repositories
 			}
 			return false;
 		}
-	}
+        public async Task<List<Product>> GetProductFromQueryAsync(string? search, string? category, string? brandName, int page, bool isDescending)
+		{
+			var products = GetAllProducts();
+			if (!string.IsNullOrEmpty(search))
+			{
+				products = products.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(search.Trim()));
+			}
+
+			if (!string.IsNullOrEmpty(category))
+			{
+				products = products.Include(p=> p.ProductCategories!).ThenInclude(p=> p.Category!.CategoryName)
+					.Where(p=> p.ProductCategories!.FirstOrDefault()!.Category!.CategoryName == category);
+			}
+			if (!string.IsNullOrEmpty(brandName))
+			{
+                products = products.Where(p => EF.Functions.Collate(p.Brand!.BrandName!, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName.Trim()));
+            }
+
+			var skipResult = (page - 1) * 8;
+			return await products.Skip(skipResult).Take(8).ToListAsync();
+		}
+    }
 }

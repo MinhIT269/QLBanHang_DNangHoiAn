@@ -30,6 +30,10 @@ namespace QLBanHang_API.Controllers
         public async Task<IActionResult> GetProductById([FromRoute] Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);
+            if (product == null) 
+            {
+                return BadRequest();
+            }
             return Ok(product);
         }
 
@@ -50,6 +54,19 @@ namespace QLBanHang_API.Controllers
             searchQuery ??= string.Empty;
             var products = await _productService.GetProductsAsync(searchQuery, page, 10, sortCriteria, isDescending);
             return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("SearchAndCategory")]
+        public async Task<IActionResult> GetProductFromQuery([FromQuery] string ? search , [FromQuery] string? category,
+            [FromQuery]string? brandName, [FromQuery] int page = 1, [FromQuery] bool isDescending = false)
+        {
+            var products = await _productService.GetProductFromQuery(search, category, brandName, page, isDescending);
+            if (products == null)
+            {
+                return BadRequest();
+            }
+            return Ok(products);    
         }
     }
 }

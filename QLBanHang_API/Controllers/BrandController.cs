@@ -22,7 +22,7 @@ namespace QLBanHang_API.Controllers
             this.locationService = locationService;
         }
 
-        // api/Brands/GetAllBrands
+        // api/Brand/GetAllBrands
         [HttpGet("GetAllBrands")]
         public async Task<IActionResult> GetAllBrands()
         {

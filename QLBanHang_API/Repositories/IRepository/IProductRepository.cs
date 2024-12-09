@@ -15,5 +15,6 @@ namespace QLBanHang_API.Repositories
         Task<bool> AddProductAsync(Product product);
         Task<bool> UpdateProductAsync(Product product);
 		Task<bool> DeleteProductAsync(Guid id);
-	}
+        Task<List<Product>> GetProductFromQueryAsync(string? search, string? category, string? brandName, int page, bool isDescending);
+    }
 }

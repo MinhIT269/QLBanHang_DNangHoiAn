@@ -11,7 +11,7 @@ namespace QLBanHang_API.Dto
         public decimal TotalAmount { get; set; }
 
         public string? Status { get; set; }
-
+        public decimal ? DiscountPercentage { get; set; }
 
         //public ICollection<OrderDetail>? OrderDetails { get; set; }  // Navigation property for related OrderDetails
 

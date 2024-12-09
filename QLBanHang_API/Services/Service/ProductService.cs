@@ -171,5 +171,12 @@ namespace QLBanHang_API.Service
 
             return urls;
         }
+
+        public async Task<List<ProductDto>> GetProductFromQuery(string? search, string? category, string? brandName, int page, bool isDescending)
+        {
+            var productsDomain = await _productRepository.GetProductFromQueryAsync(search,category,brandName,page,isDescending);
+            var productsDto = _mapper.Map<List<ProductDto>>(productsDomain);
+            return productsDto;
+        }
     }
 }
