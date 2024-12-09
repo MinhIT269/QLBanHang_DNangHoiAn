@@ -99,5 +99,33 @@ namespace QLBanHang_API.Repositories.Repository
 
             return query;
         }
+        public async Task<object> GetPromotionStatsAsync()
+        {
+            // Tổng số Promotion
+            var totalPromotions = await dbContext.Promotions.CountAsync();
+
+            // Số chương trình khuyến mãi còn hiệu lực
+            var activePromotions = await dbContext.Promotions
+                                                   .Where(p => p.StartDate <= DateTime.Now && p.EndDate >= DateTime.Now)
+                                                   .CountAsync();
+
+            // Số chương trình khuyến mãi đã hết hạn
+            var expiredPromotions = await dbContext.Promotions
+                                                    .Where(p => p.EndDate < DateTime.Now)
+                                                    .CountAsync();
+
+            // Số chương trình khuyến mãi chưa bắt đầu
+            var upcomingPromotions = await dbContext.Promotions
+                                                     .Where(p => p.StartDate > DateTime.Now)
+                                                     .CountAsync();
+
+            return new
+            {
+                TotalPromotions = totalPromotions,
+                ActivePromotions = activePromotions,
+                ExpiredPromotions = expiredPromotions,
+                UpcomingPromotions = upcomingPromotions
+            };
+        }
     }
 }

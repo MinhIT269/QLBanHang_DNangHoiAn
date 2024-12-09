@@ -10,5 +10,6 @@ namespace QLBanHang_API.Repositories.IRepository
         Task<Promotion> DeletePromotionByIdAsync(Guid id);
         Task<Promotion> AddPromotionAsync(Promotion promotion);
         IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending);
+        Task<object> GetPromotionStatsAsync();
     }
 }

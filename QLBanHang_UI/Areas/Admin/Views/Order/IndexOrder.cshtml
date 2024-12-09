@@ -62,7 +62,7 @@
 
                     <div class="row">
                         <div class="col-md-6 col-xl-3">
-                            <div class="card">
+                            <div class="card bg-success-subtle">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-3">
-                            <div class="card">
+                            <div class="card bg-primary-subtle">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3">
-                            <div class="card">
+                            <div class="card bg-warning-subtle">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="col-md-6 col-xl-3">
-                            <div class="card">
+                            <div class="card bg-danger-subtle">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
@@ -163,9 +163,9 @@
                                                     <th>Ngày Đặt</th>
                                                     <th>Khách Hàng</th>
                                                     <th>Email</th>
-                                                    <th>Tổng Tiền(vnđ)</th>
-                                                    <th>Sản Phẩm</th>
                                                     <th>PT Thanh Toán</th>
+                                                    <th>Sản Phẩm</th>
+                                                    <th>Tổng Tiền</th>
                                                     <th>Trạng Thái</th>
                                                     <th>Hành Động</th>
                                                 </tr>
@@ -305,22 +305,22 @@
         function createOrdersRow(item, index) {
 
             const price = parseFloat(item.totalAmount);
-            const formattedPrice = isNaN(price) ? '0' : price.toLocaleString('vi-VN');
+            const formattedPrice = isNaN(price) ? '0' : price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             return `
                             <tr>
                                 <td>${index + 1}</td>
-                                <td>${item.orderId.toUpperCase().substring(0, 8)}</td>
+                                <td>#INV-${item.orderId.toUpperCase().substring(0, 8)}</td>
                                 <td>${formatDate(item.orderDate)}</td>
                                 <td>${item.userName}</td>
                                 <td>${item.email}</td>
-                                <td>${formattedPrice}</td>
-                                <td>${item.totalProduct}</td>
                                 <td>${item.paymentMethod}</td>
-                                       <td>
-           ${item.status.toLowerCase() === 'completed' ? '<span class="badge bg-success">Success</span>' :
-                    item.status.toLowerCase() === 'pending' ? '<span class="badge bg-warning">Pending</span>' :
-                        '<span class="badge bg-danger">Cancel</span>'}
-        </td>
+                                <td>${item.totalProduct}</td>
+                                <td>${formattedPrice}</td>
+                                <td>
+                                ${item.status.toLowerCase() === 'completed' ? '<span class="badge bg-success">Success</span>' :
+                                  item.status.toLowerCase() === 'pending' ? '<span class="badge bg-warning">Pending</span>' :
+                                 '<span class="badge bg-danger">Cancel</span>'}
+                                </td>
 
                                 <td>
                                    <div class="d-flex gap-2">
