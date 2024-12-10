@@ -24,6 +24,9 @@ namespace PBL6_QLBH.Models
 
         //public decimal? DiscountPercentage { get; set; }
         public Guid? PromotionId { get; set; }    // Foreign Key to Promotion
+                                                  // Cột mới để lưu trữ % giảm giá
+        [Range(0, 100)]
+        public decimal? DiscountPercentage { get; set; }
         public Promotion? Promotion { get; set; }
         public Transaction? Transaction { get; set; }
     }

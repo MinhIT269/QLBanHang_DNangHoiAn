@@ -7,5 +7,6 @@ namespace QLBanHang_API.Repositories.IRepository
         Task<List<User>> GetAllUserAsync();
         Task<User> DeleteUserAsync(string userName);
         Task<User> AddUserAsync(User user);
+        IQueryable<User> GetFilteredUsers(string searchQuery, string sortCriteria, bool isDescending);
     }
 }

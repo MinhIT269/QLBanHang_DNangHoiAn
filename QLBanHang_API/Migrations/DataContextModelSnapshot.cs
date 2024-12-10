@@ -283,7 +283,6 @@ namespace QLBanHang_API.Migrations
                         .HasColumnType("decimal(18, 3)");
 
                     b.Property<decimal?>("PromotionPrice")
-                        .IsRequired()
                         .HasColumnType("decimal(18, 3)");
 
                     b.Property<int>("Stock")
@@ -292,8 +291,8 @@ namespace QLBanHang_API.Migrations
                     b.Property<Guid?>("VideoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Warranty")
-                        .HasColumnType("int");
+                    b.Property<string>("Warranty")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 

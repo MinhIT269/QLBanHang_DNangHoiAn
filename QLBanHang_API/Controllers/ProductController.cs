@@ -58,15 +58,31 @@ namespace QLBanHang_API.Controllers
 
         [HttpGet]
         [Route("SearchAndCategory")]
-        public async Task<IActionResult> GetProductFromQuery([FromQuery] string ? search , [FromQuery] string? category,
-            [FromQuery]string? brandName, [FromQuery] int page = 1, [FromQuery] bool isDescending = false)
+        public async Task<IActionResult> GetProductFromQuery([FromQuery] string? search, [FromQuery] string? category,
+            [FromQuery] string? brandName, [FromQuery] int page = 1, [FromQuery] bool isDescending = false)
         {
             var products = await _productService.GetProductFromQuery(search, category, brandName, page, isDescending);
             if (products == null)
             {
                 return BadRequest();
             }
-            return Ok(products);    
+            return Ok(products);
+        }
+        [HttpGet("GetProductStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalProducts = await _productService.GetTotalProduct();
+            var availableProducts = await _productService.AvailableProducts();
+            var lowStockProducts = await _productService.GetLowStockProducts();
+            var newProducts = await _productService.GetNewProducts();
+
+            return Ok( new
+            {
+                TotalProducts = totalProducts,
+                AvailableProducts = availableProducts,
+                LowStockProducts = lowStockProducts,
+                NewProducts = newProducts
+            });
         }
     }
 }

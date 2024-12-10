@@ -1,23 +1,18 @@
-﻿using QLBanHang_API.Dto;
-using QLBanHang_API.Dto;
+
+
 namespace QLBanHang_UI.Models
 {
     public class OrderDto
     {
-        public Guid OrderId { get; set; }    // Primary Key
-        public Guid UserId { get; set; }     // Foreign Key
-        public DateTime? OrderDate { get; set; }
-
-        public decimal TotalAmount { get; set; }
-
+        public UserInfoDto UserInfo { get; set; }
+        public Guid OrderId { get; set; }        // Foreign Key
         public string? Status { get; set; }
-
-
-        //public ICollection<OrderDetail>? OrderDetails { get; set; }  // Navigation property for related OrderDetails
-
-        public Guid PromotionId { get; set; }    // Foreign Key to Promotion
-        public PromotionDto? Promotion { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
         public decimal? DiscountPercentage { get; set; }
-  
+
+        //public Order? Order { get; set; }     // Navigation property
+        public List<ProductDetailOrder>? Products { get; set; } // Navigation property
+
     }
 }

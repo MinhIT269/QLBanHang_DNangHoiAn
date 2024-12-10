@@ -1,3 +1,4 @@
+
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,7 +7,6 @@ namespace QLBanHang_UI.Models
     public class PromotionDto
     {
         public Guid PromotionId { get; set; }
-
         [Required, MaxLength(50)]
         public string? Code { get; set; }
 

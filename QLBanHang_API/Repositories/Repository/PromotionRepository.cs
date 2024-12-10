@@ -21,11 +21,11 @@ namespace QLBanHang_API.Repositories.Repository
         }
 
         // Get Promotion By Code
-        public async Task<Promotion> GetPromotionByCodeAsync(string? code)
+        public async Task<Promotion> GetPromotionByCodeAsync(Guid code)
         {
             var promotion = await dbContext.Promotions
                                            .AsNoTracking()
-                                           .FirstOrDefaultAsync(x => x.Code == code);
+                                           .FirstOrDefaultAsync(x => x.PromotionId == code);
 
             // Trả về promotion hoặc null nếu không tìm thấy
             return promotion;
@@ -53,10 +53,18 @@ namespace QLBanHang_API.Repositories.Repository
 
         public async Task<Promotion> DeletePromotionByIdAsync(Guid id)
         {
-            var promotion = await dbContext.Promotions.FirstOrDefaultAsync(x => x.PromotionId == id);
+            var promotion = await dbContext.Promotions
+                .Include(p => p.Orders) // Bao gồm thông tin liên kết với Orders
+                .FirstOrDefaultAsync(p => p.PromotionId == id);
+
             if (promotion == null)
             {
-                return null;
+                throw new KeyNotFoundException("Promotion không tồn tại.");
+            }
+
+            if (promotion.Orders != null && promotion.Orders.Any())
+            {
+                throw new InvalidOperationException("Không thể xóa Promotion vì đã được sử dụng trong Orders.");
             }
 
             dbContext.Promotions.Remove(promotion);
@@ -71,6 +79,53 @@ namespace QLBanHang_API.Repositories.Repository
             await dbContext.Promotions.AddAsync(promotion);
             await dbContext.SaveChangesAsync();
             return promotion;
+        }
+
+        public IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending)
+        {
+            var query = dbContext.Promotions.AsQueryable();
+
+            if(!string.IsNullOrEmpty(searchQuery)){
+                query = query.Where(c => EF.Functions.Collate(c.Code!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchQuery));
+            }
+
+            query = sortCriteria switch
+            {
+                "name" => isDescending ? query.OrderByDescending(c => c.Code) : query.OrderBy(c => c.Code),
+                "endDate" => isDescending ? query.OrderByDescending(c => c.EndDate) : query.OrderBy(c => c.EndDate),
+                "startDate" => isDescending ? query.OrderBy(c => c.StartDate) : query.OrderByDescending(c => c.StartDate),
+                _ => query
+            };
+
+            return query;
+        }
+        public async Task<object> GetPromotionStatsAsync()
+        {
+            // Tổng số Promotion
+            var totalPromotions = await dbContext.Promotions.CountAsync();
+
+            // Số chương trình khuyến mãi còn hiệu lực
+            var activePromotions = await dbContext.Promotions
+                                                   .Where(p => p.StartDate <= DateTime.Now && p.EndDate >= DateTime.Now)
+                                                   .CountAsync();
+
+            // Số chương trình khuyến mãi đã hết hạn
+            var expiredPromotions = await dbContext.Promotions
+                                                    .Where(p => p.EndDate < DateTime.Now)
+                                                    .CountAsync();
+
+            // Số chương trình khuyến mãi chưa bắt đầu
+            var upcomingPromotions = await dbContext.Promotions
+                                                     .Where(p => p.StartDate > DateTime.Now)
+                                                     .CountAsync();
+
+            return new
+            {
+                TotalPromotions = totalPromotions,
+                ActivePromotions = activePromotions,
+                ExpiredPromotions = expiredPromotions,
+                UpcomingPromotions = upcomingPromotions
+            };
         }
     }
 }
