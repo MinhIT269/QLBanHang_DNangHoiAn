@@ -90,6 +90,24 @@ namespace QLBanHang_API.Mapping
 
             //Promotion
             CreateMap<Promotion, PromotionDto>().ReverseMap();
+            CreateMap<Promotion, UpPromotionDto>().ReverseMap();
+            CreateMap<Promotion, AddPromotionDto>().ReverseMap();
+            //Review
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Review, UpReviewDto>().ReverseMap();
+            CreateMap<Review, AddReviewDto>().ReverseMap();
+            //User UserInfo
+            CreateMap<UserInfo, UserInfoDto>().ReverseMap();
+            CreateMap<UserInfo, AddUserInfoDto>().ReverseMap();
+            CreateMap<User, AddUserDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            //Cart Item
+            CreateMap<CartItem, CartItemDto>()
+                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
+            CreateMap<CartItem, CartItemRequest>();
+            //.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
+            //.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
+            CreateMap<OrderDetail,OrderDetailsRequest>().ReverseMap();
 			CreateMap<Promotion, UpPromotionDto>().ReverseMap();
 			CreateMap<Promotion, AddPromotionDto>().ReverseMap();
 
@@ -109,7 +127,6 @@ namespace QLBanHang_API.Mapping
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.UserInfo!.PhoneNumber))
                 .ForMember(dest => dest.Order, opt => opt.MapFrom(src => src.Orders!.Count()))
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Orders!.Sum(order => order.TotalAmount)));
-
 
         }
 	}

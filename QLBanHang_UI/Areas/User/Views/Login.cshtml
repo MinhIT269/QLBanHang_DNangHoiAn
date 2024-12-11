@@ -1,0 +1,114 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model QLBanHang_UI.Models.Request.LoginRequest
+@{
+    ViewBag.Title = "Sign In | Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <!-- Title Meta -->
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully responsive premium admin dashboard template" />
+    <meta name="author" content="Techzaa" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <!-- Vendor css (Required on all Pages) -->
+    <link href="~/css/vendor.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/config.js"></script>
+</head>
+
+<body class="h-100">
+    <div class="d-flex flex-column h-100">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="row h-100">
+                <div class="col-xxl-7">
+                    <div class="row justify-content-center h-100">
+                        <div class="col-lg-6 py-lg-5">
+                            <div class="d-flex flex-column h-100 justify-content-center">
+                                <div class="auth-logo mb-4">
+                                    <a href="@Url.Action("Index", "Home")" class="logo-light">
+                                        <img src="~/images/logo-light.png" height="24" alt="logo light">
+                                    </a>
+                                </div>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
+                                <div class="mb-5">
+                                    <form method="post" asp-area="User" asp-controller="Auth" asp-action="Login" class="authentication-form">
+                                        <!-- Hiển thị tất cả lỗi từ ModelState -->
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="mb-3">
+                                            <input asp-for="UserName" class="form-control" placeholder="Enter username" required>
+                                            <span asp-validation-for="UserName" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-4">
+                                            <input asp-for="Password" class="form-control" placeholder="Enter your password" required>
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-1 text-center d-grid">
+                                            <button class="btn btn-soft-primary mb-2" type="submit">Sign In</button>
+                                            <a asp-area="User" asp-controller="Auth" asp-action="ResetPassword" class="float-end text-dark fw-bold ms-1">Reset Password</a>
+                                        </div>
+                                    </form>
+                                     @* <p class="mt-1 fw-semibold no-span">OR sign in with</p>
+                                     <div class="d-grid gap-2">
+                                         <a href="javascript:void(0);" class="btn btn-soft-dark"><i class="bx bxl-google fs-20 me-1"></i> Sign in with Google</a>
+                                         <a href="javascript:void(0);" class="btn btn-soft-primary"><i class="bx bxl-facebook fs-20 me-1"></i> Sign in with Facebook</a>
+                                     </div> *@
+                                </div>
+                                <p class="text-danger text-center">
+                                    Don't have an account? <a asp-area="User" asp-controller="Auth" asp-action="Register" class="text-dark fw-bold ms-1">Sign Up</a>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-5 d-none d-xxl-flex">
+                    <div class="card h-100 mb-0 overflow-hidden">
+                        <img src="~/images/small/img-10.jpg" alt="" class="w-100 h-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Login Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @ViewBag.Message
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if ("@ViewBag.Message") {
+                var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+                messageModal.show();
+            }
+        });
+    </script>
+
+    <!-- Vendor Javascript (Required on all Pages) -->
+    <script src="~/js/vendor.js"></script>
+    <!-- App Javascript (Required on all Pages) -->
+    <script src="~/js/app.js"></script>
+</body>
+</html>

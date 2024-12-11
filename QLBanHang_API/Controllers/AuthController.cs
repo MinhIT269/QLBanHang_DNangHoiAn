@@ -83,7 +83,8 @@ namespace QLBanHang_API.Controllers
                         var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
                         var response = new LoginResponse()
                         {
-                            JwtToken = jwtToken
+                            JwtToken = jwtToken,
+                            UserId = user.UserId
                         };
                         return Ok(response);
                     }
@@ -131,7 +132,7 @@ namespace QLBanHang_API.Controllers
             {
                 EmailReceive = Email,
                 Subject = "ResetPassWord",
-                Body = "Copy this code to reset " + result
+                Body = "Copy this code to reset \n" + result
             };
             var resultEmail = await emailService.SendEmail(emailRequest);
             if (!resultEmail)

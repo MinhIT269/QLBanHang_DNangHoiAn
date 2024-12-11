@@ -1,4 +1,6 @@
-﻿namespace QLBanHang_UI.Models
+
+
+namespace QLBanHang_UI.Models
 {
     public class OrderDto
     {
@@ -11,5 +13,6 @@
 
         //public Order? Order { get; set; }     // Navigation property
         public List<ProductDetailOrder>? Products { get; set; } // Navigation property
+
     }
 }

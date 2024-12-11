@@ -1,4 +1,6 @@
-﻿namespace QLBanHang_API.Dto
+﻿using QLBanHang_API.Request;
+
+namespace QLBanHang_API.Dto
 {
 	public class CartItemDto
 	{
@@ -9,5 +11,6 @@
 		public Guid CartId { get; set; } // Foreign Key to Cart
 
 		public Guid ProductId { get; set; } // Foreign Key to Product
+		public ProductDto? Product { get; set; }
 	}
 }

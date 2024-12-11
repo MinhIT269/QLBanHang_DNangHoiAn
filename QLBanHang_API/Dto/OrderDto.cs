@@ -11,11 +11,16 @@ namespace QLBanHang_API.Dto
         public DateTime? OrderDate { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public string? Status { get; set; }
+        public decimal ? DiscountPercentage { get; set; }
+
+        //public ICollection<OrderDetail>? OrderDetails { get; set; }  // Navigation property for related OrderDetails
+
         public int totalProduct { get; set; }
         public string? PaymentMethod { get; set; }
-        public decimal? DiscountPercentage { get; set; }
         public Guid PromotionId { get; set; }    // Foreign Key to Promotion
         public string? Code { get; set; }
-        public string? Status{ get; set; }
+
     }
 }

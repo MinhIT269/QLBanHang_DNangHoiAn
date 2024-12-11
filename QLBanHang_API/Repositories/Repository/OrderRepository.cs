@@ -107,6 +107,54 @@ namespace QLBanHang_API.Repositories.Repository
             return order;
 
         }
+
+        //Create Order
+        public async Task<Order> CreateOrderAsync(Order order)
+        {
+            await dbContext.Orders.AddAsync(order); 
+            await dbContext.SaveChangesAsync();
+            return order;
+        }
+        public async Task<List<OrderDetail>> CreateOrderDetailsAsync(List<OrderDetail> orderDetails)
+        {
+            try
+            {
+                await dbContext.OrderDetails.AddRangeAsync(orderDetails);
+                foreach(var order in orderDetails)
+                {
+                    var product = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == order.ProductId);
+                    if (product != null)
+                    {
+                        product.Stock = product.Stock - order.Quantity;
+                    }
+                }
+                await dbContext.SaveChangesAsync();
+                return orderDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Does not Add to Database");
+            }
+        }
+        public async Task AddOrderAsync(Order order)
+        {
+            await dbContext.Orders.AddAsync(order);
+        }
+        public async Task SaveChangesAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task<Order> GetOrderByIdAsync(Guid orderId)
+        {
+            return await dbContext.Orders
+         .Include(o => o.User)
+         .Include(o => o.Promotion)
+         .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Product)
+         .FirstOrDefaultAsync(p => p.OrderId == orderId);
+        }
         public async Task<int> TotalOrders()
         {
             return await dbContext.Orders.CountAsync();

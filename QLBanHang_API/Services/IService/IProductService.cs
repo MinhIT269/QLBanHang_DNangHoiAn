@@ -12,10 +12,10 @@ namespace QLBanHang_API.Service
 		Task<bool> AddProductAsync(ProductRequest model, IFormFile mainImage, IList<IFormFile> additionalImages);
 		Task<bool> DeleteProductAsync(Guid id);
 		Task<bool> UpdateProductAsync(ProductRequest model, IFormFile? mainImage, IList<IFormFile>? additionalImages, List<string>? oldImageUrls);
+		Task<List<ProductDto>> GetProductFromQuery(string? search, string? category, string? brandName, int page, bool isDescending);
 		Task<int> GetTotalProduct();
 		Task<int> AvailableProducts();
 		Task<int> GetLowStockProducts();
 		Task<int> GetNewProducts();
-
 	}
 }

@@ -1,0 +1,100 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<CartItemDto>
+@using QLBanHang_UI.Models
+
+<style>
+    /* Tùy chỉnh nút xóa sản phẩm */
+    .btn-remove {
+        background-color: #dc3545; /* Màu nền đỏ (danger) */
+        color: white; /* Màu chữ trắng */
+        border: none; /* Xóa viền */
+        padding: 5px 10px; /* Khoảng cách bên trong nút */
+        cursor: pointer; /* Hiển thị con trỏ tay khi hover */
+        border-radius: 5px; /* Góc bo tròn */
+        font-size: 14px; /* Kích thước chữ */
+        transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+    }
+
+        /* Hiệu ứng khi di chuột vào nút xóa */
+        .btn-remove:hover {
+            background-color: #bd2130; /* Màu nền khi hover */
+            color: #fff; /* Đảm bảo chữ luôn rõ ràng */
+        }
+
+    /* Đảm bảo khoảng cách và căn chỉnh giữa các sản phẩm */
+    .product {
+        display: flex;
+        align-items: center; /* Căn giữa theo trục dọc */
+        justify-content: space-between; /* Khoảng cách đều giữa các phần tử */
+        margin-bottom: 15px; /* Khoảng cách giữa các sản phẩm */
+        padding: 10px; /* Khoảng cách bên trong mỗi sản phẩm */
+        border: 1px solid #ddd; /* Đường viền nhẹ */
+        border-radius: 8px; /* Bo góc */
+        background-color: #f9f9f9; /* Màu nền nhẹ */
+        transition: background-color 0.3s ease; /* Hiệu ứng hover sản phẩm */
+    }
+
+        /* Hiệu ứng khi di chuột vào sản phẩm */
+        .product:hover {
+            background-color: #f1f1f1; /* Màu nền sáng hơn khi hover */
+        }
+
+    /* Tùy chỉnh ảnh sản phẩm */
+    .product-image-container img {
+        border-radius: 4px; /* Bo góc ảnh */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    }
+
+</style>
+<!-- End .dropdown-cart-header -->
+<div class="dropdown-cart-products">
+    <div class="cart-items">
+        @foreach (var cartItem in Model)
+        {
+            <div class="product">
+                <div class="product-details">
+                    <h4 class="product-title">
+                        <a href="demo9-product.html">@cartItem.Product.Name</a>
+                    </h4>
+                    @if (cartItem.Product.PromotionPrice != null)
+                    {
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty">@cartItem.Quantity</span> × @cartItem.Product.PromotionPrice VND
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty">@cartItem.Quantity</span> × @cartItem.Product.Price VND
+                        </span>
+                    }
+                </div>
+
+                <figure class="product-image-container">
+                    <a asp-area="User" asp-controller="DashBoard" asp-action="ProductDetail" asp-route-id="@cartItem.Product.ProductId" class="product-image">
+                        <img src="@cartItem.Product.ImageUrl" alt="product" width="80" height="80">
+                    </a>
+                    <!-- Nút xóa sản phẩm -->
+                    <button type="button" class="btn-remove btn btn-danger" data-id="@cartItem.CartItemId" title="Remove Product">
+                        <span>×</span>
+                    </button>
+                </figure>
+            </div>
+        }
+    </div>
+</div>
+<!-- End .cart-product -->
+
+<div class="dropdown-cart-total">
+    <span>SUBTOTAL:</span>
+    <span class="cart-total-price float-right">@Model.Sum(x => x.Quantity * (x.Product.PromotionPrice ?? x.Product.Price)) VND</span>
+</div>
+<!-- End .dropdown-cart-total -->
+
+<div class="dropdown-cart-action">
+    <a href="cart.html" class="btn btn-gray btn-block view-cart">
+        View Cart
+    </a>
+    <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+</div>
+<!-- End .dropdown-cart-total -->
