@@ -67,12 +67,12 @@ namespace QLBanHang_UI.Areas.User.Controllers
 
         }
 
-        // Logout 
-        [HttpGet]
-        public IActionResult Logout()
-        {
+        //// Logout 
+        //[HttpGet]
+        //public IActionResult Logout()
+        //{
 
-        }
+        //}
         [HttpGet]
         public IActionResult Register()
         {

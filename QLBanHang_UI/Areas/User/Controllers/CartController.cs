@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QLBanHang_UI.Models;
-using QLBanHang_UI.Models.Request;
-using QLBanHang_API.Dto.Request;
 using System.Net;
 using System.Text.Json;
 using System.Text;
 using Microsoft.VisualBasic;
 using Microsoft.Extensions.Primitives;
+using QLBanHang_UI.Models.Request;
 
 namespace QLBanHang_UI.Areas.User.Controllers
 {
@@ -213,7 +212,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
         }
 
 		//Update Promotion
-		public async Task UpdatePromotion(QLBanHang_API.Dto.UpPromotionDto upPromotionDto) 
+		public async Task UpdatePromotion(UpPromotionRequest upPromotionDto) 
 		{
 			try
 			{
