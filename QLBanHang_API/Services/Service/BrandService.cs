@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
+using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Repositories.IRepository;
+using QLBanHang_API.Repositories.Repository;
 namespace QLBanHang_API.Service
 {
     public class BrandService : IBrandService
@@ -27,18 +31,15 @@ namespace QLBanHang_API.Service
 			var brandDto = mapper.Map<BrandDto>(brand);
             return brandDto;
 		}
-
-		//Update Brand
-		public async Task<BrandDto> UpdateBrand(UpBrandDto brandUpdate)
+		public async Task<BrandRequest> GetBrandByIdAsync(Guid id)
 		{
-			var brand = mapper.Map<Brand>(brandUpdate);
-			var brandDomain = await brandRepository.UpdateBrandAsync(brand);
-			var brandDto = mapper.Map<BrandDto>(brand);
+			var brand = await brandRepository.GetBrandByIdAsync(id);
+			var brandDto = mapper.Map<BrandRequest>(brand);
 			return brandDto;
 		}
 
 		//Add Brand 
-		public async Task<BrandDto> AddBrand(AddBrandDto brandAdd)
+		public async Task<BrandDto> AddBrand(BrandRequest brandAdd)
 		{
 			var brand = mapper.Map<Brand> (brandAdd);
 			var brandDomain = await brandRepository.AddBrandAsync(brand);
@@ -51,6 +52,43 @@ namespace QLBanHang_API.Service
 		{
 			var brand = await brandRepository.DeleteBrandAsync(id);
 			var brandDto = mapper.Map<BrandDto> (brand);
+			return brandDto;
+		}
+
+		public async Task<(List<BrandDetailDto> brands, int totalRecods)> GetFilteredCategoriesAsync(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending)
+		{
+			var query = brandRepository.GetFilteredBrandsQuery(searchQuery, sortCriteria, isDescending);
+
+			var totalRecords = await query.CountAsync();
+
+			var pagedBrands = await query.Skip((page-1) * pageSize)
+				                         .Take(pageSize)
+										 .ProjectTo<BrandDetailDto>(mapper.ConfigurationProvider)
+										 .ToListAsync();
+			return (pagedBrands, totalRecords);
+		}
+
+		public async Task<bool> HasProductsByBrandIdAsync(Guid brandId)
+		{
+			return await brandRepository.HasProductsByBrandIdAsync(brandId);
+		}
+		public async Task<int> GetTotalBrandsAsync(string searchQuery)
+		{
+			var query = brandRepository.GetFilteredBrandsQuery(searchQuery, "name", false);
+			return await query.CountAsync();
+		}
+
+		public async Task<bool> IsBrandNameExists(string brandName)
+		{
+			return await brandRepository.IsBrandNameExists(brandName);
+		}
+
+		//Update Brand
+		public async Task<BrandDto> UpdateBrand(Guid id, UpBrandDto brandUpdate)
+		{
+			var brand = mapper.Map<Brand>(brandUpdate);
+			var brandDomain = await brandRepository.UpdateBrandAsync(id, brand);
+			var brandDto = mapper.Map<BrandDto>(brand);
 			return brandDto;
 		}
 	}

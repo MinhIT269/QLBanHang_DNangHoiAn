@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using PBL6_QLBH.Models;
 using QLBanHang_UI.Models;
 using QLBanHang_UI.Models.Request;
 using System.Net;

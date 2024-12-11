@@ -33,16 +33,61 @@ namespace QLBanHang_API.Controllers
 
         // URL - /api/Order/AllOrder/username
         [HttpGet]
-        [Route("AllOrder/{username}")]
-        public async Task<IActionResult> GetAllOrder([FromRoute] string username)
+        [Route("AllOrder")]
+        public async Task<IActionResult> GetAllOrder([FromQuery] Guid id, [FromQuery] string? searchQuery,[FromQuery] int page = 1, int pageSize = 5)
         {
-            var ordersDTO = await orderService.GetAllOrders(username);
+            try
+            {
+                // Gọi service để lấy danh sách đơn hàng
+                var ordersDTO = await orderService.GetAllOrders(id, searchQuery, page, pageSize);
+
+                // Kiểm tra nếu không có đơn hàng nào được tìm thấy
+                if (ordersDTO == null || !ordersDTO.Any())
+                {
+                    return NotFound(new { Message = "No orders found for the given user ID and search query." });
+                }
+
+                // Trả về danh sách đơn hàng
+                return Ok(ordersDTO);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi không mong muốn
+                return StatusCode(500, new { Message = "An error occurred while processing the request.", Details = ex.Message });
+            }
+        }
+        [HttpGet("TotalPagesOrdered_Detail")]
+        public async Task<IActionResult> GetTotalPagesCategory_Detail([FromQuery] Guid id, [FromQuery] string searchQuery = "")
+        {
+            var ordersDTO = await orderService.GetAllOrders(id, searchQuery);
+            // Check if the list is null or empty
             if (ordersDTO == null || !ordersDTO.Any())
             {
-                return NotFound();
+                // Return 0 pages if no orders are found
+                return Ok(0);
             }
 
-            return Ok(ordersDTO);
+            // Get the total number of records
+            var totalRecords = ordersDTO.Count;
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 5); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("GetOrdersStats_UserDetail")]
+        public async Task<IActionResult> GetOrdersStats_UserDetail([FromQuery] Guid id)
+        {
+            var totalOrders = await orderService.TotalOrdersByUser(id);
+            var totalOrdersPending = await orderService.TotalOrdersPendingByUser(id);
+            var totalOrdersSuccess = await orderService.TotalOrdersSuccessByUser(id);
+            var SumOrder = await orderService.SumCompletedOrdersAmountByUser(id);
+
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                SumOrder = SumOrder
+            });
         }
 
         // URL - /api/Order/OrderDetail/id
@@ -55,7 +100,6 @@ namespace QLBanHang_API.Controllers
             {
                 return NotFound();
             }
-
             return Ok(orderDetailDTO);
         }
 
@@ -284,7 +328,46 @@ namespace QLBanHang_API.Controllers
                 htmlContent = GeneratePaymentHtml("Giao dịch thành công", transaction.TransactionId.ToString(), transaction.Amount, "Hoàn thành", "success");
                 return Content(htmlContent, "text/html");
             }
+        }
 
+        [HttpGet("GetFilterOrdered")]
+        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var orders = await orderService.GetFilteredOrders(page, pageSize, searchQuery, sortCriteria, isDescending);
+
+            return Ok(orders);
+        }
+
+        [HttpGet("TotalPagesOrdered")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await orderService.GetTotalOrdersAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("TotalOrders")]
+        public async Task<IActionResult> TotalOrders()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            return Ok(totalOrders);
+        }
+
+        [HttpGet("GetOrdersStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            var totalOrdersPending = await orderService.TotalOrdersPending();
+            var totalOrdersSuccess= await orderService.TotalOrdersSuccess();
+            var totalOrdersCancel = await orderService.TotalOrdersCancel();
+
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                OrderCancel = totalOrdersCancel
+            });
         }
     }
 }
