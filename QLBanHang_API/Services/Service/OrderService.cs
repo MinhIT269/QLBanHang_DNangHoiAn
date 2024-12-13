@@ -5,9 +5,7 @@ using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
 using QLBanHang_API.Dto.Request;
 using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Repositories.Repository;
 using QLBanHang_API.Services.IService;
-using System.Reflection.Metadata.Ecma335;
 
 namespace QLBanHang_API.Services.Service
 {
