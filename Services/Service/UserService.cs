@@ -17,7 +17,7 @@ namespace PBL6.Services.Service
         public UserService (IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
-            mapper = mapper;
+            this.mapper = mapper;
         }
         public async Task<User> GetUserByUsernameAsync(string username)
         {
@@ -85,6 +85,12 @@ namespace PBL6.Services.Service
             return true;
         }
 
-   
+        public async Task<int> GetTotalUserAsync(string searchQuery)
+        {
+            var query = _userRepository.GetFilteredUsers(searchQuery, "name", false);
+            return await query.CountAsync();
+        }
+
+
     }
 }

@@ -1,257 +1,177 @@
-﻿@model PBL6_QLBH.Dto.Request.EmailOrderModel
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
-
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa đơn</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+            body {
+            background-color: #f8f9fa;
+
+        }
+
+        .invoice-header {
+            background-color: #e9f7ef;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .invoice-logo {
+            height: 50px;
+            width: 50px;
+        }
+
+        .invoice-badge {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .product-img {
+            height: 50px;
+            width: 50px;
+            border-radius: 4px;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .invoice-total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- START Wrapper -->
-    <div class="wrapper">
-
-        <!-- ========== Topbar Start ========== -->
-        <header class="topbar">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <div class="d-flex align-items-center">
-                        <!-- Menu Toggle Button -->
-                        <div class="topbar-item">
-                            <button type="button" class="button-toggle-menu me-2">
-                                <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
-                            </button>
+    <div class="container my-5">
+        <!-- START Invoice Wrapper -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <!-- Invoice Header -->
+                        <div class="invoice-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <img class="invoice-logo" src="~/images/logo.png" alt="Logo">
+                                <h4 class="mt-3 mb-0">HoiAn-DNG 360</h4>
+                                <address class="mb-0 text-muted">
+                                    54 Nguyễn Lương Bằng<br>
+                                    Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng<br>
+                                    <abbr title="Phone">SĐT:</abbr> 0914 999 999
+                                </address>
+                            </div>
+                            <div>
+                                <table class="table table-borderless mb-0">
+                                    <tr>
+                                        <td class="p-0">Hóa đơn:</td>
+                                        <td class="text-end fw-bold">#INV-@Model.OrderNumber.ToString().ToUpper().Substring(0, 8)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">Ngày phát hành:</td>
+                                        <td class="text-end">
+                                            @Model.OrderDate.ToString("dd 'tháng' MM 'năm' yyyy")
+                                               
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">Số tiền:</td>
+                                        <td class="text-end fw-bold text-success">@Model.TotalAmount.ToString("#,0 VNĐ")</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">Tình trạng:</td>
+                                        <td class="text-end">
+                                            <span class="badge bg-success text-white px-3 py-2 invoice-badge">Đã thanh toán</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-
-                        <!-- Menu Toggle Button -->
-                        <div class="topbar-item">
-                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Chi Tiết Đơn Hàng</h4>
+                        <!-- Divider -->
+                        <hr class="my-4">
+                        <!-- Customer Info -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Hóa đơn từ:</h5>
+                                <p class="mb-2 fw-semibold">HoiAn-DNG.INC</p>
+                                <p class="mb-1 text-muted">54 Nguyễn Lương Bằng, Đà Nẵng</p>
+                                <p class="mb-1 text-muted">Điện thoại: 0914 999 999</p>
+                                <p class="mb-1 text-muted">Email: hoiandng@gmail.com</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <h5>Hóa đơn cho:</h5>
+                                <p class="mb-2 fw-semibold">@Model.CustomerName</p>
+                                <p class="mb-1 text-muted">@Model.CustomerAddress</p>
+                                <p class="mb-1 text-muted">Điện thoại: @Model.CustomerPhone</p>
+                                <p class="mb-1 text-muted">Email: @Model.CustomerEmail</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="d-flex align-items-center gap-1">
-
-                    
-
+                        <!-- Divider -->
+                        <hr class="my-4">
+                        <!-- Order Table -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá (VNĐ)</th>
+                                        <th class="text-end">Tổng cộng (VNĐ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in Model.Orders!)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img class="product-img me-2" src="~/images/product-placeholder.png" alt="@product.Product.Name">
+                                                    <span>@product.Product.Name</span>
+                                                </div>
+                                            </td>
+                                            <td>@product.Quantity</td>
+                                            <td>@product.Product.Price.ToString("#,0")</td>
+                                            <td class="text-end">@((product.Product.Price * product.Quantity).ToString("#,0"))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Total -->
+                        <div class="row justify-content-end">
+                            <div class="col-md-6">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td class="text-end">Tổng tiền:</td>
+                                        <td class="text-end">@Model.TotalAmount.ToString("#,0 VNĐ")</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-end">Giảm giá:</td>
+                                        <td class="text-end">
+                                            @Model.Discount
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <td class="text-end fw-bold">Tổng tiền thanh toán:</td>
+                                        <td class="text-end fw-bold invoice-total">@Model.TotalAmount.ToString("#,0 VNĐ")</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
-
-        <!-- Right Sidebar (Theme Settings) -->
-     
-        <!-- ========== Topbar End ========== -->
-        <!-- ========== App Menu Start ========== -->
-    
-        <!-- ========== App Menu End ========== -->
-        <!-- ==================================================== -->
-        <!-- Start right Content here -->
-        <!-- ==================================================== -->
-        <div class="page-content">
-
-            <!-- Start Container Fluid -->
-            <div class="container-xxl">
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Logo & title -->
-                                <div class="clearfix pb-3 bg-info-subtle p-lg-3 p-2 m-n2 rounded position-relative">
-                                    <div class="float-sm-start">
-                                        <div class="auth-logo">
-                                            <img class="logo-dark me-1" src="~/images/logo.png" alt="logo-dark" style="height: 35px !important; width: 50px !important;" />
-                                        </div>
-                                        <div class="mt-3">
-                                            <h4>HoiAn-DNG 360</h4>
-                                            <address class="mt-3 mb-0">
-                                                54 Nguyễn Lương Bằng<br>
-                                                Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng<br>
-                                                <abbr title="Phone">SĐT:</abbr> 0914 999 999
-                                            </address>
-                                        </div>
-                                    </div>
-                                    <div class="float-sm-end">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless mb-0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="p-0 pe-5 py-1">
-                                                            <p class="mb-0 text-dark fw-semibold"> Hóa đơn : </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-semibold px-0 py-1">#INV-@Model.OrderNumber.ToString().ToUpper().Substring(0, 8)</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="p-0 pe-5 py-1">
-                                                            <p class="mb-0">Ngày phát hành: </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-medium px-0 py-1">
-                                                            @(Model.OrderDate.HasValue
-                                                                ? Model.OrderDate.Value.ToString("dd 'tháng' MM 'năm' yyyy")
-                                                                : "Không có")
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="p-0 pe-5 py-1">
-                                                            <p class="mb-0">Số tiền : </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-medium px-0 py-1">@Model.TotalAmount.ToString("#,0 VNĐ")</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="p-0 pe-5 py-1">
-                                                            <p class="mb-0">Tình trạng: </p>
-                                                        </td>
-                                                        <td class="text-end px-0 py-1">
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="position-absolute top-100 start-50 translate-middle">
-                                        <img src="~/images/check-2.png" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-
-                                <div class="clearfix pb-3 mt-4">
-                                    <div class="float-sm-start">
-                                        <div class="">
-                                            <h4 class="card-title">Hóa đơn từ :</h4>
-                                            <div class="mt-3">
-                                                <h4>HoiAn-DNG.INC</h4>
-                                                <p class="mb-2">54 Nguyễn Lương Bằng, Đà Nẵng</p>
-                                                <p class="mb-2"><span class="text-decoration-underline">Điện thoại :</span> 0914 999 999</p>
-                                                <p class="mb-2"><span class="text-decoration-underline">Email :</span> hoiandng@gmail.com</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="float-sm-end">
-                                        <div class="">
-                                            <h4 class="card-title">Hóa đơn cho :</h4>
-                                            <div class="mt-3">
-                                                <h4>@Model.CustomerName</h4>
-                                                <p class="mb-2">@Model.CustomerAddress</p>
-                                                <p class="mb-2"><span class="text-decoration-underline">Điện thoại :</span> @Model.CustomerPhone</p>
-                                                <p class="mb-2"><span class="text-decoration-underline">Email :</span> @Model.CustomerEmail</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                @{
-                                    // Tính tổng tiền của tất cả sản phẩm
-                                    var totalAmount = Model.TotalAmount;
-                                }
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="table-responsive table-borderless text-nowrap table-centered">
-                                            <table class="table mb-0">
-                                                <thead class="bg-light bg-opacity-50">
-                                                    <tr>
-                                                        <th class="border-0 py-2">Tên sản phẩm</th>
-                                                        <th class="border-0 py-2">Số lượng</th>
-                                                        <th class="border-0 py-2">Giá(VNĐ) </th>
-                                                        <th class="text-end border-0 py-2">Tổng cộng(VNĐ)</th>
-                                                    </tr>
-                                                </thead> <!-- end thead -->
-                                                <tbody>
-                                                    @foreach (var product in Model.Orders!)
-                                                    {
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center gap-3">
-                                                                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
-                                                                      <img src="" alt="@product.Product.Name" class="avatar">
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>@product.Quantity</td> <!-- Giả sử số lượng luôn là 1 -->
-                                                            <td>@product.Product.Price.ToString("#,0")</td>
-                                                            <td class="text-end">@((product.Product.Price * product.Quantity).ToString("#,0"))</td>
-                                                        </tr>
-                                                    }
-                                                </tbody> <!-- end tbody -->
-                                            </table> <!-- end table -->
-                                        </div> <!-- end table responsive -->
-                                    </div> <!-- end col -->
-                                </div> <!-- end row -->
-
-                                <div class="row justify-content-end">
-                                    <div class="col-lg-5 col-6">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless mb-0">
-                                                <tbody>
-                                                    <tr class="">
-                                                        <td class="text-end p-0 pe-5 py-2">
-                                                            <p class="mb-0"> Tổng Tiền(VNĐ) : </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-medium  py-2">@totalAmount.ToString("#,0") </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-end p-0 pe-5 py-2">
-                                                            <p class="mb-0">Giảm giá : </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-medium py-2">
-                                                            @(Model.Discount.HasValue ? $"{Model.Discount}%" : "0%")
-                                                        </td>
-                                                    </tr>
-                                                    @*                                                     <tr>
-                                                    <td class="text-end p-0 pe-5 py-2">
-                                                    <p class="mb-0">Estimated Tax (15.5%) : </p>
-                                                    </td>
-                                                    <td class="text-end text-dark fw-medium  py-2">$20.00</td>
-                                                    </tr> *@
-                                                    <tr class="border-top">
-                                                        <td class="text-end p-0 pe-5 py-2">
-                                                            <p class="mb-0 text-dark fw-semibold">Tổng tiền thanh toán : </p>
-                                                        </td>
-                                                        <td class="text-end text-dark fw-semibold  py-2">@Model.TotalAmount.ToString("#,0 VNĐ")</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row -->
-
-                                <div class="mt-3 mb-1">
-                                    <div class="text-end d-print-none">
-
-                                    </div>
-                                </div>
-
-                            </div> <!-- end card body -->
-                        </div> <!-- end card -->
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
-
-            </div>
-            <!-- End Container Fluid -->
-            <!-- ========== Footer Start ========== -->
-          
-            <!-- ========== Footer End ========== -->
-
         </div>
-        <!-- ==================================================== -->
-        <!-- End Page Content -->
-        <!-- ==================================================== -->
-
+        <!-- END Invoice Wrapper -->
     </div>
-    <!-- END Wrapper -->
-    <!-- Vendor Javascript (Require in all Page) -->
-    <script src="~/js/vendor.js"></script>
 
-    <!-- App Javascript (Require in all Page) -->
-    <script src="~/js/app.js"></script>
-    <script>
-        function exportPDF(orderId) {
-            // Chuyển hướng kèm OrderId qua query string
-            window.location.href = `/Admin/Order/PDF?id=${orderId}`;
-        }
-    </script>
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

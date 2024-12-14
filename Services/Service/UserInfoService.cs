@@ -57,23 +57,16 @@ namespace PBL6.Services.Service
             return userInfoDto;
         }
 
-        public async Task<UserInfoDto> AddUserInfo(string username, AddUserInfoDto userInfoAddDto)
+        public async Task<UserInfoDto> AddUserInfo(AddUserInfoDto userInfoAddDto)
         {
             var userInfo = mapper.Map<UserInfo>(userInfoAddDto);
-            var userInfoDomain = await userInfoRepository.AddUserInfoAsync(username, userInfo);
+            var userInfoDomain = await userInfoRepository.AddUserInfoAsync(userInfo);
             var userInfoDto = new UserInfoDto()
             {
-                UserInfoId = userInfoDomain.UserInfoId,
                 Address = userInfoDomain.Address,
                 PhoneNumber = userInfoDomain.PhoneNumber,
                 FirstName = userInfoDomain.FirstName,
                 LastName = userInfoDomain.LastName,
-                Gender = userInfo.Gender,
-                user = new UserDto()
-                {
-                    UserName = userInfoDomain.User.UserName,
-                    Email = userInfoDomain.User.Email,
-                }
             };
             return userInfoDto;
         }

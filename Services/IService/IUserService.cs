@@ -11,5 +11,7 @@ namespace PBL6.Services.IService
         Task<User> GetUserByUsernameAsync(string username);
         Task<bool> UpdateUserInfoByUsernameAsync(string username, UpdateUserDto updatedInfo);
         Task<bool> UpdateUserAsync(string username, string password, string email);
+
+        Task<int> GetTotalUserAsync(string searchQuery);
     }
 }

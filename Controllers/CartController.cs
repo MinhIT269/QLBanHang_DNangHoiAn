@@ -62,7 +62,6 @@ namespace PBL6.Controllers
             {
                 return BadRequest("Invalid order data");
             }
-
             try
             {
                 if(newOrder.PromotionId == null)
@@ -70,7 +69,6 @@ namespace PBL6.Controllers
                     Console.WriteLine("id is null");
                 }
                 var savedOrder = await _orderService.AddOrderWithDetailsAsync(newOrder,newOrder.PromotionId.ToString());
-                Console.WriteLine("promotionId:" + newOrder.PromotionId);
 
 
 
@@ -84,7 +82,6 @@ namespace PBL6.Controllers
                     TransactionDetails = $"Thanh toán cho đơn hàng {newOrder.OrderId} {DateTime.Now}",
                 };
 
-                //await _transactionService.AddTransactionAsync(newTransaction);
                 var callbackUrl = "http://10.0.2.2:5273/api/Cart/PaymentBack";
 
                 var model = new VnPaymentRequestModel
@@ -94,7 +91,6 @@ namespace PBL6.Controllers
                     Description = $"Thanh toán đơn hàng {DateTime.Now}",
                     FullName = "Ngo Gia Bao",
                     OrderId = newOrder.OrderId,
-                     //CallbackUrl = callbackUrl
                 };
 
                 return payment switch
@@ -211,15 +207,15 @@ namespace PBL6.Controllers
                 transaction.Status = "done";
                 await _orderService.UpdateOrderAfterCompleteTransaction(order);
                 await _transactionService.SaveChangeAsync();
-                Console.WriteLine("order orderdetails:" + order.OrderDetails);
+                Console.WriteLine("order date" + order.OrderDate);
 
                 var emailOrderDetail = new EmailOrderModel
                 {
                     TotalAmount = order.TotalAmount,
                     Orders = order.OrderDetails,
-                    OrderDate = order.OrderDate,
+                    OrderDate = order.OrderDate.HasValue ? order.OrderDate.Value : DateTime.Now,
                     OrderNumber = order.OrderId.ToString(),  // Số hóa đơn
-                    CustomerName = order.User.UserName,  // Tên khách hàng
+                    CustomerName = order.User.UserInfo.FirstName +" " + order.User.UserInfo.LastName,  // Tên khách hàng
                     CustomerAddress = order.User.UserInfo.Address,  // Địa chỉ khách hàng (nếu có)
                     CustomerPhone = order.User.PhoneNumber,  // Số điện thoại khách hàng (nếu có)
                     CustomerEmail = order.User.Email,  // Email khách hàng
@@ -227,17 +223,8 @@ namespace PBL6.Controllers
                     SellerAddress = "54 Nguyễn Lương Bằng, Đà Nẵng",  // Địa chỉ người bán
                     SellerPhone = "0912346789",  // Số điện thoại người bán
                     SellerEmail = "hoandng@gmail.com",  // Email người bán
-                    Discount = order.Promotion?.Percentage,  // Giảm giá (nếu có)
+                    Discount = order.Promotion?.Percentage ?? 0,  // Giảm giá (nếu có)
                     Tax = 0,  // Thuế, nếu có
-                };
-
-
-                var emailOrder = new
-                {
-                    //user = order.User.Username,  
-                    total = order.TotalAmount,
-                    orders = order.OrderDetails,
-                    date = order.OrderDate
                 };
 
                 var viewName = "EmailTemplates/OrderConfirmation"; // Tên view của bạn trong Views/EmailTemplates

@@ -57,6 +57,21 @@ namespace PBL6.Controllers
             return Ok(new { Message = "User updated successfully" });
         }
 
+        [HttpGet("GetFilteredUsers")]
+        public async Task<IActionResult> GetFilteredUsers([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var users = await _userService.GetFilteredUsers(page, pageSize, searchQuery, sortCriteria, isDescending);
+            return Ok(users);
+        }
+
+        [HttpGet("TotalPagesUsers")]
+        public async Task<IActionResult> GetTotalPagesPromotion([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await _userService.GetTotalUserAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
 
     }
 }

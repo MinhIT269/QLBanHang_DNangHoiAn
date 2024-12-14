@@ -2,8 +2,7 @@
 using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using System;
-using System.Numerics;
+
 
 namespace PBL6.Repositories.Repository
 {
@@ -78,14 +77,27 @@ namespace PBL6.Repositories.Repository
         }
 
         // Get All Order By Username 
-        public async Task<List<Order>> GetAllOrderAsync(string? username)
+        public async Task<List<Order>> GetAllOrderAsync(Guid? id, string searchQuery)
         {
-            if (!string.IsNullOrEmpty(username))
+            if (id != null)
             {
-                var orders = await dbContext.Orders.Include(x => x.User)
-                .Include(x => x.Promotion).AsQueryable()
-                .Where(x => x.User!.UserName == username)
-                .Select(order => new Order
+                var query = dbContext.Orders
+                    .Include(x => x.User)
+                    .Include(x => x.Promotion)
+                    .AsQueryable();
+
+                // Lọc theo UserId
+                query = query.Where(x => x.UserId == id);
+
+                // Lọc theo searchQuery (nếu không null hoặc rỗng)
+                if (!string.IsNullOrEmpty(searchQuery))
+                {
+                    query = query.Where(order =>
+                        order.OrderId.ToString().Substring(0, 8).Contains(searchQuery));
+                }
+
+                // Lấy danh sách kết quả
+                var orders = await query.Select(order => new Order
                 {
                     OrderId = order.OrderId,
                     UserId = order.UserId,
@@ -94,10 +106,13 @@ namespace PBL6.Repositories.Repository
                     Status = order.Status,
                     PromotionId = order.PromotionId ?? Guid.Empty
                 }).ToListAsync();
+
                 return orders;
             }
+
             return new List<Order>();
         }
+
 
 
         // Lấy thông tin Order theo OrderId
@@ -151,7 +166,140 @@ namespace PBL6.Repositories.Repository
         {
             return await dbContext.Orders.Where(c => c.Status == "Cancel").CountAsync();
         }
+        private Boolean CheckMission1_Complete3Orders()
+        {
+            DateTime now = DateTime.Now;
+            var  orders = dbContext.Orders
+              .Where(order => order.OrderDate.HasValue 
+                    && order.OrderDate.Value.Year == now.Year 
+                    && order.OrderDate.Value.Month == now.Month 
+                    && order.Status == "completed")
+                .Take(3)
+                .ToList();
+            if(orders.Count == 3 ) { return true; }
+            return false;
+        }
 
-   
+
+        private Boolean CheckMission2_ReviewMission(Guid userId)
+        {
+             var reviews = dbContext.Reviews
+            .Where(review => review.UserId == userId) 
+            .Take(2) 
+            .ToList();
+
+            if(reviews.Count >= 2 ) { return true; }    
+            return false;
+        }
+
+        private Boolean CheckMission3_OrderedAtLeast3DiffrentProduct(Guid userId)
+        {
+            var purchasedProducts = dbContext.Orders
+           .Where(order => order.UserId == userId && order.Status == "completed")
+           .SelectMany(order => order.OrderDetails) 
+           .Select(detail => detail.ProductId)
+           .Distinct() 
+           .ToList();
+
+            if(purchasedProducts.Count >= 3 ) { return true; }
+            return false;
+        }
+
+        private Boolean CheckMission4_AppliedDiscountFor2Product(Guid userId)
+        {
+            var discountedProducts = dbContext.Products
+                .Where(product => product.PromotionPrice.HasValue && product.PromotionPrice.Value > 0)
+                .Take(2)
+                .ToList();
+
+            if (discountedProducts.Count >= 2) { return true; }
+            return false;
+        }
+
+        private Boolean CheckMission5_SpentAtLeast3500000ThisMonth(Guid userId)
+        {
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            var totalSpent = dbContext.Orders
+                .Where(order => order.UserId == userId &&
+                                order.OrderDate.HasValue &&
+                                order.OrderDate.Value.Month == currentMonth &&
+                                order.OrderDate.Value.Year == currentYear)
+                .Sum(order => order.TotalAmount);
+
+            return totalSpent >= 350000;
+        }
+
+
+        public Task<object> MissionForBeginnerStatus(Guid userId)
+        {
+
+            var missionStatus = new Dictionary<string, string>
+                {
+                    { "mission 1", CheckMission1_Complete3Orders() ? "completed" : "not completed" },
+                    { "mission 2", CheckMission2_ReviewMission(userId) ? "completed" : "not completed" },
+                    { "mission 3", CheckMission3_OrderedAtLeast3DiffrentProduct(userId) ? "completed" : "not completed" },
+                    { "mission 4", CheckMission4_AppliedDiscountFor2Product(userId) ? "completed" : "not completed" },
+                    { "mission 5" , CheckMission5_SpentAtLeast3500000ThisMonth(userId) ? "completed" : "not completed" }
+            };
+            return Task.FromResult<object>(missionStatus);
+        }
+
+        public async Task<int> TotalOrdersByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId)
+                .CountAsync();
+        }
+
+        public async Task<int> TotalOrdersSuccessByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .CountAsync();
+        }
+
+        public async Task<int> TotalOrdersPendingByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && (o.Status == "Pending" || o.Status == "Cancel"))
+                .CountAsync();
+        }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
+        {
+            return await dbContext.Orders
+                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .SumAsync(o => o.TotalAmount);
+        }
+
+        public async Task<Order> CreateOrderAsync(Order order)
+        {
+            await dbContext.Orders.AddAsync(order);
+            await dbContext.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task<List<OrderDetail>> CreateOrderDetailsAsync(List<OrderDetail> orderDetails)
+        {
+            try
+            {
+                await dbContext.OrderDetails.AddRangeAsync(orderDetails);
+                foreach (var order in orderDetails)
+                {
+                    var product = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == order.ProductId);
+                    if (product != null)
+                    {
+                        product.Stock = product.Stock - order.Quantity;
+                    }
+                }
+                await dbContext.SaveChangesAsync();
+                return orderDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Does not Add to Database");
+            }
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace PBL6.Services.Service
         Task<PromotionDto> AddPromotion(AddPromotionDto promotion);
         Task<List<PromotionDto>> GetFilteredPromotionsQuery(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending);
         Task<int> GetTotalPromotionAsync(string searchQuery);
+        Task<object> GetPromotionStatsAsync();
     }
 }

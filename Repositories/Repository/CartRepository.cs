@@ -8,12 +8,12 @@ namespace PBL6.Repositories.Repository
 {
     public class CartRepository : ICartRepository
     {
-        private readonly DataContext _dataContext;
+        private readonly DataContext dataContext;
         private readonly IProductRepository _productRepository;
 
         public CartRepository(DataContext dataContext , IProductRepository productRepository)
         {
-            _dataContext = dataContext;
+            this.dataContext = dataContext;
             _productRepository = productRepository; 
         }
 
@@ -47,7 +47,7 @@ namespace PBL6.Repositories.Repository
             if (cartItem != null)
             {
                 cartItem.Quantity += 1;
-                _dataContext.Entry(cartItem).State = EntityState.Modified;
+                dataContext.Entry(cartItem).State = EntityState.Modified;
             }
             else
             {
@@ -61,13 +61,13 @@ namespace PBL6.Repositories.Repository
                 };
 
                 cart.CartItems?.Add(newCartItem);
-                _dataContext.CartItems.Add(newCartItem);
+                dataContext.CartItems.Add(newCartItem);
 
 
             }
-            _dataContext.ChangeTracker.AutoDetectChangesEnabled = false;
-            await _dataContext.SaveChangesAsync();
-            _dataContext.ChangeTracker.AutoDetectChangesEnabled = true;
+            dataContext.ChangeTracker.AutoDetectChangesEnabled = false;
+            await dataContext.SaveChangesAsync();
+            dataContext.ChangeTracker.AutoDetectChangesEnabled = true;
 
 
             return cart;
@@ -75,10 +75,73 @@ namespace PBL6.Repositories.Repository
 
         public async Task<Cart?> GetCartByUserIdAsync(Guid userId)
         {
-            return await _dataContext.Carts
+            return await dataContext.Carts
               .Include(c => c.CartItems)
                 .ThenInclude(c => c.Product)
               .FirstOrDefaultAsync(c => c.UserId == userId);
+        }
+
+
+        public async Task<List<Cart>> GetCartItemDetails()
+        {
+            return await dataContext.Carts.Include(c => c.CartItems).ThenInclude(ci => ci.Product).ToListAsync();
+        }
+
+        public async Task<List<CartItem>> GetAllCartItemAsync(string userName)
+        {
+            var CartId = await dataContext.Carts
+                        .Where(x => x.User.UserName == userName)
+                        .Select(x => x.CartId)
+                        .FirstOrDefaultAsync();
+
+            var cartItems = await dataContext.CartItems
+                                .Include(x => x.Product)
+                                .Where(p => p.CartId == CartId).ToListAsync();
+            return cartItems;
+        }
+
+        public async Task<CartItem> AddCartItemAsync(CartItem cartItem)
+        {
+            await dataContext.CartItems.AddAsync(cartItem);
+            await dataContext.SaveChangesAsync();
+            return cartItem;
+        }
+
+        public async Task<List<CartItem>> DeleteCartItemAsync(List<CartItem> cartItems)
+        {
+            var deleteItems = new List<CartItem>();
+            foreach (var item in cartItems)
+            {
+                var deleteItem = await dataContext.CartItems.FirstOrDefaultAsync(x => x.CartItemId == item.CartItemId);
+                if (deleteItem != null)
+                {
+                    dataContext.CartItems.Remove(deleteItem);
+                    deleteItems.Add(deleteItem);
+                }
+            }
+            await dataContext.SaveChangesAsync();
+            return deleteItems;
+        }
+        public async Task<List<CartItem>> UpdateCartItemAsync(List<CartItem> cartItems)
+        {
+            try
+            {
+                var cartId = cartItems.First().CartId;
+                var cart = dataContext.CartItems.Where(x => x.CartId == cartId).ToList();
+                if (cart == null)
+                {
+                    return null;
+                }
+                dataContext.RemoveRange(cart);
+                await dataContext.AddRangeAsync(cartItems);
+                await dataContext.SaveChangesAsync();
+                return cartItems;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Có lỗi khi cập nhật giỏ hàng.", ex);
+            }
+
         }
     }
 }

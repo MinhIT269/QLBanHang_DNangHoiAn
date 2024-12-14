@@ -6,9 +6,10 @@ namespace PBL6.Repositories.IRepository
     {
         Task AddOrderAsync(Order order);
         Task SaveChangesAsync();
+        Task<List<OrderDetail>> CreateOrderDetailsAsync(List<OrderDetail> orderDetails);
         Task<Order> GetOrderByIdAsync(Guid orderId);
         IQueryable<Order> GetOrdersByStatus(string status);
-        Task<List<Order>> GetAllOrderAsync(string? username);
+        Task<List<Order>> GetAllOrderAsync(Guid? id, string searchQuery);
         Task<Order> GetOrderDetailAsync(Guid? id);
         Task<Order> UpdateOrderAsync(Guid id, string status);
         IQueryable<Order> GetFilteredOrders(string searchQuery, string sortCriteria, bool isDescending);
@@ -16,6 +17,14 @@ namespace PBL6.Repositories.IRepository
         Task<int> TotalOrdersSuccess();
         Task<int> TotalOrdersPending();
         Task<int> TotalOrdersCancel();
+
+        Task<int> TotalOrdersByUser(Guid userId);
+        Task<int> TotalOrdersSuccessByUser(Guid userId);
+        Task<int> TotalOrdersPendingByUser(Guid userId);
+        Task<decimal> SumCompletedOrdersAmountByUser(Guid userId);
+        Task<Object> MissionForBeginnerStatus(Guid userId);
+
+        Task<Order> CreateOrderAsync(Order order);
 
     }
 }

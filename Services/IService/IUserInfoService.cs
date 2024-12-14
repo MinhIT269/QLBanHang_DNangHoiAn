@@ -7,6 +7,6 @@ namespace PBL6.Services.IService
     {
         Task<UserInfoDto> GetByUserName(string userName);
         Task<UserInfoDto> UpdateUserInfo(string username, UpdateUserInfoDto userUpdate);
-        Task<UserInfoDto> AddUserInfo(string username, AddUserInfoDto userInfoDto);
+        Task<UserInfoDto> AddUserInfo(AddUserInfoDto userInfoAddDto);
     }
 }

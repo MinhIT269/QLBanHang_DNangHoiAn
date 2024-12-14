@@ -7,6 +7,6 @@ namespace PBL6.Repositories.IRepository
     {
         Task<UserInfo> GetByUserNameAsync(string username);
         Task<UserInfo> UpdateAsync(string username, UpdateUserInfoDto userInfo);
-        Task<UserInfo> AddUserInfoAsync(string username, UserInfo userInfo);
+        Task<UserInfo> AddUserInfoAsync(UserInfo userInfo);
     }
 }

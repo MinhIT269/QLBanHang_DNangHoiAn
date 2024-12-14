@@ -213,6 +213,13 @@ namespace PBL6.Services.ServiceImpl
             var result = await _productRepository.DeleteProductAsync(id);
             return result;
         }
+
+        public async Task<List<ProductDto>> GetProductFromQuery(string? search, string? category, string? brandName, int page, bool isDescending)
+        {
+            var productsDomain = await _productRepository.GetProductFromQueryAsync(search, category, brandName, page, isDescending);
+            var productsDto = _mapper.Map<List<ProductDto>>(productsDomain);
+            return productsDto;
+        }
         private List<string> ExtractImageUrlsFromDescription(string description)
         {
             var urls = new List<string>();

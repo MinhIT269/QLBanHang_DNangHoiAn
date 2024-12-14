@@ -330,7 +330,7 @@ namespace PBL6.Repositories.Repository
               && o.OrderDate >= DateTime.Now.AddDays(-7)) 
               .Include(o => o.OrderDetails)
               .ThenInclude(od => od.Product)
-               .ThenInclude(p => p.ProductCategories)  // Bao gồm thông tin về ProductCategories
+               .ThenInclude(p => p.ProductCategories)  
         .ThenInclude(pc => pc.Category)
              .AsSplitQuery()
               .ToListAsync();
@@ -346,6 +346,8 @@ namespace PBL6.Repositories.Repository
 
             return await _dataContext.Products
               .Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)))
+               .Include(p => p.Brand) 
+                .ThenInclude(b => b.Locations)
               .Skip(skip)
               .Take(take)
               .ToListAsync();
@@ -370,6 +372,28 @@ namespace PBL6.Repositories.Repository
             var newProducts = await _dataContext.Products.Where(p => p.CreatedDate >= recentDate).ToListAsync();
 
             return newProducts.Count;
+        }
+
+        public async Task<List<Product>> GetProductFromQueryAsync(string? search, string? category, string? brandName, int page, bool isDescending)
+        {
+            var products = GetAllProducts();
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(p => EF.Functions.Collate(p.Name!, "SQL_Latin1_General_CP1_CI_AI").Contains(search.Trim()));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                products = products.Include(p => p.ProductCategories!).ThenInclude(p => p.Category!.CategoryName)
+                    .Where(p => p.ProductCategories!.FirstOrDefault()!.Category!.CategoryName == category);
+            }
+            if (!string.IsNullOrEmpty(brandName))
+            {
+                products = products.Where(p => EF.Functions.Collate(p.Brand!.BrandName!, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName.Trim()));
+            }
+
+            var skipResult = (page - 1) * 8;
+            return await products.Skip(skipResult).Take(8).ToListAsync();
         }
     }
 }

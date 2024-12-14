@@ -23,6 +23,7 @@ namespace PBL6.Repositories.IRepository
         Task<List<Product>> GetNewProducts(int skip, int take);
 
         Task<List<Product>> GetSuggestedProductsByCategory(Guid userId,int skip,int take);
+        Task<List<Product>> GetProductFromQueryAsync(string? search, string? category, string? brandName, int page, bool isDescending);
 
         Task<int> GetLowStockProducts();
         Task<int> GetNewProducts();

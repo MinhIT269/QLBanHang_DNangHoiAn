@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PBL6.Dto;
+using PBL6.Dto.Request;
 using PBL6.Repositories.IRepository;
 using PBL6.Repositories.Repository;
 using PBL6_BackEnd.Services.Service;
@@ -91,17 +92,6 @@ namespace PBL6_BackEnd.Services.ServiceImpl
             await orderRepository.SaveChangesAsync();
         }
 
-        public async Task<List<OrderDto>> GetAllOrders(string username)
-        {
-            var ordersDomain = await orderRepository.GetAllOrderAsync(username);
-            if (ordersDomain == null || !ordersDomain.Any())
-            {
-                return null;
-            }
-            var ordersDto = mapper.Map<List<OrderDto>>(ordersDomain);
-            return ordersDto;
-        }
-
         public async Task<OrderDetailDto> GetOrderDetails(Guid id)
         {
             var orderDetailDomain = await orderRepository.GetOrderDetailAsync(id);
@@ -158,6 +148,70 @@ namespace PBL6_BackEnd.Services.ServiceImpl
             return await orderRepository.TotalOrdersCancel();
         }
 
+        public Task<object> CheckMissionForBeginner(Guid userId)
+        {
+            return orderRepository.MissionForBeginnerStatus(userId);
+        }
 
+        public async Task<List<OrderDto>> GetAllOrders(Guid id, string searchQuery, int page = 1, int pageSize = 5)
+        {
+            var ordersDomain = await orderRepository.GetAllOrderAsync(id, searchQuery);
+
+            if (ordersDomain == null || !ordersDomain.Any())
+            {
+                return null;
+            }
+
+            // Áp dụng phân trang
+            ordersDomain = ordersDomain
+                .Skip((page - 1) * pageSize) // Bỏ qua số lượng phần tử của các trang trước đó
+                .Take(pageSize) // Lấy số lượng phần tử giới hạn cho trang hiện tại
+                .ToList();
+
+            // Chuyển đổi sang DTO
+            var ordersDto = mapper.Map<List<OrderDto>>(ordersDomain);
+            return ordersDto;
+        }
+
+        public async Task<OrderDto> CreateOrder(OrderRequest orderRequest)
+        {
+            var orderAdd = new Order()
+            {
+                OrderId = orderRequest.OrderId,
+                UserId = orderRequest.UserId,
+                OrderDate = orderRequest.OrderDate,
+                TotalAmount = orderRequest.TotalAmount,
+                Status = orderRequest.Status,
+                PromotionId = orderRequest.PromotionId
+            };
+            var orderDomain = await orderRepository.CreateOrderAsync(orderAdd);
+            var orderDto = mapper.Map<OrderDto>(orderDomain);
+            return orderDto;
+        }
+
+        public async Task<List<OrderDetailDto>> CreateOrderDetail(List<OrderDetailsRequest> orderDetailsRequests)
+        {
+            var orderDetailsAdd = mapper.Map<List<OrderDetail>>(orderDetailsRequests);
+            var orderDetailDomain = await orderRepository.CreateOrderDetailsAsync(orderDetailsAdd);
+            var orderDetailDto = mapper.Map<List<OrderDetailDto>>(orderDetailDomain);
+            return orderDetailDto;
+        }
+
+        public async Task<int> TotalOrdersByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersByUser(userId);
+        }
+        public async Task<int> TotalOrdersSuccessByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersSuccessByUser(userId);
+        }
+        public async Task<int> TotalOrdersPendingByUser(Guid userId)
+        {
+            return await orderRepository.TotalOrdersPendingByUser(userId);
+        }
+        public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
+        {
+            return await orderRepository.SumCompletedOrdersAmountByUser(userId);
+        }
     }
 }

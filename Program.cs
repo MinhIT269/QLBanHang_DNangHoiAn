@@ -33,7 +33,9 @@ builder.Services.AddScoped<IUserInfoService, UserInfoService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IImageService, ImageService>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
 
 
 
@@ -51,6 +53,7 @@ builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();  
 
 
 
@@ -99,6 +102,7 @@ app.UseStaticFiles();
 
 
 app.UseRouting();
+app.UseCors();
 
 app.UseAuthorization();
 

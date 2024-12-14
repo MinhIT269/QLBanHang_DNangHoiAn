@@ -57,14 +57,8 @@ namespace PBL6.Repositories.Repository
         }
 
         //Add
-        public async Task<UserInfo> AddUserInfoAsync(string username, UserInfo userInfo)
+        public async Task<UserInfo> AddUserInfoAsync(UserInfo userInfo)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
-            if (user == null)
-            {
-                return null;
-            }
-            userInfo.UserId = user.UserId;
             userInfo.UserInfoId = Guid.NewGuid();
             await dbContext.UserInfos.AddAsync(userInfo);
             await dbContext.SaveChangesAsync();

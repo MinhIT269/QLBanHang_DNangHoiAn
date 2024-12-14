@@ -117,5 +117,10 @@ namespace PBL6.Services.ServiceImpl
             var query = promotionRepository.GetFilteredPromotionsQuery(searchQuery, "name", false);
             return await query.CountAsync();
         }
+
+        public async Task<object> GetPromotionStatsAsync()
+        {
+            return await promotionRepository.GetPromotionStatsAsync();
+        }
     }
 }
