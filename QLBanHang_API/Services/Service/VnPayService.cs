@@ -36,7 +36,8 @@ namespace PBL6_BackEnd.Services.ServiceImpl
             if (!string.IsNullOrEmpty(promoteId))
             {
                 var promotion = await _context.Promotions.FirstOrDefaultAsync(p => p.PromotionId == Guid.Parse(promoteId));
-
+                order.DiscountPercentage = promotion.Percentage;
+                _context.SaveChangesAsync();    
                 if (promotion != null && promotion.Percentage > 0)
                 {
                     decimal discountAmount = totalPrice * (promotion.Percentage / 100);

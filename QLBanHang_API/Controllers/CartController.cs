@@ -238,9 +238,6 @@ namespace PBL6.Controllers
                 return Content(htmlContent, "text/html");
             }
 
-
-
-
            
         }
 
