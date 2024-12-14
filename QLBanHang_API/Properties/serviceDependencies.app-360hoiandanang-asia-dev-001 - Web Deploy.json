@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/app-360hoiandanang-asia-dev-001/providers/Microsoft.ServiceLinker/linkers/ConnectionStringssqlserverpbl6asiadev001_C5D5CBAC60",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sqlserver-pbl6-asia-dev-001/databases/sqldb-pbl6-asia-dev-001",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:sqlserver-pbl6-asia-dev-001.database.windows.net"
+    }
+  }
+}

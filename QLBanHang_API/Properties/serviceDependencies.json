@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:sqlserver-pbl6-asia-dev-001.database.windows.net"
+    },
+    "secrets1": {
+      "type": "secrets"
+    }
+  }
+}
