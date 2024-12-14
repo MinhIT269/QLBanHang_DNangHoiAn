@@ -1,20 +1,24 @@
-﻿using PBL6_QLBH.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using QLBanHang_API.Dto;
-using QLBanHang_API.Request;
-namespace QLBanHang_API.Dto
+
+namespace PBL6.Dto
 {
     public class OrderDetailDto
     {
-        public UserInfoDto UserInfo { get; set; }
+        public Guid OrderDetailId { get; set; }  
+        [Required]
         public Guid OrderId { get; set; }        // Foreign Key
-        public string? Status { get; set; }
-        public DateTime? OrderDate { get; set; }
-        public decimal TotalAmount { get; set; }
-        public decimal? DiscountPercentage { get; set; }
+        [Required]
+        public Guid ProductId { get; set; }      // Foreign Key
+
+        [Required, Range(1, int.MaxValue)]
+        public int Quantity { get; set; }
+
+        [Required, Range(0, double.MaxValue)]
+        [Column(TypeName = "decimal(18, 3)")]
+        public decimal UnitPrice { get; set; }
 
         //public Order? Order { get; set; }     // Navigation property
-        public List<ProductDetailOrder>? Products { get; set; } // Navigation property
+        public ProductDto? product { get; set; } // Navigation property
     }
 }

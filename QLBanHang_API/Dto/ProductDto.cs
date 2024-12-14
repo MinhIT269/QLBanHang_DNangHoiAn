@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace QLBanHang_API.Request
+namespace PBL6.Dto
 {
     public class ProductDto
     {
@@ -20,11 +20,20 @@ namespace QLBanHang_API.Request
 
         public string? Warranty { get; set; }
         // Foreign Key
-        public string? BrandName { get; set; }
+        //public string? BrandName { get; set; }
+
+        public BrandDto Brand { get; set; }
 
         // Foreign Key to Video
-        public Guid? VideoId { get; set; }
+  
         public List<string>? CategoryNames { get; set; }
+        //public List<string>? ProductImages { get; set; }
+
+
+        public VideoDto? Video { get; set; }
+        public string? BrandName { get; set; }
+
+        public ICollection<ProductCategoryDto>? ProductCategories { get; set; }
         public List<string>? ProductImages { get; set; }
 
     }

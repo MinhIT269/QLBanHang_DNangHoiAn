@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PBL6.Services.IService;
 using QLBanHang_API.Services.IService;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

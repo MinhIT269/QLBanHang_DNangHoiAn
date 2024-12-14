@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+﻿using PBL6.Services.IService;
 using QLBanHang_API.Dto.Request;
-using QLBanHang_API.Services.IService;
-using System.Net;
 using System.Net.Mail;
+using System.Net;
 
-namespace QLBanHang_API.Services.Service
+namespace PBL6.Services.Service
 {
-    public class EmailService : IEmailService 
+    public class EmailService : IEmailService
     {
         private readonly IConfiguration configuration;
-        public EmailService (IConfiguration configuration)
+        public EmailService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
@@ -36,7 +35,7 @@ namespace QLBanHang_API.Services.Service
                 await smtpClient.SendMailAsync(message);
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return false;
             }

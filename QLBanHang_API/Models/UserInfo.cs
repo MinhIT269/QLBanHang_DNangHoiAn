@@ -7,7 +7,7 @@ namespace PBL6_QLBH.Models
         [Key]
         public Guid UserInfoId { get; set; }  // Primary Key
 
-      //  [Required]
+        //  [Required]
         public Guid UserId { get; set; }  // Foreign Key
 
         [Required, StringLength(50)]

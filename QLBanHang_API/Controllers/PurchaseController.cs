@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QLBanHang_API.Services.IService;
-using QLBanHang_API.Services.Service;
+using PBL6.Services.IService;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -40,7 +39,7 @@ namespace QLBanHang_API.Controllers
         }
 
         [HttpGet("TotalPagesOrdered")]
-        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "",[FromQuery] string sortCriteria = "All")
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "", [FromQuery] string sortCriteria = "All")
         {
             var totalRecords = await _purchaseService.GetTotalOrdersAsync(searchQuery, sortCriteria);
             var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần

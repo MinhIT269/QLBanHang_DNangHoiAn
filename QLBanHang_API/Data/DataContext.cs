@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PBL6_QLBH.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace PBL6_QLBH.Data
 {
-    public class DataContext : IdentityDbContext<User,Role,Guid>
+    public class DataContext : IdentityDbContext<User, Role, Guid>
     {
         public DataContext() { }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
@@ -146,34 +146,7 @@ namespace PBL6_QLBH.Data
 
                base.OnModelCreating(modelBuilder);
            }*/
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
 
-            // Configuring relationships for other entities
 
-            modelBuilder.Entity<Cart>()
-                .HasOne(c => c.User)
-                .WithMany(u => u.Carts)
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Reviews)
-                .WithOne(r => r.User)
-                .HasForeignKey(r => r.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.PaymentDetails)
-                .WithOne(pd => pd.User)
-                .HasForeignKey(pd => pd.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Orders)
-                .WithOne(o => o.User)
-                .HasForeignKey(o => o.UserId);
-
-            // Add more relationships as needed for custom entities (e.g., Product, OrderDetail...)
-        }
     }
 }
