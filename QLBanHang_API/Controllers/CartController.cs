@@ -204,8 +204,8 @@ namespace PBL6.Controllers
             {
                 
 
-                order.Status = "done";
-                transaction.Status = "done";
+                order.Status = "completed";
+                transaction.Status = "completed";
                 await _orderService.UpdateOrderAfterCompleteTransaction(order);
                 await _transactionService.SaveChangeAsync();
                 Console.WriteLine("order date" + order.OrderDate);
