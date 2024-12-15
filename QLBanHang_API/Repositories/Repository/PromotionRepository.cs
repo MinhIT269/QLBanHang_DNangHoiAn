@@ -1,17 +1,23 @@
-﻿using PBL6_QLBH.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using Microsoft.EntityFrameworkCore;
-using QLBanHang_API.Repositories.IRepository;
-namespace QLBanHang_API.Repositories.Repository
+
+namespace PBL6.Repositories.Repository
 {
     public class PromotionRepository : IPromotionRepository
     {
         private readonly DataContext dbContext;
-        public PromotionRepository(DataContext dbContext)
-        {
-            this.dbContext = dbContext;
+
+
+        public PromotionRepository(DataContext dataContext) {
+            dbContext= dataContext; 
         }
 
+        public async Task<Promotion?> getPromotionByPromotionCode(string code)
+        {
+                return await dbContext.Promotions.FirstOrDefaultAsync(p => p.Code == code) ;
+        }
 
         //Get all Promotions 
         public async Task<List<Promotion>> GetAllPromotionAsync()
@@ -53,18 +59,10 @@ namespace QLBanHang_API.Repositories.Repository
 
         public async Task<Promotion> DeletePromotionByIdAsync(Guid id)
         {
-            var promotion = await dbContext.Promotions
-                .Include(p => p.Orders) // Bao gồm thông tin liên kết với Orders
-                .FirstOrDefaultAsync(p => p.PromotionId == id);
-
+            var promotion = await dbContext.Promotions.FirstOrDefaultAsync(x => x.PromotionId == id);
             if (promotion == null)
             {
-                throw new KeyNotFoundException("Promotion không tồn tại.");
-            }
-
-            if (promotion.Orders != null && promotion.Orders.Any())
-            {
-                throw new InvalidOperationException("Không thể xóa Promotion vì đã được sử dụng trong Orders.");
+                return null;
             }
 
             dbContext.Promotions.Remove(promotion);
@@ -85,7 +83,8 @@ namespace QLBanHang_API.Repositories.Repository
         {
             var query = dbContext.Promotions.AsQueryable();
 
-            if(!string.IsNullOrEmpty(searchQuery)){
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
                 query = query.Where(c => EF.Functions.Collate(c.Code!, "SQL_Latin1_General_CP1_CI_AI").Contains(searchQuery));
             }
 
@@ -99,6 +98,7 @@ namespace QLBanHang_API.Repositories.Repository
 
             return query;
         }
+
         public async Task<object> GetPromotionStatsAsync()
         {
             // Tổng số Promotion

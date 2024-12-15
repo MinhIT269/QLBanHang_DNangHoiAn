@@ -1,10 +1,15 @@
-﻿using QLBanHang_API.Dto;
-using QLBanHang_API.Dto.Request;
+﻿using PBL6.Dto;
+using PBL6.Dto.Request;
+using PBL6_QLBH.Models;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.IService
 {
-	public interface ICartService
-	{
+    public interface ICartService
+    {
+        Task<CartDto> AddProductToCart(Guid productId);
+
+        Task<CartDto> GetCartOfUser(Guid userId);
+
         Task<List<CartItemDto>> GetAllCartItems(string userName);
         Task<CartItemDto> AddCartItem(CartItemRequest cartItemRequest);
         Task<List<CartItemDto>> DeleteCartItem(List<CartItemRequest> cartRequest);

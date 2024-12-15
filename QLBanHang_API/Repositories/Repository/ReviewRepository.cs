@@ -1,16 +1,31 @@
-﻿using PBL6_QLBH.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
-using Microsoft.EntityFrameworkCore;
-namespace QLBanHang_API.Repositories.Repository
+
+namespace PBL6.Repositories.Repository
 {
     public class ReviewRepository : IReviewRepository
     {
         private readonly DataContext dbContext;
-        public ReviewRepository(DataContext dbContext)
+
+        public ReviewRepository(DataContext context)
         {
-            this.dbContext = dbContext;
+            dbContext= context;
         }
+
+
+        public async Task<List<Review>> GetReviewsByProduct(Guid productId, int skip, int take)
+        {
+            return await dbContext.Reviews.Where( r => r.ProductId == productId)
+                .Include(r => r.User)
+                .Include(r => r.Product)
+                .OrderByDescending(r => r.ReviewDate)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+        }
+
         // Get all Review from one Product
         public async Task<List<Review>> GetAllReviewProductAsync(Guid? productId)
         {

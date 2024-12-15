@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using QLBanHang_API.Dto;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Services.IService;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using QLBanHang_API.Repositories.Repository;
-namespace QLBanHang_API.Services.Service
+using PBL6.Dto;
+using PBL6.Repositories.IRepository;
+using PBL6.Services.IService;
+
+namespace PBL6.Services.Service
 {
     public class PurchaseService : IPurchaseService
     {
-
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IMapper mapper;
         public PurchaseService(IPurchaseRepository purchaseRepository, IMapper mapper)

@@ -1,8 +1,7 @@
-﻿using PBL6_QLBH.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace QLBanHang_API.Dto.Request
+namespace PBL6.Dto.Request
 {
     public class OrderRequest
     {

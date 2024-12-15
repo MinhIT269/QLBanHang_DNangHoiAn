@@ -17,3 +17,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = E:\PBL6\QLBanHang_API
 build_property._RazorSourceGeneratorDebug = 
+
+[E:/PBL6/QLBanHang_API/Views/EmailTemplates/OrderConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1haWxUZW1wbGF0ZXNcT3JkZXJDb25maXJtYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

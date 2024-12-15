@@ -8,7 +8,7 @@ using PBL6_QLBH.Data;
 
 #nullable disable
 
-namespace QLBanHang_API.Migrations
+namespace PBL6.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -703,8 +703,8 @@ namespace QLBanHang_API.Migrations
 
                     b.Property<string>("VideoUrl")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("VideoId");
 
@@ -865,7 +865,7 @@ namespace QLBanHang_API.Migrations
                         .IsRequired();
 
                     b.HasOne("PBL6_QLBH.Models.Video", "Video")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("VideoId");
 
                     b.Navigation("Brand");
@@ -1022,11 +1022,6 @@ namespace QLBanHang_API.Migrations
                     b.Navigation("Reviews");
 
                     b.Navigation("UserInfo");
-                });
-
-            modelBuilder.Entity("PBL6_QLBH.Models.Video", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

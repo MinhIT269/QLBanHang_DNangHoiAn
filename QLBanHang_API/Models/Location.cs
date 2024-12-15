@@ -13,6 +13,6 @@ namespace PBL6_QLBH.Models
         public string? YoutubeLink { get; set; }
 
         public Guid BrandId { get; set; }
-       // public Brand? Brand { get; set; }  // Navigation property
+        public Brand? Brand { get; set; }  // Navigation property
     }
 }

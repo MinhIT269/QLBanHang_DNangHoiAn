@@ -1,23 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL6.Dto;
+using PBL6.Services.Service;
 using QLBanHang_API.Dto;
-using QLBanHang_API.Services.IService;
-using QLBanHang_API.Services.Service;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class PromotionController : ControllerBase
+	[Route("api/[controller]")]
+	public class PromotionController : ControllerBase
     {
         private readonly IPromotionService promotionService;
+
         public PromotionController(IPromotionService promotionService)
         {
             this.promotionService = promotionService;
         }
 
-        // Lấy tất cả chương trình khuyến mãi
-        // URL - /api/Promotions/GetAll
+        [HttpGet("getPromotionCode/{code}")]
+        public async Task<ActionResult<PromotionDto>> getPromotionByPromotionCode(String code) 
+        {
+            var result = await promotionService.getPromotionByPromotionCode(code);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAllPromotions()
@@ -31,7 +36,7 @@ namespace QLBanHang_API.Controllers
         }
 
         // Lấy chương trình khuyến mãi theo mã
-         //URL - /api/Promotions/GetOne/code=?
+        //URL - /api/Promotions/GetOne/code=?
         [HttpGet]
         [Route("GetOne/{code}")]
         public async Task<IActionResult> GetPromotionByCode([FromRoute] Guid code)
@@ -92,7 +97,7 @@ namespace QLBanHang_API.Controllers
         [HttpGet("GetFilteredPromotions")]
         public async Task<IActionResult> GetFilteredPromotions([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
         {
-           var promotions = await promotionService.GetFilteredPromotionsQuery(page, pageSize, searchQuery, sortCriteria, isDescending);
+            var promotions = await promotionService.GetFilteredPromotionsQuery(page, pageSize, searchQuery, sortCriteria, isDescending);
             return Ok(promotions);
         }
 

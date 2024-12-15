@@ -1,4 +1,4 @@
-﻿namespace QLBanHang_API.Dto
+﻿namespace PBL6.Dto
 {
     public class BrandDetailDto
     {

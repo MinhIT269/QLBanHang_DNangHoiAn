@@ -1,23 +1,49 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Azure.Core;
 using Microsoft.EntityFrameworkCore;
+using PBL6.Dto;
+using PBL6.Repositories.IRepository;
+using PBL6.Services.Service;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Repositories.Repository;
-using QLBanHang_API.Services.IService;
+using System.Reflection.Metadata.Ecma335;
 
-namespace QLBanHang_API.Services.Service
+namespace PBL6.Services.ServiceImpl
 {
     public class PromotionService : IPromotionService
     {
+        private readonly DataContext _context;
         private readonly IPromotionRepository promotionRepository;
         private readonly IMapper mapper;
-        public PromotionService(IPromotionRepository promotionRepository, IMapper mapper)
+
+        public PromotionService(DataContext context , IPromotionRepository promotionRepository, IMapper mapper)
         {
+            _context = context;
             this.promotionRepository = promotionRepository;
             this.mapper = mapper;
+        }
+
+        public IQueryable<object> getAllPromotion()
+        {
+            return _context.Promotions.Select(p => new
+            {
+                p.PromotionId,
+                p.Code,
+                p.Percentage,
+                p.StartDate,
+                p.EndDate,
+                p.MaxUsage,
+                Content = $"Mã {p.Code} giảm {p.Percentage}%"
+            }).AsQueryable();
+        }
+
+        public async Task<PromotionDto> getPromotionByPromotionCode(string promotionCode)
+        {
+            Console.WriteLine("code:" + promotionCode);
+
+            var promotion = await promotionRepository.getPromotionByPromotionCode(promotionCode);
+            return mapper.Map<PromotionDto>(promotion);
         }
 
         public async Task<List<PromotionDto>> GetAllPromotion()
@@ -36,7 +62,7 @@ namespace QLBanHang_API.Services.Service
         public async Task<PromotionDto> UpdatePromotion(UpPromotionDto promotionUpdate)
         {
             var promotion = mapper.Map<Promotion>(promotionUpdate);
-            var promotionDomain = await promotionRepository.UpdatePromotionByIdAsync(promotion.PromotionId,promotion);
+            var promotionDomain = await promotionRepository.UpdatePromotionByIdAsync(promotion.PromotionId, promotion);
             var promotionDto = mapper.Map<PromotionDto>(promotionDomain);
             return promotionDto;
         }
@@ -44,7 +70,7 @@ namespace QLBanHang_API.Services.Service
         {
             var promotion = mapper.Map<Promotion>(promotionAdd);
             var promotions = await GetAllPromotion();
-            foreach(var i in promotions)
+            foreach (var i in promotions)
             {
                 if (i.Code == promotionAdd.Code)
                 {
@@ -52,7 +78,7 @@ namespace QLBanHang_API.Services.Service
                 }
             }
             var promotionDomain = await promotionRepository.AddPromotionAsync(promotion);
-            var promotionDto = mapper.Map<PromotionDto> (promotionDomain);
+            var promotionDto = mapper.Map<PromotionDto>(promotionDomain);
             return promotionDto;
         }
 
@@ -80,7 +106,7 @@ namespace QLBanHang_API.Services.Service
         {
             var query = promotionRepository.GetFilteredPromotionsQuery(searchQuery, sortCriteria, isDescending);
 
-            var pagedPromotions = await query.Skip((page-1) * pageSize)
+            var pagedPromotions = await query.Skip((page - 1) * pageSize)
                                              .Take(pageSize)
                                              .ProjectTo<PromotionDto>(mapper.ConfigurationProvider)
                                              .ToListAsync();
@@ -91,6 +117,7 @@ namespace QLBanHang_API.Services.Service
             var query = promotionRepository.GetFilteredPromotionsQuery(searchQuery, "name", false);
             return await query.CountAsync();
         }
+
         public async Task<object> GetPromotionStatsAsync()
         {
             return await promotionRepository.GetPromotionStatsAsync();

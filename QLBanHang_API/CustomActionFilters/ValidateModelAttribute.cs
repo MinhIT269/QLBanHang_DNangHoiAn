@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 
-namespace QLBanHang_API.CustomActionFilters
+namespace PBL6.CustomActionFilters
 {
-	public class ValidateModelAttribute : ActionFilterAttribute
-	{
-		public override void OnActionExecuting(ActionExecutingContext context)
-		{
-			if (context.ModelState.IsValid == false)
-			{
-				context.Result = new BadRequestResult();
-			}
-		}
-	}
+    public class ValidateModelAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (context.ModelState.IsValid == false)
+            {
+                context.Result = new BadRequestResult();
+            }
+        }
+    }
 }

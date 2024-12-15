@@ -1,18 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QLBanHang_API.Service;
+using PBL6.Dto;
+using PBL6.Services.Service;
+using PBL6_QLBH.Data;
+using PBL6_QLBH.Models;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
+        private readonly DataContext _context;
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+
+        public ProductController(DataContext context, IProductService productService)
         {
+            _context = context;
             _productService = productService;
         }
 
+        [HttpGet("getProductByName")]
+        public async Task<IActionResult> getProductByName([FromQuery] string productName, [FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsByName(productName, skip, size);
+
+            return Ok(products);
+        }
+
+        [HttpGet("getProductTrending")]
+        public async Task<IActionResult> getProductTrending([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsTrending( skip, size);
+            return Ok(products);
+        }
+
+        [HttpGet("getProductByCategory")]
+        public async Task<IActionResult> getProductsByCatagory([FromQuery] string categoryName, [FromQuery] int page = 1, [FromQuery] int size = 10, [FromQuery] bool getAll = false)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsByCategory(categoryName, skip, size,getAll);
+            return Ok(products);
+        }
+
+        [HttpGet("getProductNotYetReview")]
+
+        public async Task<IActionResult> getProducsNotYetReview([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductNotYetReview(skip, size);
+            return Ok(products);
+        }
+
+        [HttpGet("getProductNew")]
+        public async Task<IActionResult> getProductNew([FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            int skip = (page - 1) * size;
+            var products = await _productService.GetProductsNew(skip, size);
+            return Ok(products);
+        }
+
+        [HttpGet("getProductSuggestedByCategory")]
+        public async Task<IActionResult> getProductSuggestedByCategory([FromQuery]Guid userId,[FromQuery] int page = 1, [FromQuery] int size = 10)
+        {
+            Console.WriteLine("Api called");
+            int skip = (page - 1) * size;
+            var products = await _productService.GetSuggestedProductsByCategory(userId,skip, size);
+            Console.WriteLine("Products size:" + products.Count);
+
+            return Ok(products);
+        }
 
         [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProduct()
@@ -30,10 +88,6 @@ namespace QLBanHang_API.Controllers
         public async Task<IActionResult> GetProductById([FromRoute] Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);
-            if (product == null) 
-            {
-                return BadRequest();
-            }
             return Ok(product);
         }
 
@@ -59,7 +113,7 @@ namespace QLBanHang_API.Controllers
         [HttpGet]
         [Route("SearchAndCategory")]
         public async Task<IActionResult> GetProductFromQuery([FromQuery] string? search, [FromQuery] string? category,
-            [FromQuery] string? brandName, [FromQuery] int page = 1, [FromQuery] bool isDescending = false)
+           [FromQuery] string? brandName, [FromQuery] int page = 1, [FromQuery] bool isDescending = false)
         {
             var products = await _productService.GetProductFromQuery(search, category, brandName, page, isDescending);
             if (products == null)
@@ -68,6 +122,7 @@ namespace QLBanHang_API.Controllers
             }
             return Ok(products);
         }
+
         [HttpGet("GetProductStats")]
         public async Task<IActionResult> GetProductStats()
         {
@@ -76,7 +131,7 @@ namespace QLBanHang_API.Controllers
             var lowStockProducts = await _productService.GetLowStockProducts();
             var newProducts = await _productService.GetNewProducts();
 
-            return Ok( new
+            return Ok(new
             {
                 TotalProducts = totalProducts,
                 AvailableProducts = availableProducts,

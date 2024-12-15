@@ -1,18 +1,29 @@
-﻿using QLBanHang_API.Services.IService;
-using QLBanHang_API.Repositories.IRepository;
-using AutoMapper;
-using QLBanHang_API.Dto;
+﻿using AutoMapper;
+using PBL6.Dto;
+using PBL6.Repositories.IRepository;
+using PBL6.Services.IService;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-namespace QLBanHang_API.Services.Service
+using QLBanHang_API.Dto;
+using System.Net;
+
+namespace PBL6.Services.Service
 {
     public class ReviewService : IReviewService
     {
         private readonly IReviewRepository reviewRepository;
         private readonly IMapper mapper;
-        public ReviewService (IReviewRepository reviewRepository,IMapper mapper)
+
+        public ReviewService(IReviewRepository reviewRepository,IMapper mapper)
         {
             this.reviewRepository = reviewRepository;
             this.mapper = mapper;
+        }
+
+        public async Task<List<ReviewDto>> GetReviewsByProduct(Guid productId, int skip, int size)
+        {
+            var reviews = await reviewRepository.GetReviewsByProduct(productId, skip, size);
+            return mapper.Map<List<ReviewDto>>(reviews);
         }
 
         public async Task<List<ReviewDto>> GetAllReview(Guid? productId)

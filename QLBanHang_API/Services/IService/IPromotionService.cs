@@ -1,9 +1,14 @@
-﻿using QLBanHang_API.Dto;
+﻿using PBL6.Dto;
+using PBL6_QLBH.Models;
+using QLBanHang_API.Dto;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.Service
 {
     public interface IPromotionService
     {
+        public IQueryable<object> getAllPromotion();
+        public Task<PromotionDto> getPromotionByPromotionCode(string promotionCode);
+
         Task<List<PromotionDto>> GetAllPromotion();
         Task<PromotionDto> GetPromotion(Guid code);
         Task<PromotionDto> UpdatePromotion(UpPromotionDto promotion);

@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PBL6_QLBH.Models
 {
-    public class Role : IdentityRole<Guid>
+    public class Role :IdentityRole<Guid>
     {
-        
         [MaxLength(200)]
         public string Description { get; set; }
 

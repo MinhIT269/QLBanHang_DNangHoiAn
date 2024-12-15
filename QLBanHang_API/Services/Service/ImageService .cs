@@ -1,98 +1,113 @@
-﻿using System;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using QLBanHang_API.Services.IService;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using QLBanHang_API.Services.IService;
 
 public class ImageService : IImageService
 {
-    public async Task<string> UploadImageAsync(IFormFile image, Guid productId) //Tai anh len va luu vao thu muc
+    private readonly Cloudinary _cloudinary;
+
+    // Inject IConfiguration để lấy thông tin cấu hình từ appsettings.json
+    public ImageService(IConfiguration configuration)
     {
-        // Tạo thư mục dựa trên ProductId
-        var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", productId.ToString());
+        var cloudinaryConfig = configuration.GetSection("Cloudinary");
 
-        if (!Directory.Exists(imagesFolder))
-        {
-            Directory.CreateDirectory(imagesFolder);
-        }
+        var cloudinaryAccount = new Account(
+            cloudinaryConfig["CloudName"],
+            cloudinaryConfig["ApiKey"],
+            cloudinaryConfig["ApiSecret"]
+        );
 
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-        var filePath = Path.Combine(imagesFolder, fileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await image.CopyToAsync(stream);
-        }
-
-        return $"images/{productId}/{fileName}";
+        _cloudinary = new Cloudinary(cloudinaryAccount);
     }
 
-    public async Task<List<string>> GetAllImageUrlsForProductAsync(Guid productId) //lay URL ảnh của sản phẩm dựa trên productId
+    // Tải lên hình ảnh lên Cloudinary và trả về URL
+    public async Task<string> UploadImageAsync(IFormFile image, Guid productId)
     {
-        var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", productId.ToString());
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+
+        var uploadParams = new ImageUploadParams()
+        {
+            File = new FileDescription(fileName, image.OpenReadStream()), // Dùng stream của file tải lên
+            PublicId = $"products/{productId}/{fileName}" // Đặt PublicId cho ảnh
+        };
+
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+        return uploadResult?.SecureUrl?.ToString(); // Trả về URL ảnh sau khi upload
+    }
+
+    // Lấy tất cả các URL của ảnh sản phẩm từ Cloudinary
+    public async Task<List<string>> GetAllImageUrlsForProductAsync(Guid productId)
+    {
         var imageUrls = new List<string>();
 
-        if (Directory.Exists(imagesFolder))
+        // Sử dụng ListResourcesParams để lọc ảnh theo một số thông số khác
+        var listParams = new ListResourcesParams()
         {
-            var files = Directory.GetFiles(imagesFolder);
+            MaxResults = 100, // Bạn có thể điều chỉnh số lượng kết quả tối đa
+            ResourceType = ResourceType.Image // Chỉ tìm ảnh
+        };
 
-            foreach (var file in files)
+        // Lấy danh sách tài nguyên từ Cloudinary
+        var resources = await _cloudinary.ListResourcesAsync(listParams);
+
+        foreach (var resource in resources.Resources)
+        {
+            // Kiểm tra xem ảnh có chứa phần "products/{productId}" trong PublicId
+            if (resource.PublicId.Contains($"products/{productId}/"))
             {
-                var relativeUrl = file
-                .Replace(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, "")
-                .Replace(Path.DirectorySeparatorChar, '/');
-                var fullUrl = $"{relativeUrl}";
-                imageUrls.Add(fullUrl);
+                imageUrls.Add(resource.SecureUrl.ToString());
             }
         }
 
-        return await Task.FromResult(imageUrls);
+        return imageUrls;
     }
 
-    public async Task<string> UploadImageTempAsync(IFormFile image, HttpContext httpContext) // Tải lên một ảnh tạm thời (temporary) ckeditor
+    // Tải lên hình ảnh tạm thời (temporary) cho CKEditor
+    public async Task<string> UploadImageTempAsync(IFormFile image, HttpContext httpContext)
     {
-        var tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", "temp");
-
-        if (!Directory.Exists(tempFolder))
-        {
-            Directory.CreateDirectory(tempFolder);
-        }
-
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-        var filePath = Path.Combine(tempFolder, fileName);
 
-        using (var temp = new FileStream(filePath, FileMode.Create))
+        var uploadParams = new ImageUploadParams()
         {
-            await image.CopyToAsync(temp);
-        }
+            File = new FileDescription(fileName, image.OpenReadStream()),
+            PublicId = $"temp/{fileName}" // Lưu vào thư mục tạm thời
+        };
 
-        return $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/images/temp/{fileName}";
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+        return uploadResult?.SecureUrl?.ToString(); // Trả về URL ảnh tạm thời
     }
 
-    public async Task<string> UploadImageFromUrlAsync(string imageUrl, Guid productId) // Tải ảnh từ một URL và lưu vào thư mục của sản phẩm
+    // Tải ảnh từ URL và lưu vào Cloudinary
+    public async Task<string> UploadImageFromUrlAsync(string imageUrl, Guid productId)
     {
         var httpClient = new HttpClient();
         var imageData = await httpClient.GetByteArrayAsync(imageUrl);
 
-        var imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", productId.ToString());
-
-        if (!Directory.Exists(imagesFolder))
-        {
-            Directory.CreateDirectory(imagesFolder);
-        }
-
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageUrl);
-        var filePath = Path.Combine(imagesFolder, fileName);
 
-        await System.IO.File.WriteAllBytesAsync(filePath, imageData);
+        var uploadParams = new ImageUploadParams()
+        {
+            File = new FileDescription(fileName, new MemoryStream(imageData)),
+            PublicId = $"products/{productId}/{fileName}" // Đặt PublicId cho ảnh
+        };
 
-        return $"images/{productId}/{fileName}";
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+        return uploadResult?.SecureUrl?.ToString(); // Trả về URL ảnh sau khi tải lên
     }
 
-    public async Task<string> ProcessDescriptionAndUploadImages(string description, Guid productId) // Tìm tất cả các URL ảnh trong một chuỗi HTML mô tả và thay thế bằng các URL đã được tải lên server.
+    // Xử lý mô tả và thay thế các URL ảnh trong mô tả với URL đã tải lên Cloudinary
+    public async Task<string> ProcessDescriptionAndUploadImages(string description, Guid productId)
     {
         var matches = Regex.Matches(description, "<img.*?src=\"(.*?)\"", RegexOptions.IgnoreCase);
 
@@ -103,34 +118,19 @@ public class ImageService : IImageService
                 var oldUrl = match.Groups[1].Value;
                 var newUrl = await UploadImageFromUrlAsync(oldUrl, productId);
                 description = description.Replace(oldUrl, newUrl);
-                DeleteTempImage(oldUrl);
             }
         }
+
         return description;
     }
 
+    // Xóa ảnh khỏi Cloudinary
     public async Task<bool> DeleteImageAsync(string imageUrl)
     {
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), imageUrl.Replace("/", Path.DirectorySeparatorChar.ToString()));
+        var deleteParams = new DeletionParams(imageUrl); // Sử dụng DeletionParams để xóa ảnh
 
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-            return true; // Xóa thành công
-        }
+        var deletionResult = await _cloudinary.DestroyAsync(deleteParams);
 
-        return false; // File không tồn tại hoặc không thể xóa
-    }
-
-    private void DeleteTempImage(string imageUrl) // Xóa ảnh tạm thời trong thư mục temp dựa trên URL
-    {
-        var tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", "temp");
-        var fileName = Path.GetFileName(new Uri(imageUrl).LocalPath);
-        var filePath = Path.Combine(tempFolder, fileName);
-
-        if (File.Exists(filePath))
-        {
-            File.Delete(filePath);
-        }
+        return deletionResult?.Result == "ok"; // Trả về true nếu xóa thành công
     }
 }

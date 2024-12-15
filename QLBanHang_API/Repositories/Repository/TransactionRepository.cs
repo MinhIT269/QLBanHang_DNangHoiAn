@@ -1,8 +1,10 @@
-﻿using PBL6_QLBH.Data;
-using QLBanHang_API.Repositories.IRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using Microsoft.EntityFrameworkCore;
-namespace QLBanHang_API.Repositories.Repository
+using System;
+
+namespace PBL6.Repositories.Repository
 {
     public class TransactionRepository : ITransactionRepository
     {
@@ -22,7 +24,7 @@ namespace QLBanHang_API.Repositories.Repository
         public async Task AddTransactionAsync(Transaction transaction)
         {
             await _context.Transactions.AddAsync(transaction);
-
+          
         }
 
         public async Task SaveChangeAsync()

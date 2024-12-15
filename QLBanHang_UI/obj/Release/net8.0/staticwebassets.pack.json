@@ -1,0 +1,1737 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\bootstrap\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\bootstrap\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\bootstrap\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\animate.min.css",
+      "PackagePath": "staticwebassets\\css\\animate.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\app.min.css",
+      "PackagePath": "staticwebassets\\css\\app.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\demo9.min.css",
+      "PackagePath": "staticwebassets\\css\\demo9.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\icons.min.css",
+      "PackagePath": "staticwebassets\\css\\icons.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\main-design-image.css",
+      "PackagePath": "staticwebassets\\css\\main-design-image.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\simple-line-icons.min.css",
+      "PackagePath": "staticwebassets\\css\\simple-line-icons.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\style.min.css",
+      "PackagePath": "staticwebassets\\css\\style.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\css\\vendor.min.css",
+      "PackagePath": "staticwebassets\\css\\vendor.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\Simple-Line-Iconsec97.eot",
+      "PackagePath": "staticwebassets\\fonts\\Simple-Line-Iconsec97.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\Simple-Line-Iconsec97.svg",
+      "PackagePath": "staticwebassets\\fonts\\Simple-Line-Iconsec97.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\Simple-Line-Iconsec97.ttf",
+      "PackagePath": "staticwebassets\\fonts\\Simple-Line-Iconsec97.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\Simple-Line-Iconsec97.woff",
+      "PackagePath": "staticwebassets\\fonts\\Simple-Line-Iconsec97.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\boxicons.eot",
+      "PackagePath": "staticwebassets\\fonts\\boxicons.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\boxicons.ttf",
+      "PackagePath": "staticwebassets\\fonts\\boxicons.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\boxicons.woff",
+      "PackagePath": "staticwebassets\\fonts\\boxicons.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\boxicons.woff2",
+      "PackagePath": "staticwebassets\\fonts\\boxicons.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\boxiconsd41d.svg",
+      "PackagePath": "staticwebassets\\fonts\\boxiconsd41d.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\porto6e1d.eot",
+      "PackagePath": "staticwebassets\\fonts\\porto6e1d.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\porto6e1d.svg",
+      "PackagePath": "staticwebassets\\fonts\\porto6e1d.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\porto6e1d.ttf",
+      "PackagePath": "staticwebassets\\fonts\\porto6e1d.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\porto6e1d.woff",
+      "PackagePath": "staticwebassets\\fonts\\porto6e1d.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\porto6e1d.woff2",
+      "PackagePath": "staticwebassets\\fonts\\porto6e1d.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\tabler-icons3026.ttf",
+      "PackagePath": "staticwebassets\\fonts\\tabler-icons3026.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\tabler-icons3026.woff2",
+      "PackagePath": "staticwebassets\\fonts\\tabler-icons3026.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\fonts\\tabler-iconsd41d.woff",
+      "PackagePath": "staticwebassets\\fonts\\tabler-iconsd41d.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\404-error.png",
+      "PackagePath": "staticwebassets\\images\\404-error.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\background\\DNHA.jpg",
+      "PackagePath": "staticwebassets\\images\\background\\DNHA.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\banners\\banner-fashion-1.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\banner-fashion-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\banners\\banner-fashion-2.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\banner-fashion-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\banners\\banner-sidebar-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\banner-sidebar-bg.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\banners\\banner-sidebar.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\banner-sidebar.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\banners\\banner-top.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\banner-top.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\blog\\author.jpg",
+      "PackagePath": "staticwebassets\\images\\blog\\author.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\blog\\post-1.jpg",
+      "PackagePath": "staticwebassets\\images\\blog\\post-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brand1.png",
+      "PackagePath": "staticwebassets\\images\\brand1.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brand2.png",
+      "PackagePath": "staticwebassets\\images\\brand2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brand3.png",
+      "PackagePath": "staticwebassets\\images\\brand3.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brand6.png",
+      "PackagePath": "staticwebassets\\images\\brand6.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand1.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand1.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand2.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand3.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand3.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand4.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand4.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand5.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand5.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\brand6.png",
+      "PackagePath": "staticwebassets\\images\\brands\\brand6.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\dhl.png",
+      "PackagePath": "staticwebassets\\images\\brands\\dhl.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\fedex.png",
+      "PackagePath": "staticwebassets\\images\\brands\\fedex.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand1.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand1.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand2.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand3.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand3.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand4.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand4.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand5.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand5.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\small\\brand6.png",
+      "PackagePath": "staticwebassets\\images\\brands\\small\\brand6.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\brands\\ups.png",
+      "PackagePath": "staticwebassets\\images\\brands\\ups.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\check-2.png",
+      "PackagePath": "staticwebassets\\images\\check-2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\coming-soon.png",
+      "PackagePath": "staticwebassets\\images\\coming-soon.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\banners\\banner.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\banners\\banner.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\banners\\category-banner.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\banners\\category-banner.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-1-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-1-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-1-hover.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-1-hover.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-1.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-10-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-10-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-10.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-10.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-11-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-11-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-11.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-11.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-12-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-12-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-12.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-12.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-14.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-14.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-3-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-3-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-3.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-5-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-5-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-6-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-6-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-7.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-7.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\products\\product-9.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\products\\product-9.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\slider\\slide-1-badge.png",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\slider\\slide-1-badge.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\slider\\slide-1.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\slider\\slide-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\demoes\\demo9\\slider\\slide-2.jpg",
+      "PackagePath": "staticwebassets\\images\\demoes\\demo9\\slider\\slide-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\double.png",
+      "PackagePath": "staticwebassets\\images\\double.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\flags.png",
+      "PackagePath": "staticwebassets\\images\\flags.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\hinh 2.jpg",
+      "PackagePath": "staticwebassets\\images\\hinh 2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\icons\\favicon.png",
+      "PackagePath": "staticwebassets\\images\\icons\\favicon.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\lazy.png",
+      "PackagePath": "staticwebassets\\images\\lazy.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\logo-black.png",
+      "PackagePath": "staticwebassets\\images\\logo-black.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\logo-footer.png",
+      "PackagePath": "staticwebassets\\images\\logo-footer.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\logo-white.png",
+      "PackagePath": "staticwebassets\\images\\logo-white.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\maintenance-2.png",
+      "PackagePath": "staticwebassets\\images\\maintenance-2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\menu-banner-1.jpg",
+      "PackagePath": "staticwebassets\\images\\menu-banner-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\menu-banner.jpg",
+      "PackagePath": "staticwebassets\\images\\menu-banner.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\momo.jpg",
+      "PackagePath": "staticwebassets\\images\\momo.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\newsletter_popup_bg.jpg",
+      "PackagePath": "staticwebassets\\images\\newsletter_popup_bg.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\page-header-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\page-header-bg.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\party.png",
+      "PackagePath": "staticwebassets\\images\\party.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\payments\\payment-paypal.svg",
+      "PackagePath": "staticwebassets\\images\\payments\\payment-paypal.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\payments\\payment-stripe.png",
+      "PackagePath": "staticwebassets\\images\\payments\\payment-stripe.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\payments\\payment-verisign.svg",
+      "PackagePath": "staticwebassets\\images\\payments\\payment-verisign.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\payments\\payment-visa.svg",
+      "PackagePath": "staticwebassets\\images\\payments\\payment-visa.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\phone.png",
+      "PackagePath": "staticwebassets\\images\\phone.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-1(1).png",
+      "PackagePath": "staticwebassets\\images\\product-1(1).png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-1(2).jpg",
+      "PackagePath": "staticwebassets\\images\\product-1(2).jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-1-2.jpg",
+      "PackagePath": "staticwebassets\\images\\product-1-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-5-2.jpg",
+      "PackagePath": "staticwebassets\\images\\product-5-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-5.jpg",
+      "PackagePath": "staticwebassets\\images\\product-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product-5.png",
+      "PackagePath": "staticwebassets\\images\\product-5.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-1.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-1.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-10.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-10.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-11.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-11.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-12.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-12.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-13.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-13.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-14.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-14.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-2.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-2.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-3.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-3.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-4.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-4.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-5.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-5.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-6.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-6.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-7.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-7.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-8.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-8.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\product\\p-9.png",
+      "PackagePath": "staticwebassets\\images\\product\\p-9.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\grid\\product-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\grid\\product-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\grid\\product-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\grid\\product-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\grid\\product-3-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\grid\\product-3-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\grid\\product-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\grid\\product-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\grid\\product-4.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\grid\\product-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-1(1).png",
+      "PackagePath": "staticwebassets\\images\\products\\product-1(1).png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-1(2).jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-1(2).jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-1-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-1-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-10-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-10-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-10.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-10.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-11-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-11-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-11.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-11.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-12-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-12-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-12.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-12.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-13.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-13.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-14.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-14.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-15.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-15.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-16.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-16.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-17.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-17.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-18.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-18.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-19.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-19.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-2-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-2-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-20.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-20.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-21.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-21.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-22.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-22.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-23.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-23.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-24.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-24.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-25.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-25.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-26.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-26.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-27.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-27.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-29.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-29.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-3-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-3-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-30.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-30.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-4-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-4-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-4.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-4.png",
+      "PackagePath": "staticwebassets\\images\\products\\product-4.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-40.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-40.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-41.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-41.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-42.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-42.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-43.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-43.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-44.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-44.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-45.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-45.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-46.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-46.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-47.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-47.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-48.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-48.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-5-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-5-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-5.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-5.png",
+      "PackagePath": "staticwebassets\\images\\products\\product-5.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-50.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-50.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-51.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-51.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-52.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-52.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-53.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-53.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-54.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-54.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-55.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-55.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-56.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-56.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-57.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-57.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-58.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-58.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-59.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-59.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-6-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-6-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-6.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-6.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-6.png",
+      "PackagePath": "staticwebassets\\images\\products\\product-6.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-60.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-60.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-61.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-61.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-62.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-62.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-63.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-63.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-64.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-64.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-65.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-65.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-66.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-66.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-67.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-67.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-68.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-68.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-69.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-69.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-7-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-7-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-7.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-7.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-70.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-70.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-8-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-8-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-8.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-8.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-9-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-9-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product-9.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product-9.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product31.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product31.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product32.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product32.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product33.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product33.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product34.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product34.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product35.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product35.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product36.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product36.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product37.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product37.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product38.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product38.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\product39.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\product39.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\single\\body-shape.png",
+      "PackagePath": "staticwebassets\\images\\products\\single\\body-shape.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\single\\product-img.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\single\\product-img.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-1-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-1-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-10-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-10-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-10.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-10.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-11-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-11-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-11.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-11.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-12-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-12-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-12.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-12.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-2-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-2-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-3-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-3-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-4-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-4-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-4.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-5-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-5-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-5.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-6-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-6-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-6.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-6.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-7-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-7-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-7.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-7.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-8-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-8-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-8.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-8.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-9-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-9-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\small\\product-9.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\small\\product-9.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-1-big.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-1-big.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-2-big.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-2-big.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-3-big.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-3-big.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-4-big.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-4-big.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-4.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-5-big.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-5-big.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\products\\zoom\\product-5.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\zoom\\product-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\qr-code.png",
+      "PackagePath": "staticwebassets\\images\\qr-code.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-1.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-10.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-10.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-2.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-3.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-4.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-5.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-6.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-6.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-7.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-7.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-8.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-8.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\small\\img-9.jpg",
+      "PackagePath": "staticwebassets\\images\\small\\img-9.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\user-profile.png",
+      "PackagePath": "staticwebassets\\images\\user-profile.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-1.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-1.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-10.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-10.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-11.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-11.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-12.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-12.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-2.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-2.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-3.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-3.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-4.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-4.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-5.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-5.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-6.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-6.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-7.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-7.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-8.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-8.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\avatar-9.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\avatar-9.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\chat.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\chat.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\users\\dummy-avatar.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\dummy-avatar.jpg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\vnpay.png",
+      "PackagePath": "staticwebassets\\images\\vnpay.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\images\\zalopay.png",
+      "PackagePath": "staticwebassets\\images\\zalopay.png"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\app.js",
+      "PackagePath": "staticwebassets\\js\\app.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-area.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-area.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-bar.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-bar.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-boxplot.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-boxplot.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-bubble.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-bubble.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-candlestick.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-candlestick.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-column.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-column.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-heatmap.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-heatmap.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-line.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-line.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-mixed.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-mixed.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-pie.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-pie.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-polar-area.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-polar-area.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-radar.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-radar.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-radialbar.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-radialbar.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-scatter.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-scatter.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-timeline.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-timeline.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\apexchart-treemap.js",
+      "PackagePath": "staticwebassets\\js\\components\\apexchart-treemap.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\extended-rating.js",
+      "PackagePath": "staticwebassets\\js\\components\\extended-rating.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\extended-sweetalert.js",
+      "PackagePath": "staticwebassets\\js\\components\\extended-sweetalert.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\form-clipboard.js",
+      "PackagePath": "staticwebassets\\js\\components\\form-clipboard.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\form-flatepicker.js",
+      "PackagePath": "staticwebassets\\js\\components\\form-flatepicker.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\form-quilljs.js",
+      "PackagePath": "staticwebassets\\js\\components\\form-quilljs.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\form-slider.js",
+      "PackagePath": "staticwebassets\\js\\components\\form-slider.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-canada.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-canada.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-google.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-google.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-iraq.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-iraq.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-russia.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-russia.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-spain.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-spain.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-us-aea-en.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-us-aea-en.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-us-lcc-en.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-us-lcc-en.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-us-mill-en.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-us-mill-en.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\maps-vector.js",
+      "PackagePath": "staticwebassets\\js\\components\\maps-vector.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\components\\table-gridjs.js",
+      "PackagePath": "staticwebassets\\js\\components\\table-gridjs.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\config.js",
+      "PackagePath": "staticwebassets\\js\\config.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\email-decode.min.js",
+      "PackagePath": "staticwebassets\\js\\email-decode.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\jquery.appear.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.appear.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\jquery.countdown.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.countdown.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\jquery.plugin.min.js",
+      "PackagePath": "staticwebassets\\js\\jquery.plugin.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\main.min.js",
+      "PackagePath": "staticwebassets\\js\\main.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\map.js",
+      "PackagePath": "staticwebassets\\js\\map.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\nouislider.min.js",
+      "PackagePath": "staticwebassets\\js\\nouislider.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\app-calendar.js",
+      "PackagePath": "staticwebassets\\js\\pages\\app-calendar.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\app-chat.js",
+      "PackagePath": "staticwebassets\\js\\pages\\app-chat.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\app-email.js",
+      "PackagePath": "staticwebassets\\js\\pages\\app-email.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\coming-soon.js",
+      "PackagePath": "staticwebassets\\js\\pages\\coming-soon.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\coupons-add.js",
+      "PackagePath": "staticwebassets\\js\\pages\\coupons-add.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\customer-details.js",
+      "PackagePath": "staticwebassets\\js\\pages\\customer-details.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\pages\\dashboard.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\invoice-add.js",
+      "PackagePath": "staticwebassets\\js\\pages\\invoice-add.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\order-cart.js",
+      "PackagePath": "staticwebassets\\js\\pages\\order-cart.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\product-details.js",
+      "PackagePath": "staticwebassets\\js\\pages\\product-details.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\product-grid.js",
+      "PackagePath": "staticwebassets\\js\\pages\\product-grid.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\seller-add.js",
+      "PackagePath": "staticwebassets\\js\\pages\\seller-add.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\seller-detail.js",
+      "PackagePath": "staticwebassets\\js\\pages\\seller-detail.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\pages\\widgets.js",
+      "PackagePath": "staticwebassets\\js\\pages\\widgets.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\plugins.min.js",
+      "PackagePath": "staticwebassets\\js\\plugins.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\vendor.js",
+      "PackagePath": "staticwebassets\\js\\vendor.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\js\\webfont.js",
+      "PackagePath": "staticwebassets\\js\\webfont.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\lib\\jquery\\dist\\main.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\main.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\rotativa\\wkhtmltoimage.exe",
+      "PackagePath": "staticwebassets\\rotativa\\wkhtmltoimage.exe"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\rotativa\\wkhtmltopdf.exe",
+      "PackagePath": "staticwebassets\\rotativa\\wkhtmltopdf.exe"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\css\\all.min.css",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\css\\all.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-brands-400d41d.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-brands-400d41d.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-regular-400d41d.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-regular-400d41d.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fontawesome-free\\webfonts\\fa-solid-900d41d.eot",
+      "PackagePath": "staticwebassets\\vendor\\fontawesome-free\\webfonts\\fa-solid-900d41d.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fonts\\Simple-Line-Iconsec97.eot",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\Simple-Line-Iconsec97.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fonts\\Simple-Line-Iconsec97.svg",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\Simple-Line-Iconsec97.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fonts\\Simple-Line-Iconsec97.ttf",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\Simple-Line-Iconsec97.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\fonts\\Simple-Line-Iconsec97.woff",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\Simple-Line-Iconsec97.woff"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\jsvectormap\\js\\jsvectormap.min.js",
+      "PackagePath": "staticwebassets\\vendor\\jsvectormap\\js\\jsvectormap.min.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\jsvectormap\\maps\\world-merc.js",
+      "PackagePath": "staticwebassets\\vendor\\jsvectormap\\maps\\world-merc.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\jsvectormap\\maps\\world.js",
+      "PackagePath": "staticwebassets\\vendor\\jsvectormap\\maps\\world.js"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\simple-line-icons\\css\\simple-line-icons.min.css",
+      "PackagePath": "staticwebassets\\vendor\\simple-line-icons\\css\\simple-line-icons.min.css"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.eot",
+      "PackagePath": "staticwebassets\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.eot"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.svg",
+      "PackagePath": "staticwebassets\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.svg"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.ttf",
+      "PackagePath": "staticwebassets\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.ttf"
+    },
+    {
+      "Id": "E:\\PBL6\\QLBanHang_UI\\wwwroot\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.woff",
+      "PackagePath": "staticwebassets\\vendor\\simple-line-icons\\fonts\\Simple-Line-Iconsec97.woff"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.QLBanHang_UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.QLBanHang_UI.props",
+      "PackagePath": "build\\QLBanHang_UI.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.QLBanHang_UI.props",
+      "PackagePath": "buildMultiTargeting\\QLBanHang_UI.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.QLBanHang_UI.props",
+      "PackagePath": "buildTransitive\\QLBanHang_UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

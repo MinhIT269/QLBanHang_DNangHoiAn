@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using QLBanHang_API.CustomActionFilters;
-using QLBanHang_API.Dto.Request;
-using QLBanHang_API.Request;
-using QLBanHang_API.Service;
+using PBL6.CustomActionFilters;
+using PBL6.Dto.Request;
+using PBL6.Services.IService;
+using PBL6.Services.Service;
 using QLBanHang_API.Services.IService;
-using QLBanHang_API.Services.Service;
-using System.Text.RegularExpressions;
-
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -25,7 +22,7 @@ namespace QLBanHang_API.Controllers
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
-            _imageService =imageService;
+            _imageService = imageService;
         }
 
         [HttpGet("GetAllProduct")]
@@ -83,7 +80,7 @@ namespace QLBanHang_API.Controllers
         {
             try
             {
-                var oldImageUrls = string.IsNullOrEmpty(oldImageUrlsJson) ? new List<string>() 
+                var oldImageUrls = string.IsNullOrEmpty(oldImageUrlsJson) ? new List<string>()
                     : Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(oldImageUrlsJson);
 
                 model.Description = await _imageService.ProcessDescriptionAndUploadImages(model.Description!, model.ProductId);

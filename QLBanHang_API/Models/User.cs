@@ -22,6 +22,7 @@ namespace PBL6_QLBH.Models
 
         // 1-1 với UserInfo
         public ICollection<Cart> Carts { get; set; }
+
         public UserInfo? UserInfo { get; set; }
     }
 }
