@@ -62,7 +62,7 @@
 						<div class="col-xl-3 col-lg-4">
 							<div class="card">
 								<div class="card-body">
-									<img id="main-image-preview" src="https://localhost:7069/@Model.ImageUrl" alt="Ảnh chính sản phẩm" class="img-fluid rounded bg-light d-block mx-auto">
+									<img id="main-image-preview" src="@Model.ImageUrl" alt="Ảnh chính sản phẩm" class="img-fluid rounded bg-light d-block mx-auto">
 									<div class="mt-3 text-center">
 										<h4>Ảnh Chính</h4>
 										<!-- Thay thế nút chọn ảnh -->
@@ -101,7 +101,7 @@
 																<div class="img-wrap">
 																	<span class="close" onclick="DelImg(this)">×</span>
 																	<div class="img-wrap-box">
-																		<img src="https://localhost:7069/@item" alt="Product Image" />
+																		<img src="@item" alt="Product Image" />
 																		<!-- Thêm input hidden để gửi đường dẫn của ảnh cũ -->
 																		<input type="hidden" id="oldImageUrls" name="oldImageUrls" value="@item" />
 																	</div>
