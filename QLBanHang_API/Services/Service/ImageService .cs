@@ -51,7 +51,7 @@ public class ImageService : IImageService
 
         return await Task.FromResult(imageUrls);
     }
-     
+
     public async Task<string> UploadImageTempAsync(IFormFile image, HttpContext httpContext) // Tải lên một ảnh tạm thời (temporary) ckeditor
     {
         var tempFolder = Path.Combine(Directory.GetCurrentDirectory(), "images", "temp");

@@ -794,13 +794,11 @@ namespace PBL6.Migrations
 
             modelBuilder.Entity("PBL6_QLBH.Models.Location", b =>
                 {
-                    b.HasOne("PBL6_QLBH.Models.Brand", "Brand")
+                    b.HasOne("PBL6_QLBH.Models.Brand", null)
                         .WithMany("Locations")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Brand");
                 });
 
             modelBuilder.Entity("PBL6_QLBH.Models.Order", b =>
