@@ -1,8 +1,15 @@
-# Ignore build directories
-.vs/
-/obj/
-/bin/
-
-# Ignore user-specific files
+/QLBanHang_API/bin/
+/QLBanHang_API/obj/
+QLBanHang_UI/bin/
+QLBanHang_UI/obj/
 *.user
-*.suo
+*.tmp
+*.log
+bin/
+obj/
+.vs/
+.idea/
+node_modules/
+# Ignore object files
+**/obj/
+

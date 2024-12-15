@@ -1,15 +1,9 @@
-﻿using QLBanHang_API.Request;
-using System.ComponentModel.DataAnnotations;
-
-namespace QLBanHang_API.Dto
+﻿namespace PBL6.Dto
 {
-	public class ProductCategoryDto
-	{
-		// [Required]
-		[Key]
-		public Guid ProductCategoryId { get; set; } // Thêm khóa chính
-		public Guid ProductId { get; set; }    // Foreign Key
-		public Guid CategoryId { get; set; }   // Foreign Key
-
-	}
+    public class ProductCategoryDto
+    {
+        public Guid ProductCategoryId { get; set; }
+        public Guid ProductId { get; set; }
+        public CategoryDto? Category { get; set; }
+    }
 }

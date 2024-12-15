@@ -1,6 +1,6 @@
 ﻿using PBL6_QLBH.Models;
 
-namespace QLBanHang_API.Repositories.IRepository
+namespace PBL6.Repositories.IRepository
 {
     public interface ITransactionRepository
     {

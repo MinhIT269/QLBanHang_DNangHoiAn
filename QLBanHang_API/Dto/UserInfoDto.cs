@@ -1,4 +1,6 @@
-﻿namespace QLBanHang_API.Dto
+﻿using PBL6.Dto;
+
+namespace QLBanHang_API.Dto
 {
     public class UserInfoDto
     {

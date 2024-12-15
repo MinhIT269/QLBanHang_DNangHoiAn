@@ -1,9 +1,10 @@
-﻿using PBL6_QLBH.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Dto;
+using PBL6.Repositories.IRepository;
+using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
-using Microsoft.EntityFrameworkCore;
-using QLBanHang_API.Dto;
-namespace QLBanHang_API.Repositories.Repository
+
+namespace PBL6.Repositories.Repository
 {
     public class UserInfoRepository : IUserInfoRepository
     {
@@ -56,14 +57,8 @@ namespace QLBanHang_API.Repositories.Repository
         }
 
         //Add
-        public async Task<UserInfo> AddUserInfoAsync(string username, UserInfo userInfo)
+        public async Task<UserInfo> AddUserInfoAsync(UserInfo userInfo)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
-            if (user == null)
-            {
-                return null;
-            }
-            userInfo.UserId = user.UserId;
             userInfo.UserInfoId = Guid.NewGuid();
             await dbContext.UserInfos.AddAsync(userInfo);
             await dbContext.SaveChangesAsync();

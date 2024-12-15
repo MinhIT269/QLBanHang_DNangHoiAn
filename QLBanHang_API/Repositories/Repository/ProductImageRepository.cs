@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿ using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
 
-namespace QLBanHang_API.Repositories.Repository
+namespace PBL6.Repositories.Repository
 {
     public class ProductImageRepository : IProductImageRepository
     {

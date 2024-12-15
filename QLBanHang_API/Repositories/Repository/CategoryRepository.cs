@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
 
-namespace QLBanHang_API.Repositories.Repository
+namespace PBL6.Repositories.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -69,6 +69,7 @@ namespace QLBanHang_API.Repositories.Repository
                 "productCount" => isDescending ? query.OrderByDescending(c => c.ProductCategories!.Sum(pc => pc.Product.Stock)) : query.OrderBy(c => c.ProductCategories.Sum(pc => pc.Product.Stock)),
                 _ => query
             };
+
             return query;
         }
 
@@ -77,9 +78,9 @@ namespace QLBanHang_API.Repositories.Repository
             return await _dataContext.Products.Where(p => p.ProductCategories!.Any(pc => pc.CategoryId == categoryId)).ToListAsync();
         }
 
-		public async Task<bool> IsCategoryNameExistsAsync(string categoryName)
-		{
-			return await _dataContext.Categories.AnyAsync(c => c.CategoryName == categoryName);
-		}
-	}
+        public async Task<bool> IsCategoryNameExistsAsync(string categoryName)
+        {
+            return await _dataContext.Categories.AnyAsync(c => c.CategoryName == categoryName);
+        }
+    }
 }

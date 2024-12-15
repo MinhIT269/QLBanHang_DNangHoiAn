@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PBL6.Dto.Response;
+using PBL6.Repositories.IRepository;
+using PBL6.Services.IService;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto.Request;
-using QLBanHang_API.Dto.Response;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Services.IService;
 using System.Net.Mail;
-using System.Runtime.CompilerServices;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -39,8 +37,8 @@ namespace QLBanHang_API.Controllers
             {
                 if (string.IsNullOrEmpty(registerRequestDto.Role))
                 {
-                    registerRequestDto.Role = "User";
-                    result = await userManager.AddToRoleAsync(user,registerRequestDto.Role);
+                    registerRequestDto.Role = "Customer";
+                    result = await userManager.AddToRoleAsync(user, registerRequestDto.Role);
                     if (result.Succeeded)
                     {
                         return Ok("Successfully Registered as a User");
@@ -55,7 +53,9 @@ namespace QLBanHang_API.Controllers
                     }
                 }
             }
-            return BadRequest("UserName already exists");
+
+            var errorMessages = string.Join("; ", result.Errors.Select(e => e.Description));
+            return BadRequest($"Registration failed: {errorMessages}");
         }
 
         [HttpPost]
@@ -63,6 +63,8 @@ namespace QLBanHang_API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             User user = null;
+
+
             if (IsValidEmail(loginRequest.UserName))
             {
                 user = await userManager.FindByEmailAsync(loginRequest.UserName);
@@ -73,23 +75,27 @@ namespace QLBanHang_API.Controllers
             }
             if (user != null)
             {
-                var identityResult = await userManager.CheckPasswordAsync(user,loginRequest.Password);
+                var identityResult = await userManager.CheckPasswordAsync(user, loginRequest.Password);
                 if (identityResult)
                 {
                     var roles = await userManager.GetRolesAsync(user);
+                    Console.WriteLine("role size:" + roles[0].ToString());
                     //CreateToken
                     if (roles != null)
                     {
                         var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
                         var response = new LoginResponse()
                         {
-                            JwtToken = jwtToken,
-                            UserId = user.UserId
+                            JwtToken = jwtToken
                         };
                         return Ok(response);
                     }
                 }
             }
+
+
+  
+
             return BadRequest("UserName or PassWord wrong");
         }
 
@@ -103,7 +109,7 @@ namespace QLBanHang_API.Controllers
             {
                 return NotFound("Invalid UserName");
             }
-            var result =  await userManager.ResetPasswordAsync(user,resetPasswordRequest.Token,resetPasswordRequest.Password);
+            var result = await userManager.ResetPasswordAsync(user, resetPasswordRequest.Token, resetPasswordRequest.Password);
             if (result.Succeeded)
             {
                 return Ok("Reset successful");
@@ -132,7 +138,7 @@ namespace QLBanHang_API.Controllers
             {
                 EmailReceive = Email,
                 Subject = "ResetPassWord",
-                Body = "Copy this code to reset \n" + result
+                Body = "Copy this code to reset " + result
             };
             var resultEmail = await emailService.SendEmail(emailRequest);
             if (!resultEmail)

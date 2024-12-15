@@ -1,9 +1,9 @@
-
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
-using Microsoft.EntityFrameworkCore;
-namespace QLBanHang_API.Repositories.Repository
+
+namespace PBL6.Repositories.Repository
 {
     public class BrandRepository : IBrandRepository
     {
@@ -15,14 +15,14 @@ namespace QLBanHang_API.Repositories.Repository
         //GetAll 
         public async Task<List<Brand>> GetAllBrandAsync()
         {
-            return await dbContext.Brands.Include( b=> b.Locations).ToListAsync();
+            return await dbContext.Brands.Include(b => b.Locations).ToListAsync();
         }
 
         //Add Async 
         public async Task<Brand> AddBrandAsync(Brand brand)
         {
             //Nếu ko trùng thoát vòng lặp
-            while (await dbContext.Brands.AnyAsync(x=>x.BrandId == brand.BrandId))
+            while (await dbContext.Brands.AnyAsync(x => x.BrandId == brand.BrandId))
             {
                 brand.BrandId = Guid.NewGuid();
             }
@@ -55,7 +55,7 @@ namespace QLBanHang_API.Repositories.Repository
         // Get Brand by Id
         public async Task<Brand?> GetBrandByIdAsync(Guid id)
         {
-            return await dbContext.Brands.Include(b=>b.Locations).FirstOrDefaultAsync(b => b.BrandId == id);
+            return await dbContext.Brands.Include(b => b.Locations).FirstOrDefaultAsync(b => b.BrandId == id);
         }
 
         // Delete Brand Async
@@ -107,29 +107,29 @@ namespace QLBanHang_API.Repositories.Repository
 
             return query;
         }
-		public async Task<bool> IsBrandNameExists(string brandName)
-		{
-			return await dbContext.Brands.AnyAsync(b => b.BrandName == brandName);
-		}
+        public async Task<bool> IsBrandNameExists(string brandName)
+        {
+            return await dbContext.Brands.AnyAsync(b => b.BrandName == brandName);
+        }
 
-		//Update async
-		public async Task<Brand> UpdateBrandAsync(Guid id, Brand brandUpdate)
-		{
-			var brand = await dbContext.Brands.FirstOrDefaultAsync(x => x.BrandId == id);
-			if (brand == null)
-			{
-				return null;
-			}
-			brand.BrandName = brandUpdate.BrandName;
-			brand.Description = brandUpdate.Description;
-			await dbContext.SaveChangesAsync();
-			return brand;
-		}
+        //Update async
+        public async Task<Brand> UpdateBrandAsync(Guid id, Brand brandUpdate)
+        {
+            var brand = await dbContext.Brands.FirstOrDefaultAsync(x => x.BrandId == id);
+            if (brand == null)
+            {
+                return null;
+            }
+            brand.BrandName = brandUpdate.BrandName;
+            brand.Description = brandUpdate.Description;
+            await dbContext.SaveChangesAsync();
+            return brand;
+        }
 
-		public async Task<bool> HasProductsByBrandIdAsync(Guid brandId)
-		{
-			return await dbContext.Products.AnyAsync(p => p.BrandId == brandId);
-		}
+        public async Task<bool> HasProductsByBrandIdAsync(Guid brandId)
+        {
+            return await dbContext.Products.AnyAsync(p => p.BrandId == brandId);
+        }
 
-	}
+    }
 }

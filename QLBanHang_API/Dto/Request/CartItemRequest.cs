@@ -1,4 +1,4 @@
-﻿namespace QLBanHang_API.Dto.Request
+﻿namespace PBL6.Dto.Request
 {
     public class CartItemRequest
     {
@@ -6,8 +6,8 @@
 
         public int Quantity { get; set; }
 
-        public Guid CartId { get; set; } // Foreign Key to Cart
+        public Guid CartId { get; set; } 
 
-        public Guid ProductId { get; set; } // Foreign Key to Product
+        public Guid ProductId { get; set; } 
     }
 }

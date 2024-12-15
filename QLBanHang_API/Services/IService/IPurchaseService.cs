@@ -1,6 +1,6 @@
-﻿using QLBanHang_API.Dto;
+﻿using PBL6.Dto;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.IService
 {
     public interface IPurchaseService
     {

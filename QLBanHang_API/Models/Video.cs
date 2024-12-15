@@ -7,11 +7,9 @@ namespace PBL6_QLBH.Models
         [Key]
         public Guid VideoId { get; set; }
 
-        [Required, MaxLength(150)]
+        [Required, MaxLength(500)]
         public string? VideoUrl { get; set; }
         public string? Description { get; set; }
 
-        // 1 Video có thể có nhiều Products
-        public ICollection<Product>? Products { get; set; }
     }
 }

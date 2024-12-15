@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PBL6_QLBH.Models
 {
@@ -19,6 +20,7 @@ namespace PBL6_QLBH.Models
         public DateTime ReviewDate { get; set; }
 
         public Product? Product { get; set; }  // Navigation property
+
         public User? User { get; set; }        // Navigation property
     }
 }

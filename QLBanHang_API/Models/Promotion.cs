@@ -22,6 +22,5 @@ namespace PBL6_QLBH.Models
 
         // 1 Promotion có thể có nhiều Orders
         public ICollection<Order>? Orders { get; set; }
-
     }
 }

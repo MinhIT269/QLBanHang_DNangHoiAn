@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PBL6_QLBH.Models;
-using QLBanHang_API.Dto;
-using QLBanHang_API.Dto.Request;
-using QLBanHang_API.Service;
-using QLBanHang_API.Services.IService;
-using System.Text.Json;
-using System.Text.Json.Nodes;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL6.Dto.Request;
+using PBL6.Dto;
+using PBL6.Services.IService;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +17,7 @@ namespace QLBanHang_API.Controllers
             this.locationService = locationService;
         }
 
-        // api/Brand/GetAllBrands
+        // api/Brands/GetAllBrands
         [HttpGet("GetAllBrands")]
         public async Task<IActionResult> GetAllBrands()
         {
@@ -56,7 +51,7 @@ namespace QLBanHang_API.Controllers
         [HttpGet("GetFilteredBrands")]
         public async Task<IActionResult> GetFilteredBrands([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
         {
-            var (brands, totalRecords) = await brandService.GetFilteredCategoriesAsync(page, pageSize, searchQuery,sortCriteria, isDescending);
+            var (brands, totalRecords) = await brandService.GetFilteredCategoriesAsync(page, pageSize, searchQuery, sortCriteria, isDescending);
             return Ok(brands);
         }
 
@@ -68,58 +63,58 @@ namespace QLBanHang_API.Controllers
             return Ok(totalPages);
         }
 
-		[HttpDelete]
-		[Route("Delete/{id:guid}")]
-		public async Task<IActionResult> DeleteBrandById([FromRoute] Guid id)
-		{
-			// Kiểm tra xem thương hiệu có tồn tại không
-			var brand = await brandService.GetBrandByIdAsync(id);
-			if (brand == null)
-			{
-				return NotFound("Thương hiệu không tồn tại.");
-			}
-
-			// Kiểm tra xem thương hiệu có đang được sử dụng không (ví dụ, có sản phẩm nào liên quan đến thương hiệu này không)
-			var productsUsingBrand = await brandService.HasProductsByBrandIdAsync(id);
-			if (productsUsingBrand)
-			{
-				return BadRequest("Thương hiệu này đang được sử dụng bởi các sản phẩm, không thể xóa!");
-			}
-
-			// Thực hiện xóa thương hiệu
-			var deletedBrand = await brandService.DeleteBrand(id);
-			if (deletedBrand == null)
-			{
-				return BadRequest("Không thể xóa thương hiệu.");
-			}
-
-			return Ok("Thương hiệu đã được xóa thành công!");
-		}
-
-		// Update Brand - /api/Brands/Update/id=?
-		[HttpPut]
-		[Route("Update/{id:guid}")]
-		public async Task<IActionResult> UpdateBrandById([FromRoute] Guid id, [FromBody] UpBrandDto brand)
-		{
-			var brandDTO = await brandService.UpdateBrand(id, brand);
-			if (brandDTO == null)
-			{
-				return NotFound();
-			}
-			return Ok(brandDTO);
-		}
-
-
-		// Create Brand - /api/Brands/Add
-		[HttpPost]
-        [Route("Add")]
-        public async Task<IActionResult> AddBrand([FromBody]BrandRequest brand)
+        [HttpDelete]
+        [Route("Delete/{id:guid}")]
+        public async Task<IActionResult> DeleteBrandById([FromRoute] Guid id)
         {
-			if (await brandService.IsBrandNameExists(brand.BrandName!))
-			{
-				return BadRequest("Tên thương hiệu đã tồn tại.");
-			}
-			var brandDTO = await brandService.AddBrand(brand);
+            // Kiểm tra xem thương hiệu có tồn tại không
+            var brand = await brandService.GetBrandByIdAsync(id);
+            if (brand == null)
+            {
+                return NotFound("Thương hiệu không tồn tại.");
+            }
+
+            // Kiểm tra xem thương hiệu có đang được sử dụng không (ví dụ, có sản phẩm nào liên quan đến thương hiệu này không)
+            var productsUsingBrand = await brandService.HasProductsByBrandIdAsync(id);
+            if (productsUsingBrand)
+            {
+                return BadRequest("Thương hiệu này đang được sử dụng bởi các sản phẩm, không thể xóa!");
+            }
+
+            // Thực hiện xóa thương hiệu
+            var deletedBrand = await brandService.DeleteBrand(id);
+            if (deletedBrand == null)
+            {
+                return BadRequest("Không thể xóa thương hiệu.");
+            }
+
+            return Ok("Thương hiệu đã được xóa thành công!");
+        }
+
+        // Update Brand - /api/Brands/Update/id=?
+        [HttpPut]
+        [Route("Update/{id:guid}")]
+        public async Task<IActionResult> UpdateBrandById([FromRoute] Guid id, [FromBody] UpBrandDto brand)
+        {
+            var brandDTO = await brandService.UpdateBrand(id, brand);
+            if (brandDTO == null)
+            {
+                return NotFound();
+            }
+            return Ok(brandDTO);
+        }
+
+
+        // Create Brand - /api/Brands/Add
+        [HttpPost]
+        [Route("Add")]
+        public async Task<IActionResult> AddBrand([FromBody] BrandRequest brand)
+        {
+            if (await brandService.IsBrandNameExists(brand.BrandName!))
+            {
+                return BadRequest("Tên thương hiệu đã tồn tại.");
+            }
+            var brandDTO = await brandService.AddBrand(brand);
             if (brandDTO == null)
             {
                 return NotFound();
