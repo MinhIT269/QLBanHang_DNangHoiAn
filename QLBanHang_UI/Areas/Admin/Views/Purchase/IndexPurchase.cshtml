@@ -68,7 +68,9 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 <img src="~/images/vnpay.png" alt="VNPAY" class="img-fluid mb-3" style="width: 150px; height: 50px; object-fit: contain;">
-                                <p id="VNpay">VNPAY</p>
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="VNpay">VNPAY</p>
+                                </b>
                             </div>
                         </div>
                     </div>
@@ -76,7 +78,9 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 <img src="~/images/momo.jpg" alt="MOMO" class="img-fluid mb-3" style="width: 230px; height: 50px; object-fit: contain;">
-                                <p id="Momo">MOMO</p>
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="Momo">MOMO</p>
+                                </b>
                             </div>
                         </div>
                     </div>
@@ -84,7 +88,9 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 <img src="~/images/zalopay.png" alt="ZALO PAY" class="img-fluid mb-3" style="width: 200px; height: 50px; object-fit: contain;">
-                                <p id="Zalopay">ZALO PAY</p>
+                                <b>
+                                    <p class="text-dark mt-1 mb-0" id="Zalopay">ZALO PAY</p>
+                                </b>
                             </div>
                         </div>
                     </div>
@@ -242,24 +248,24 @@
             }
 
             pagination.innerHTML += `
-                                    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                                        <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage - 1})">Trước</a>
-                                    </li>
-                                `;
+                                            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                                                <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage - 1})">Trước</a>
+                                            </li>
+                                        `;
 
             for (let i = startPage; i <= endPage; i++) {
                 pagination.innerHTML += `
-                                        <li class="page-item ${i === currentPage ? 'active' : ''}">
-                                            <a class="page-link" href="javascript:void(0);" onclick="changePage(${i})">${i}</a>
-                                        </li>
-                                    `;
+                                                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="javascript:void(0);" onclick="changePage(${i})">${i}</a>
+                                                </li>
+                                            `;
             }
 
             pagination.innerHTML += `
-                                    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                                        <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage + 1})">Tiếp Theo</a>
-                                    </li>
-                                `;
+                                            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                                                <a class="page-link" href="javascript:void(0);" onclick="changePage(${currentPage + 1})">Tiếp Theo</a>
+                                            </li>
+                                        `;
         }
 
         async function changePage(page) {
@@ -280,26 +286,26 @@
             const price = parseFloat(item.totalAmount);
             const formattedPrice = isNaN(price) ? '0' : price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             return `
-                                    <tr>
-                                        <td>${index + 1}</td>
-                                        <td>#INV-${item.orderId.toUpperCase().substring(0, 8)}</td>
-                                        <td>${item.userName}</td>
-                                        <td>${formatDate(item.orderDate)}</td>
-                                        <td>${formattedPrice}</td>
-                                        <td>${item.paymentMethod}</td>
-                                        <td>
-                                        ${item.status.toLowerCase() === 'completed' ? '<span class="badge bg-success">Success</span>' :
-                                          item.status.toLowerCase() === 'pending' ? '<span class="badge bg-warning">Pending</span>' :
-                                         '<span class="badge bg-danger">Cancel</span>'}
-                                        </td>
+                                            <tr>
+                                                <td>${index + 1}</td>
+                                                <td>#INV-${item.orderId.toUpperCase().substring(0, 8)}</td>
+                                                <td>${item.userName}</td>
+                                                <td>${formatDate(item.orderDate)}</td>
+                                                <td>${formattedPrice}</td>
+                                                <td>${item.paymentMethod}</td>
+                                                <td>
+                                                ${item.status.toLowerCase() === 'completed' ? '<span class="badge bg-success">Success</span>' :
+                    item.status.toLowerCase() === 'pending' ? '<span class="badge bg-warning">Pending</span>' :
+                        '<span class="badge bg-danger">Cancel</span>'}
+                                                </td>
 
-                                        <td>
-                                           <div class="d-flex gap-2">
-                                               <a href="/Admin/Order/DetailOrder/${item.orderId}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                           </div>
-                                        </td>
-                                    </tr>
-                                `;
+                                                <td>
+                                                   <div class="d-flex gap-2">
+                                                       <a href="/Admin/Order/DetailOrder/${item.orderId}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                   </div>
+                                                </td>
+                                            </tr>
+                                        `;
         }
 
         async function getOrders(textsearch, page, limit, sortCriteria) {
@@ -345,9 +351,9 @@
                 const stats = await response.json();
                 console.log(stats);
                 stats.forEach(stat => {
-                    if (stat.paymentMethodName === "VNPay") {
+                    if (stat.paymentMethodName === "VnPay") {
                         document.getElementById('VNpay').innerText = `${stat.orderCount}`;
-                    } else if (stat.paymentMethodName === "MoMo") {
+                    } else if (stat.paymentMethodName === "Momo") {
                         document.getElementById('Momo').innerText = `${stat.orderCount}`;
                     } else if (stat.paymentMethodName === "ZaloPay") {
                         document.getElementById('Zalopay').innerText = `${stat.orderCount}`;

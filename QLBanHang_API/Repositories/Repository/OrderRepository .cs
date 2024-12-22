@@ -2,6 +2,7 @@
 using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Data;
 using PBL6_QLBH.Models;
+using System.Globalization;
 
 
 namespace PBL6.Repositories.Repository
@@ -148,7 +149,6 @@ namespace PBL6.Repositories.Repository
             order.Status = status;
             await dbContext.SaveChangesAsync();
             return order;
-
         }
         public async Task<int> TotalOrders()
         {
@@ -156,7 +156,7 @@ namespace PBL6.Repositories.Repository
         }
         public async Task<int> TotalOrdersSuccess()
         {
-            return await dbContext.Orders.Where(c => c.Status == "Completed").CountAsync();
+            return await dbContext.Orders.Where(c => c.Status == "completed").CountAsync();
         }
         public async Task<int> TotalOrdersPending()
         {
@@ -256,7 +256,7 @@ namespace PBL6.Repositories.Repository
         public async Task<int> TotalOrdersSuccessByUser(Guid userId)
         {
             return await dbContext.Orders
-                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .Where(o => o.UserId == userId && o.Status == "completed")
                 .CountAsync();
         }
 
@@ -269,9 +269,16 @@ namespace PBL6.Repositories.Repository
         public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
         {
             return await dbContext.Orders
-                .Where(o => o.UserId == userId && o.Status == "Completed")
+                .Where(o => o.UserId == userId && o.Status == "completed")
                 .SumAsync(o => o.TotalAmount);
         }
+        public async Task<decimal> GetTotalAmountOfCompletedOrdersAsync()
+        {
+            return await dbContext.Orders
+                .Where(o => o.Status == "completed") 
+                .SumAsync(o => o.TotalAmount); 
+        }
+
 
         public async Task<Order> CreateOrderAsync(Order order)
         {
@@ -301,5 +308,63 @@ namespace PBL6.Repositories.Repository
                 throw new Exception("Does not Add to Database");
             }
         }
-    }
+		public async Task<Dictionary<string, int>> GetOrderStatistics(string period)
+		{
+			var now = DateTime.Now;
+			IQueryable<Order> query = dbContext.Orders.Where(o => o.Status == "completed"); // Lọc chỉ đơn hàng thành công
+
+			var statistics = new Dictionary<string, int>();
+
+			switch (period.ToLower())
+			{
+				case "week":
+					var startOfWeek = now.AddDays(-(int)now.DayOfWeek);
+					var ordersThisWeek = query
+						.Where(o => o.OrderDate >= startOfWeek)
+						.AsEnumerable() // Chuyển sang xử lý trên bộ nhớ
+						.GroupBy(o => o.OrderDate.Value.DayOfWeek)
+						.Select(g => new { Day = g.Key, Count = g.Count() })
+						.ToList(); // Đổi ToListAsync thành ToList
+
+					foreach (var day in Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>())
+					{
+						statistics[day.ToString()] = ordersThisWeek.FirstOrDefault(o => o.Day == day)?.Count ?? 0;
+					}
+					break;
+
+				case "month":
+					var ordersThisMonth = query
+						.Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Month == now.Month && o.OrderDate.Value.Year == now.Year)
+						.AsEnumerable() // Chuyển sang xử lý trên bộ nhớ
+						.GroupBy(o => o.OrderDate.Value.Day)
+						.Select(g => new { Day = g.Key, Count = g.Count() })
+						.ToList(); // Đổi ToListAsync thành ToList
+
+					for (int i = 1; i <= DateTime.DaysInMonth(now.Year, now.Month); i++)
+					{
+						statistics[i.ToString()] = ordersThisMonth.FirstOrDefault(o => o.Day == i)?.Count ?? 0;
+					}
+					break;
+
+				case "year":
+					var ordersThisYear = query
+						.Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Year == now.Year)
+						.AsEnumerable() // Chuyển sang xử lý trên bộ nhớ
+						.GroupBy(o => o.OrderDate.Value.Month)
+						.Select(g => new { Month = g.Key, Count = g.Count() })
+						.ToList(); // Đổi ToListAsync thành ToList
+
+					for (int i = 1; i <= 12; i++)
+					{
+						statistics[CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)] = ordersThisYear.FirstOrDefault(o => o.Month == i)?.Count ?? 0;
+					}
+					break;
+
+				default:
+					throw new ArgumentException("Invalid period. Allowed values are 'week', 'month', or 'year'.");
+			}
+
+			return statistics;
+		}
+	}
 }

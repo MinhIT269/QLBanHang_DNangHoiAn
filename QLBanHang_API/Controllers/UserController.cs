@@ -65,13 +65,27 @@ namespace PBL6.Controllers
         }
 
         [HttpGet("TotalPagesUsers")]
-        public async Task<IActionResult> GetTotalPagesPromotion([FromQuery] string searchQuery = "")
+        public async Task<IActionResult> GetTotalUsersPromotion([FromQuery] string searchQuery = "")
         {
             var totalRecords = await _userService.GetTotalUserAsync(searchQuery);
             var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
             return Ok(totalPages);
         }
 
+		[HttpGet("TotalUsers")]
+		public async Task<IActionResult> TotalUsers([FromQuery] string searchQuery = "")
+		{
+			try
+			{
+				var totalRecords = await _userService.GetTotalUserAsync(searchQuery);
+				return Ok(new { totalUsers = totalRecords });
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while processing your request.", details = ex.Message });
+			}
+		}
 
-    }
+
+	}
 }

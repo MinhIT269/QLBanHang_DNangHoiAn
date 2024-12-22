@@ -130,13 +130,14 @@ namespace PBL6.Controllers
             var totalOrdersPending = await orderService.TotalOrdersPending();
             var totalOrdersSuccess = await orderService.TotalOrdersSuccess();
             var totalOrdersCancel = await orderService.TotalOrdersCancel();
-
+            var totalAmount = await orderService.GetTotalAmountOfCompletedOrdersAsync();
             return Ok(new
             {
                 TotalOrders = totalOrders,
                 OrdersPending = totalOrdersPending,
                 OrderSuccess = totalOrdersSuccess,
-                OrderCancel = totalOrdersCancel
+                OrderCancel = totalOrdersCancel,
+                TotalAmount = totalAmount
             });
         }
 
@@ -173,14 +174,13 @@ namespace PBL6.Controllers
             var totalOrders = await orderService.TotalOrdersByUser(id);
             var totalOrdersPending = await orderService.TotalOrdersPendingByUser(id);
             var totalOrdersSuccess = await orderService.TotalOrdersSuccessByUser(id);
-            var SumOrder = await orderService.SumCompletedOrdersAmountByUser(id);
-
+            var sumOrder = await orderService.SumCompletedOrdersAmountByUser(id);
             return Ok(new
             {
                 TotalOrders = totalOrders,
                 OrdersPending = totalOrdersPending,
                 OrderSuccess = totalOrdersSuccess,
-                SumOrder = SumOrder
+                SumOrder = sumOrder
             });
         }
 
@@ -401,9 +401,21 @@ namespace PBL6.Controllers
             }
         }
 
-     
-       
+		[HttpGet("statistics")]
+		public async Task<IActionResult> GetOrderStatistics(string period)
+		{
+			try
+			{
+				var stats = await orderService.GetOrderStatistics(period);
+				return Ok(stats);
+			}
+			catch (ArgumentException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
-  
-    }
+
+
+	}
 }

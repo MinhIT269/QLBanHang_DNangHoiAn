@@ -17,14 +17,13 @@ namespace PBL6.Repositories.IRepository
         Task<int> TotalOrdersSuccess();
         Task<int> TotalOrdersPending();
         Task<int> TotalOrdersCancel();
-
         Task<int> TotalOrdersByUser(Guid userId);
         Task<int> TotalOrdersSuccessByUser(Guid userId);
         Task<int> TotalOrdersPendingByUser(Guid userId);
+        Task<decimal> GetTotalAmountOfCompletedOrdersAsync();
         Task<decimal> SumCompletedOrdersAmountByUser(Guid userId);
         Task<Object> MissionForBeginnerStatus(Guid userId);
-
         Task<Order> CreateOrderAsync(Order order);
-
-    }
+        Task<Dictionary<string, int>> GetOrderStatistics(string period);
+	}
 }
