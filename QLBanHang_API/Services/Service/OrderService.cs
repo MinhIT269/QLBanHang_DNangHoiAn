@@ -213,5 +213,14 @@ namespace PBL6_BackEnd.Services.ServiceImpl
         {
             return await orderRepository.SumCompletedOrdersAmountByUser(userId);
         }
-    }
+        public async Task<decimal> GetTotalAmountOfCompletedOrdersAsync()
+        {
+            return await orderRepository.GetTotalAmountOfCompletedOrdersAsync();
+        }
+
+        public async Task<Dictionary<string, int>> GetOrderStatistics(string period)
+        {
+            return await orderRepository.GetOrderStatistics(period);
+        }
+	}
 }

@@ -20,13 +20,13 @@ namespace PBL6.Repositories.Repository
                 .ThenInclude(p => p.Product).AsQueryable();
 
             // Lọc theo trạng thái "Completed"
-            query = query.Where(c => c.Status == "Completed");
+            query = query.Where(c => c.Status == "completed");
 
             // Lọc theo phương thức thanh toán hoặc lấy tất cả
             query = sortCriteria switch
             {
                 "MoMo" => query.Where(c => c.Transaction!.PaymentMethod!.Name == "MoMo"),
-                "VNPay" => query.Where(c => c.Transaction!.PaymentMethod!.Name == "VNPay"),
+                "VNPay" => query.Where(c => c.Transaction!.PaymentMethod!.Name == "VnPay"),
                 "ZaloPay" => query.Where(c => c.Transaction!.PaymentMethod!.Name == "ZaloPay"),
                 "All" or _ => query // Lấy tất cả các đơn hàng "Completed"
             };
@@ -43,7 +43,7 @@ namespace PBL6.Repositories.Repository
         public async Task<object> GetPaymentMethodStatisticsAsync()
         {
             var stats = await dbContext.Orders
-                .Where(order => order.Status == "Completed" && order.Transaction != null && order.Transaction.PaymentMethod != null)
+                .Where(order => order.Status == "completed" && order.Transaction != null && order.Transaction.PaymentMethod != null)
                 .GroupBy(order => order.Transaction.PaymentMethod!.Name)
                 .Select(group => new
                 {

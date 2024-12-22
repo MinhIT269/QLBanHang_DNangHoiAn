@@ -123,5 +123,7 @@ namespace PBL6.Controllers
             var uploadedImageUrls = await _imageService.UploadImageAsync(files, productId);
             return Ok(new { urls = uploadedImageUrls }); // Trả về danh sách đường dẫn hình ảnh dưới dạng JSON
         }
+
+
     }
 }
