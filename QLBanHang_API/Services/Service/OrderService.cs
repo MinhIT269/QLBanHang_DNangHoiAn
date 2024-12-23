@@ -218,7 +218,7 @@ namespace PBL6_BackEnd.Services.ServiceImpl
             return await orderRepository.GetTotalAmountOfCompletedOrdersAsync();
         }
 
-        public async Task<Dictionary<string, int>> GetOrderStatistics(string period)
+        public async Task<Dictionary<string, decimal>> GetOrderStatistics(string period)
         {
             return await orderRepository.GetOrderStatistics(period);
         }
