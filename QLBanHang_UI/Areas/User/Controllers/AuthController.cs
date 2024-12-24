@@ -10,20 +10,27 @@ using System.Text.Json;
 using QLBanHang_UI.Models.Request;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using QLBanHang_UI.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 namespace QLBanHang_UI.Areas.User.Controllers
 {
-	[Area("User")]
+    [Area("User")]
     public class AuthController : Controller
     {
         private readonly IHttpClientFactory httpClientFactory;
-        public AuthController(IHttpClientFactory httpClientFactory)
+        private readonly IConfiguration configuration;
+        public AuthController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-                this.httpClientFactory = httpClientFactory;
+            this.httpClientFactory = httpClientFactory;
+            this.configuration = configuration;
         }
         [HttpGet]
         public IActionResult Login()
         {
-            return View("~/Areas/User/Views/Login.cshtml");
+            return View("~/Areas/User/Views/Authentication/Login.cshtml");
         }
 
         [HttpPost]
@@ -44,7 +51,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 {
                     var content = await httpResponse.Content.ReadAsStringAsync();
                     ModelState.AddModelError("", content);
-                    return View("~/Areas/User/Views/Login.cshtml");
+                    return View("~/Areas/User/Views/Authentication/Login.cshtml");
                 }
 
                 var response = await httpResponse.Content.ReadFromJsonAsync<LoginResponse>();
@@ -52,31 +59,70 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 if (response == null)
                 {
                     ModelState.AddModelError("", "Login failed:");
-                    return View("~/Areas/User/Views/Login.cshtml");
+                    return View("~/Areas/User/Views/Authentication/Login.cshtml");
                 }
-                Response.Cookies.Append("auth_token", response.JwtToken, new CookieOptions { HttpOnly = true, Expires = DateTime.Now.AddHours(2)});
-                Response.Cookies.Append("UserId", response.UserId.ToString(), new CookieOptions { HttpOnly = true, Expires = DateTime.Now.AddHours(1) });
-                return RedirectToAction("Dashboard", "Home");
-            }
-                catch (Exception ex)
+                var role = GetRoleFromToken(response.JwtToken);
+                var claims = new List<Claim>()
                 {
-                    Console.WriteLine("Exception: " + ex.ToString());
-                    ModelState.AddModelError("", "Có lỗi xảy ra khi đăng nhập: " + ex.Message);
-                    return View("~/Areas/User/Views/Login.cshtml");
+                    new Claim(ClaimTypes.NameIdentifier,response.UserId.ToString()),
+                    new Claim("JwtToken",response.JwtToken),
+                    new Claim(ClaimTypes.Role,role)
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuth");
+                await HttpContext.SignInAsync("MyCookieAuth", new ClaimsPrincipal(claimsIdentity));
+                if(!string.IsNullOrEmpty(role) && role=="Admin"){
+                    return RedirectToAction("Index","Admin", new { area="Admin"});
                 }
+                return RedirectToAction("DashBoard", "DashBoard");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.ToString());
+                ModelState.AddModelError("", "Có lỗi xảy ra khi đăng nhập: " + ex.Message);
+                return View("~/Areas/User/Views/Authentication/Login.cshtml");
+            }
 
         }
 
-        //// Logout 
-        //[HttpGet]
-        //public IActionResult Logout()
-        //{
-
-        //}
+        // Logout 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            var cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
+            if (cart != null)
+            {
+                var cartUpdate = new List<CartItemRequest>();
+                foreach (var item in cart)
+                {
+                    var cartItem = new CartItemRequest()
+                    {
+                        CartId = item.CartId,
+                        CartItemId = item.CartItemId,
+                        Quantity = item.Quantity,
+                        ProductId = item.ProductId,
+                    };
+                    cartUpdate.Add(cartItem);
+                }
+                await UpdateCart(cartUpdate);
+            }
+            await HttpContext.SignOutAsync("MyCookieAuth");
+            HttpContext.Session.Clear();
+            var cartAfterClear = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
+            if (cartAfterClear == null)
+            {
+                Console.WriteLine("Session đã được xóa.");
+            }
+            else
+            {
+                Console.WriteLine("Session chưa được xóa.");
+            }
+            return RedirectToAction("Login", "Auth");
+        }
         [HttpGet]
         public IActionResult Register()
         {
-            return View("~/Areas/User/Views/Register.cshtml");  // Chắc chắn rằng đường dẫn view chính xác
+            return View("~/Areas/User/Views/Authentication/Register.cshtml");  // Chắc chắn rằng đường dẫn view chính xác
         }
 
         [HttpPost]
@@ -85,7 +131,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
             if (!ModelState.IsValid)
             {
                 // Nếu ModelState không hợp lệ, trả về view cùng dữ liệu người dùng đã nhập
-                return View("~/Areas/User/Views/Register.cshtml", registerRequest);
+                return View("~/Areas/User/Views/Authentication/Register.cshtml", registerRequest);
             }
 
             try
@@ -107,7 +153,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                     ViewData["BadRequest"] = content;
 
                     // Trả về view với lỗi từ ModelState
-                    return View("~/Areas/User/Views/Register.cshtml");
+                    return View("~/Areas/User/Views/Authentication/Register.cshtml");
                 }
 
                 // Nếu đăng ký thành công, chuyển hướng tới trang đăng nhập
@@ -119,14 +165,14 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again later.");
 
                 // Trả về view với lỗi ngoại lệ
-                return View("~/Areas/User/Views/Register.cshtml", registerRequest);
+                return View("~/Areas/User/Views/Authentication/Register.cshtml", registerRequest);
             }
         }
 
         [HttpGet]
         public IActionResult ResetPassword()
         {
-            return View("~/Areas/User/Views/ResetPassword.cshtml");
+            return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml");
         }
         [HttpPost]
         public async Task<IActionResult> SendEmail(string Email)
@@ -155,18 +201,18 @@ namespace QLBanHang_UI.Areas.User.Controllers
                         ModelState.AddModelError(string.Empty, "Failed to send email.");
                     }
                     //Reload lại trang để hiển thị lỗi
-                    return View("~/Areas/User/Views/ResetPassword.cshtml");
+                    return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml");
                 }
 
                 var content = await response.Content.ReadAsStringAsync();
                 ViewBag.Message = content;
-                return View("~/Areas/User/Views/ResetPassword.cshtml"); // You may use a specific view or pass content as a model if needed
+                return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml"); // You may use a specific view or pass content as a model if needed
             }
             catch (Exception ex)
             {
                 // Log exception here if you have logging enabled
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-                return View("~/Areas/User/Views/ResetPassword.cshtml"); // Consider using an error view
+                return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml"); // Consider using an error view
             }
         }
 
@@ -184,21 +230,93 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 };
                 var httpResponse = await client.SendAsync(httpRequest);
                 var content = await httpResponse.Content.ReadAsStringAsync();
-                if (!httpResponse.IsSuccessStatusCode) 
+                if (!httpResponse.IsSuccessStatusCode)
                 {
                     if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
                         ModelState.AddModelError(string.Empty, content);
-                        return View("~/Areas/User/Views/ResetPassword.cshtml");
+                        return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml");
                     }
                 }
-                return RedirectToAction("Login","Auth");
+                return RedirectToAction("Login", "Auth");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Log exception here if you have logging enabled
                 ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
-                return View("~/Areas/User/Views/ResetPassword.cshtml"); // Consider using an error view
+                return View("~/Areas/User/Views/Authentication/ResetPassword.cshtml"); // Consider using an error view
+            }
+        }
+
+        //Update Cart If Logout 
+        public async Task UpdateCart(List<CartItemRequest> cartItemRequests)
+        {
+            try
+            {
+                var client = httpClientFactory.CreateClient();
+                var httpMessage = new HttpRequestMessage()
+                {
+                    Method = HttpMethod.Put,
+                    RequestUri = new Uri("https://localhost:7069/UpdateCart"),
+                    Content = new StringContent(JsonSerializer.Serialize(cartItemRequests), Encoding.UTF8, "application/json")
+                };
+                var httpResponse = await client.SendAsync(httpMessage);
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    Console.WriteLine(httpResponse.StatusCode);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        //return Role 
+        private string GetRoleFromToken(string token)
+        {
+            try
+            {
+                // Setting 
+                string secretKey = configuration["Jwt:Key"];
+                string audience = configuration["Jwt:Audience"];
+                string issuer = configuration["Jwt:Issuer"];
+
+                // Thiết lập tham số kiểm tra
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var validationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
+                    IssuerSigningKey = key
+                };
+
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
+
+                // Get Role
+                string role = principal.FindFirst(ClaimTypes.Role)?.Value;
+
+                // Return role or a default value if no role is found
+                return role ?? string.Empty; // You can return a default value or throw an exception here if needed
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                Console.WriteLine("Token đã hết hạn!");
+                return string.Empty; // Or some other default value
+            }
+            catch (SecurityTokenException)
+            {
+                Console.WriteLine("Token không hợp lệ!");
+                return string.Empty; // Or handle it differently
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return string.Empty; // Return an empty string or handle the error as needed
             }
         }
 

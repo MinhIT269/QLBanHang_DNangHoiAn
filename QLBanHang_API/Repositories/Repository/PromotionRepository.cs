@@ -31,6 +31,15 @@ namespace QLBanHang_API.Repositories.Repository
             return promotion;
         }
 
+        public async Task<Promotion> GetPromotionAsync(string code)
+        {
+            if(code == null)
+            {
+                return null;
+            }
+            var promotion = await dbContext.Promotions.FirstOrDefaultAsync(p=>p.Code == code);
+            return promotion;
+        }
         //Update Promotion by id 
         public async Task<Promotion> UpdatePromotionByIdAsync(Guid id, Promotion promotionUpdate)
         {

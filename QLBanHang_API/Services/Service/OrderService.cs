@@ -75,7 +75,8 @@ namespace QLBanHang_API.Services.Service
                 OrderDate = orderRequest.OrderDate,
                 TotalAmount = orderRequest.TotalAmount,
                 Status = orderRequest.Status,
-                PromotionId = orderRequest.PromotionId
+                PromotionId = orderRequest.PromotionId,
+                DiscountPercentage = orderRequest.DiscountPercentage
             };
             var orderDomain = await orderRepository.CreateOrderAsync(orderAdd);
             var orderDto = mapper.Map<OrderDto>(orderDomain);
@@ -158,6 +159,11 @@ namespace QLBanHang_API.Services.Service
         public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
         {
             return await orderRepository.SumCompletedOrdersAmountByUser(userId);
+        }
+
+        //PN updateProduct after order status change
+        public async Task UpdateProductAfterSuccess(Order order){
+            await orderRepository.UpdateProductAfterSucessAsync(order);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace QLBanHang_API.Repositories.IRepository
         Task<int> TotalOrdersSuccessByUser(Guid userId);
         Task<int> TotalOrdersPendingByUser(Guid userId);
         Task<decimal> SumCompletedOrdersAmountByUser(Guid userId);
+        Task UpdateProductAfterSucessAsync(Order order);
 
     }
 }

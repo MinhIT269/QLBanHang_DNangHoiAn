@@ -9,21 +9,20 @@ using System.Runtime.CompilerServices;
 
 namespace QLBanHang_API.Controllers
 {
-	public class CartController : ControllerBase
+    
+    public class CartController : ControllerBase
 	{
 		private readonly ICartService cartService;
-        
-
         public CartController(ICartService cartService)
         {
             this.cartService = cartService;
         }
 
         [HttpGet]
-		[Route("GetAllCartItem/{username}")]
-		public async Task<IActionResult> GetAllCartItems([FromRoute] string username)
+		[Route("GetAllCartItem/{id:guid}")]
+		public async Task<IActionResult> GetAllCartItems([FromRoute] Guid id)
 		{
-			var cartItems = await cartService.GetAllCartItems(username);
+			var cartItems = await cartService.GetAllCartItems(id);
 			if (cartItems == null)
 			{
 				return NotFound();
@@ -58,7 +57,11 @@ namespace QLBanHang_API.Controllers
 		[Route("UpdateCart")]
 		public async Task<IActionResult> UpdateCartItem([FromBody] List<CartItemRequest> cartItemRequests)
 		{
-			var cartItem = await cartService.UpdateCartItem(cartItemRequests);
+            if (cartItemRequests == null || !cartItemRequests.Any())
+            {
+                return BadRequest("No cart items provided.");
+            }
+            var cartItem = await cartService.UpdateCartItem(cartItemRequests);
 			if(cartItem == null)
 			{
 				return BadRequest();

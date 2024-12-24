@@ -12,5 +12,6 @@ namespace QLBanHang_API.Services.IService
         Task<List<PromotionDto>> GetFilteredPromotionsQuery(int page, int pageSize, string searchQuery, string sortCriteria, bool isDescending);
         Task<int> GetTotalPromotionAsync(string searchQuery);
         Task<object> GetPromotionStatsAsync();
+        Task<PromotionDto> GetPromotionByCode(string code);
     }
 }

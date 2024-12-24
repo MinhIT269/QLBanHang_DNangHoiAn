@@ -26,11 +26,11 @@ namespace QLBanHang_API.Repositories.Repository
         }
 
         //Update UserInfo
-        public async Task<UserInfo> UpdateAsync(string? username, UpdateUserInfoDto userUpdate)
+        public async Task<UserInfo> UpdateAsync(Guid id , UpdateUserInfoDto userUpdate)
         {
             var userInfo = await dbContext.UserInfos
                 .Include(u => u.User) // Tải đối tượng User
-                .FirstOrDefaultAsync(x => x.User.UserName == username);
+                .FirstOrDefaultAsync(x => x.User!.UserId == id);
 
             // Kiểm tra xem userInfo có null hay không
             if (userInfo == null)
@@ -43,7 +43,6 @@ namespace QLBanHang_API.Repositories.Repository
             userInfo.LastName = userUpdate.LastName;
             userInfo.PhoneNumber = userUpdate.PhoneNumber;
             userInfo.Address = userUpdate.Address;
-            userInfo.Gender = (bool)userUpdate.Gender;
 
             // Kiểm tra User trước khi gán Email
             if (userInfo.User != null)
@@ -56,17 +55,22 @@ namespace QLBanHang_API.Repositories.Repository
         }
 
         //Add
-        public async Task<UserInfo> AddUserInfoAsync(string username, UserInfo userInfo)
+        public async Task<UserInfo> AddUserInfoAsync(UserInfo userInfo)
         {
-            var user = await dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
-            if (user == null)
-            {
-                return null;
-            }
-            userInfo.UserId = user.UserId;
             userInfo.UserInfoId = Guid.NewGuid();
             await dbContext.UserInfos.AddAsync(userInfo);
             await dbContext.SaveChangesAsync();
+            return userInfo;
+        }
+
+        //Get by Id
+        public async Task<UserInfo> GetByUserId(Guid userId)
+        {
+            var userInfo = await dbContext.UserInfos.Include("User").FirstOrDefaultAsync(x => x.User!.UserId == userId);
+            if (userInfo == null)
+            {
+                return null;
+            }
             return userInfo;
         }
     }

@@ -92,9 +92,9 @@
 <!-- End .dropdown-cart-total -->
 
 <div class="dropdown-cart-action">
-    <a href="cart.html" class="btn btn-gray btn-block view-cart">
+    <a href="@Url.Action("CartView","Cart",new {area="User"})" class="btn btn-gray btn-block view-cart">
         View Cart
     </a>
-    <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+    <a href="@Url.Action("CheckoutView","Cart",new {area="User"})" class="btn btn-dark btn-block">Checkout</a>
 </div>
 <!-- End .dropdown-cart-total -->

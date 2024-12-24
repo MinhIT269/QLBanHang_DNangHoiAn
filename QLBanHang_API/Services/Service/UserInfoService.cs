@@ -38,9 +38,10 @@ namespace QLBanHang_API.Services.Service
             return userInfoDto;
         }
 
-        public async Task<UserInfoDto> UpdateUserInfo(string username,UpdateUserInfoDto userUpdate)
+
+        public async Task<UserInfoDto> UpdateUserInfo(Guid id,UpdateUserInfoDto userUpdate)
         {
-            var userInfo = await userInfoRepository.UpdateAsync(username, userUpdate);
+            var userInfo = await userInfoRepository.UpdateAsync(id, userUpdate);
             var userInfoDto = new UserInfoDto()
             {
                 UserInfoId = userInfo.UserInfoId,
@@ -58,23 +59,36 @@ namespace QLBanHang_API.Services.Service
             return userInfoDto;
         }
 
-        public async Task<UserInfoDto> AddUserInfo(string username,AddUserInfoDto userInfoAddDto)
+        public async Task<UserInfoDto> AddUserInfo(AddUserInfoDto userInfoAddDto)
         {
             var userInfo = mapper.Map<UserInfo>(userInfoAddDto);
-            var userInfoDomain = await userInfoRepository.AddUserInfoAsync(username, userInfo);
+            var userInfoDomain = await userInfoRepository.AddUserInfoAsync(userInfo);
             var userInfoDto = new UserInfoDto()
             {
-                UserInfoId = userInfoDomain.UserInfoId,
                 Address = userInfoDomain.Address,
                 PhoneNumber = userInfoDomain.PhoneNumber,
                 FirstName = userInfoDomain.FirstName,
                 LastName = userInfoDomain.LastName,
+            };
+            return userInfoDto;
+        }
+
+        public async Task<UserInfoDto> GetUserById(Guid userId)
+        {
+            var userInfo = await userInfoRepository.GetByUserId(userId);
+            if(userInfo == null)
+            {
+                return null;
+            }
+            var userInfoDto = new UserInfoDto()
+            {
+                UserInfoId = userInfo.UserId,
+                Address = userInfo.Address,
+                PhoneNumber = userInfo.PhoneNumber,
+                Email = userInfo.User!.Email!,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
                 Gender = userInfo.Gender,
-                user = new UserDto()
-                {
-                    UserName = userInfoDomain.User.UserName,
-                    Email = userInfoDomain.User.Email,
-                }
             };
             return userInfoDto;
         }

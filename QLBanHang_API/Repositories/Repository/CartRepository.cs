@@ -20,10 +20,10 @@ namespace QLBanHang_API.Repositories.Repository
 			return await dataContext.Carts.Include(c => c.CartItems).ThenInclude(ci => ci.Product).ToListAsync();
 		}
 
-		public async Task<List<CartItem>> GetAllCartItemAsync(string userName)
+		public async Task<List<CartItem>> GetAllCartItemAsync(Guid userId)
 		{
             var CartId = await dataContext.Carts
-						.Where(x => x.User.UserName == userName)
+						.Where(x => x.User!.UserId == userId)
 						.Select(x => x.CartId)
 						.FirstOrDefaultAsync();
 
@@ -61,11 +61,10 @@ namespace QLBanHang_API.Repositories.Repository
 			{
                 var cartId = cartItems.First().CartId;
                 var cart = dataContext.CartItems.Where(x => x.CartId == cartId).ToList();
-				if (cart == null)
+				if (cart != null)
 				{
-					return null;
-				}
-                dataContext.RemoveRange(cart);
+					dataContext.RemoveRange(cart);
+                }
                 await dataContext.AddRangeAsync(cartItems);
                 await dataContext.SaveChangesAsync();
                 return cartItems;

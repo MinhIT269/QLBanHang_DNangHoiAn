@@ -120,14 +120,14 @@ namespace QLBanHang_API.Repositories.Repository
             try
             {
                 await dbContext.OrderDetails.AddRangeAsync(orderDetails);
-                foreach(var order in orderDetails)
-                {
-                    var product = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == order.ProductId);
-                    if (product != null)
-                    {
-                        product.Stock = product.Stock - order.Quantity;
-                    }
-                }
+                //foreach(var order in orderDetails)
+                //{
+                //    var product = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == order.ProductId);
+                //    if (product != null)
+                //    {
+                //        product.Stock = product.Stock - order.Quantity;
+                //    }
+                //}
                 await dbContext.SaveChangesAsync();
                 return orderDetails;
             }
@@ -136,6 +136,8 @@ namespace QLBanHang_API.Repositories.Repository
                 throw new Exception("Does not Add to Database");
             }
         }
+
+
         public async Task AddOrderAsync(Order order)
         {
             await dbContext.Orders.AddAsync(order);
@@ -197,6 +199,21 @@ namespace QLBanHang_API.Repositories.Repository
             return await dbContext.Orders
                 .Where(o => o.UserId == userId && o.Status == "Completed")
                 .SumAsync(o => o.TotalAmount);
+        }
+
+        public async Task UpdateProductAfterSucessAsync(Order order)
+        {
+            var orderDetails = await dbContext.OrderDetails.Where(x=>x.OrderId == order.OrderId).ToListAsync();
+            foreach (var item in orderDetails)
+            {
+                var product = await dbContext.Products.FirstOrDefaultAsync(x=> x.ProductId== item.ProductId);
+                if (product != null)
+                {
+                    product.Stock = product.Stock - item.Quantity;
+                }
+            }
+            await dbContext.SaveChangesAsync();
+
         }
     }
 }

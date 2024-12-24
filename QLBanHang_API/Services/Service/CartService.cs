@@ -18,9 +18,9 @@ namespace QLBanHang_API.Services.Service
 			this.cartRepository = cartRepository;
 
 		}
-		public async Task<List<CartItemDto>> GetAllCartItems(string userName)
+		public async Task<List<CartItemDto>> GetAllCartItems(Guid userId)
 		{
-			var cartItems = await cartRepository.GetAllCartItemAsync(userName);
+			var cartItems = await cartRepository.GetAllCartItemAsync(userId);
 			var cartItemsDto = mapper.Map<List<CartItemDto>>(cartItems);
 			return cartItemsDto;
 		}
@@ -49,7 +49,18 @@ namespace QLBanHang_API.Services.Service
 		}
 		public async Task<List<CartItemDto>> UpdateCartItem(List<CartItemRequest> cartItems)
 		{
-			var updateCartItem = mapper.Map<List<CartItem>>(cartItems);
+			var updateCartItem = new List<CartItem>();
+			foreach (var cartItem in cartItems)
+			{
+				var cartUpdate = new CartItem()
+				{
+					CartItemId = cartItem.CartItemId,
+					ProductId = cartItem.ProductId,
+					Quantity = cartItem.Quantity,
+					CartId = cartItem.CartId,
+				};
+				updateCartItem.Add(cartUpdate);
+			}
 			var updateCartItemDomain = await cartRepository.UpdateCartItemAsync(updateCartItem);
 			var updateCartItemsDto = mapper.Map<List<CartItemDto>>(updateCartItemDomain);
 			return updateCartItemsDto;

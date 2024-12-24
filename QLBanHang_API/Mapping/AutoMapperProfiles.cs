@@ -104,10 +104,12 @@ namespace QLBanHang_API.Mapping
             //Cart Item
             CreateMap<CartItem, CartItemDto>()
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
-            CreateMap<CartItem, CartItemRequest>();
-            //.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
-            //.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
-            CreateMap<OrderDetail,OrderDetailsRequest>().ReverseMap();
+			CreateMap<CartItem, CartItemRequest>()
+			.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
+			.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+			.ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.ProductId))
+			.ForMember(dest => dest.CartItemId, opt => opt.MapFrom(src => src.CartItemId));
+			CreateMap<OrderDetail,OrderDetailsRequest>().ReverseMap();
 			CreateMap<Promotion, UpPromotionDto>().ReverseMap();
 			CreateMap<Promotion, AddPromotionDto>().ReverseMap();
 

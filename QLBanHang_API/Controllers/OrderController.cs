@@ -19,9 +19,11 @@ namespace QLBanHang_API.Controllers
         private readonly IProductService productService;
         private readonly IPromotionService promotionService;
         private readonly ITransactionService transactionService;
+        private readonly IUserInfoService userInfoService;
 
         public OrderController(IOrderService orderService, IPromotionService promotionService, ITransactionService transactionService
-            , IProductService productService, IVnPayService vnPayService, DataContext dataContext)
+            , IProductService productService, IVnPayService vnPayService, DataContext dataContext,
+            IUserInfoService userInfoService)
         {
             this.orderService = orderService;
             this.productService = productService;
@@ -29,6 +31,7 @@ namespace QLBanHang_API.Controllers
             this.transactionService = transactionService;
             this.vnPayService = vnPayService;
             this.dataContext = dataContext;
+            this.userInfoService = userInfoService;
         }
 
         // URL - /api/Order/AllOrder/username
@@ -140,6 +143,8 @@ namespace QLBanHang_API.Controllers
             }
             return Ok(orderDetail);
         }
+
+
         [HttpPost("checkout")]
 
         public async Task<IActionResult> CheckOut([FromBody] OrderRequest orderRequest, [FromQuery] string payment)
@@ -155,9 +160,9 @@ namespace QLBanHang_API.Controllers
                     Console.WriteLine("id is null");
                 }
                 var savedOrder = await orderService.CreateOrder(orderRequest);
-
-
-
+                
+                // Lay UserInfo
+                var userInfo = userInfoService.GetUserById(orderRequest.UserId);
                 var newTransaction = new Transaction
                 {
                     TransactionId = Guid.NewGuid(),
@@ -168,7 +173,7 @@ namespace QLBanHang_API.Controllers
                     TransactionDetails = $"Thanh toán cho đơn hàng {orderRequest.OrderId} {DateTime.Now}",
                 };
 
-                var callbackUrl = "https://10.0.2.2:7069/api/Cart/PaymentBack";
+                var callbackUrl = "https://10.0.2.2:7069/api/Order/PaymentBack";
 
                 var model = new VnPaymentRequestModel
                 {
@@ -268,6 +273,8 @@ namespace QLBanHang_API.Controllers
             await transactionService.AddTransactionAsync(transaction);
             return Ok(paymentUrl);
         }
+
+
         [HttpGet("PaymentBack")]
 
         public async Task<IActionResult> PaymentCallBack()
@@ -295,7 +302,7 @@ namespace QLBanHang_API.Controllers
 
                 order.Status = "done";
                 transaction.Status = "done";
-                await orderService.UpdateOrderAfterCompleteTransaction(order);
+                await orderService.UpdateProductAfterSuccess(order);
                 await transactionService.SaveChangeAsync();
                 Console.WriteLine("order date" + order.OrderDate);
 

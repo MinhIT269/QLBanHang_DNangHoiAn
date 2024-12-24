@@ -6,7 +6,7 @@ namespace QLBanHang_API.Repositories.IRepository
 	public interface ICartRepository
 	{
         Task<List<Cart>> GetCartItemDetails();
-        Task<List<CartItem>> GetAllCartItemAsync(string userName);
+        Task<List<CartItem>> GetAllCartItemAsync(Guid userId);
         Task<CartItem> AddCartItemAsync(CartItem cartItem);
         Task<List<CartItem>> DeleteCartItemAsync(List<CartItem> cartItems);
         Task<List<CartItem>> UpdateCartItemAsync(List<CartItem> cartItems);

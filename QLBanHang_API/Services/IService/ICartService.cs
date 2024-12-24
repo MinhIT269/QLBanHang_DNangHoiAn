@@ -5,7 +5,7 @@ namespace QLBanHang_API.Services.IService
 {
 	public interface ICartService
 	{
-        Task<List<CartItemDto>> GetAllCartItems(string userName);
+        Task<List<CartItemDto>> GetAllCartItems(Guid userId);
         Task<CartItemDto> AddCartItem(CartItemRequest cartItemRequest);
         Task<List<CartItemDto>> DeleteCartItem(List<CartItemRequest> cartRequest);
         Task<List<CartItemDto>> UpdateCartItem(List<CartItemRequest> cartItems);

@@ -11,5 +11,6 @@ namespace QLBanHang_API.Repositories.IRepository
         Task<Promotion> AddPromotionAsync(Promotion promotion);
         IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending);
         Task<object> GetPromotionStatsAsync();
+        Task<Promotion> GetPromotionAsync(string code);
     }
 }

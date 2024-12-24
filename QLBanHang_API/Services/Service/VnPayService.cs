@@ -76,12 +76,12 @@ namespace QLBanHang_API.Services.Service
 
             var isAndroidEmulator = context.Request.Headers["User-Agent"].ToString().Contains("Android");
             var hostUrl = isAndroidEmulator
-                ? "https://10.0.2.2:7069/api/Cart/PaymentBack"
-                : $"{context.Request.Scheme}://{context.Request.Host}/Cart/PaymentBack";
+                ? "https://10.0.2.2:7080/api/Order/PaymentBack"
+                : $"{context.Request.Scheme}://{context.Request.Host}/api/Order/PaymentBack";
 
             vnpay.AddRequestData("vnp_ReturnUrl", hostUrl);
             vnpay.AddRequestData("vnp_TxnRef", tick);
-            Console.WriteLine("OKkkkkkkkkkkkkkk");
+            
             var paymentUrl = vnpay.CreateRequestUrl(_config["VnPay:BaseUrl"], _config["VnPay:HashSecret"]);
 
             return paymentUrl;

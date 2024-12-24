@@ -1,0 +1,333 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using QLBanHang_UI.Models
+@model QLBanHang_UI.Models.ViewModel
+@{
+    var category = Model.Categorys as List<CategoryDto> ?? new List<CategoryDto>();
+    var category1 = category!.Take(8).ToList();
+    var category2 = category!.Skip(8).Take(8);
+    var brand = Model.Brands as List<BrandDto> ?? new List<BrandDto>();
+    var brand1 = brand!.Take(8).ToList();
+    var brand2 = brand!.Skip(8).Take(8);
+    var cart = Model.Carts as List<CartItemDto> ?? new List<CartItemDto>();
+}
+
+    <div class="container">
+        <div class="pre-header w-100">
+            <div class="owl-carousel owl-theme feature-box-carousel" data-toggle="owl" data-owl-options="{
+            'margin': 1,
+            'autoplay': false,
+            'autoplayTimeout': 3000,
+            'nav': false,
+            'dots': false,
+            'loop': true,
+            'responsive' : {
+            '0' : {
+            'items' : 1
+            },
+            '576' : {
+            'items' : 2
+            },
+            '768' : {
+            'items' : 3
+            },
+            '992' : {
+            'items' : 4
+            }
+            }
+            }">
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-shipping line-height-1"></i>
+
+                    <div class="info-box-content">
+                        <h4 class="ls-n-25 line-height-1">FREE SHIPPING &amp; RETURN</h4>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-money line-height-1"></i>
+
+                    <div class="info-box-content">
+                        <h4 class="ls-n-25 line-height-1">MONEY BACK GUARANTEE</h4>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-support line-height-1"></i>
+
+                    <div class="info-box-content">
+                        <h4 class="ls-n-25 line-height-1">ONLINE SUPPORT 24/7</h4>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-secure-payment line-height-1"></i>
+
+                    <div class="info-box-content">
+                        <h4 class="ls-n-25 line-height-1">SECURE PAYMENT</h4>
+                    </div>
+                    <!-- End .info-box-content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Header-Top  -->
+    <div class="header-top">
+        <div class="container">
+            <div class="header-left">
+                <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
+                    <a href="#"><i class="flag-us flag"></i>ENG</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li>
+                                <a href="#"><i class="flag-us flag mr-2"></i>ENG</a>
+                            </li>
+                            <li><a href="#"><i class="flag-fr flag mr-2"></i>FRA</a></li>
+                        </ul>
+                    </div>
+                    <!-- End .header-menu -->
+                </div>
+                <div class="header-dropdown">
+                    <a href="#" class="pl-0">USD</a>
+                    <div class="header-menu">
+                        <ul>
+                            <li><a href="#">EUR</a></li>
+                            <li><a href="#">USD</a></li>
+                        </ul>
+                    </div>
+                    <!-- End .header-menu -->
+                </div>
+            </div>
+            <!-- End .header-left -->
+
+            <div class="header-right">
+                <ul class="top-links mega-menu show-arrow d-none d-lg-inline-block mt-0 mb-0">
+                    <li class="item-menu narrow"><a href="#">My Account</a></li>
+                    <li class="item-menu narrow"><a href="#">About Us</a></li>
+                    <li class="item-menu narrow"><a href="#">Blog</a></li>
+                    <li class="item-menu narrow"><a href="#">My Wishlist</a></li>
+                    <li class="item-menu narrow"><a href="@Url.Action("CartView","Cart", new{area ="User"})">Cart</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="item-menu">
+                            <a class="login" href="@Url.Action("Logout","Auth", new {area="User"})">Log out</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="item-menu">
+                            <a class="login" href="@Url.Action("Login","Auth", new {area ="User"})">Log In</a>
+                        </li>
+                    }
+
+                </ul>
+                <span class="separator d-none d-lg-block"></span>
+                <div class="social-icons d-flex align-items-center">
+                    <a target="_blank" rel="nofollow" class="social-icon social-facebook icon-facebook" href="#" title="Facebook"></a>
+                    <a target="_blank" rel="nofollow" class="social-icon social-twitter icon-twitter" href="#" title="Twitter"></a>
+                    <a target="_blank" rel="nofollow" class="social-icon social-instagram icon-instagram" href="#" title="Instagram"></a>
+                </div>
+            </div>
+            <!-- End .header-right -->
+        </div>
+        <!-- End .container -->
+    </div>
+
+    <!-- Container-->
+    <div class="container">
+        <div class="header-middle sticky-header d-flex w-100">
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler text-white mr-2" type="button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})" class="logo">
+                        <img src="~/images/logo-white.png" alt="Porto Logo" width="110" height="46" />
+                    </a>
+                </div>
+                <!-- End .header-left -->
+                <!-- Header center -->
+                <div class="header-center flex-1 ml-lg-0 justify-content-end justify-content-lg-start  w-lg-max">
+                    <div class="header-icon header-search header-search-inline header-search-category w-lg-max d-none d-sm-block">
+                        <a href="#" class="search-toggle text-white" role="button">
+                            <i class="icon-search-3 pt-md-1 pr-2 mr-3 d-none d-sm-inline-block"></i>
+                        </a>
+                        <form id="search-form" asp-area="User" asp-controller="DashBoard" asp-action="SearchProduct" method="get">
+                            <div class="header-search-wrapper">
+                                <input id="search" name="search" type="search" class="form-control" placeholder="Search..." required="">
+                                <button id="search-btn" class="btn icon-magnifier" type="submit"></button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- End .header-search -->
+                </div>
+
+                <!-- Header Right -->
+                <div class="header-right ml-0 ml-lg-auto">
+                    <div class="header-contact d-none d-lg-flex align-items-center">
+                        <i class="icon-phone-2"></i>
+                        <h6>Call us now<a href="tel:#" class="font1">+123 5678 890</a></h6>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Logout","Auth", new {area ="User"})" class="header-icon header-icon-user text-white">
+                            <i class="icon-user-2 d-inline-flex-center"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login","Auth", new {area ="User"})" class="header-icon header-icon-user text-white">
+                            <i class="icon-user-2 d-inline-flex-center"></i>
+                        </a>
+                    }
+
+
+                    <a href="#" class="header-icon d-inline-flex text-white">
+                        <i class="icon-wishlist-2 d-inline-flex-center line-height-1"></i>
+                    </a>
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <i class="minicart-icon"></i>
+                        </a>
+
+                        <div class="cart-overlay"></div>
+
+                        <div class="dropdown-menu mobile-cart">
+                            <a href="#" title="Close (Esc)" class="btn-close">×</a>
+
+                            <div class="dropdownmenu-wrapper custom-scrollbar">
+                                <div class="dropdown-cart-header">Shopping Cart</div>
+                                <!-- End .dropdown-cart-header -->
+                                @if (cart.Any())
+                                {
+                                    @await Html.PartialAsync("~/Areas/User/Views/Shared/_CartPartial.cshtml", cart)
+                                    ;
+                                }
+                            </div>
+                            <!-- End .dropdown-cart-total -->
+                        </div>
+                        <!-- End .dropdownmenu-wrapper -->
+                    </div>
+                    <!-- End .dropdown-menu -->
+                </div>
+                <!-- End .dropdown -->
+            </div>
+            <!-- End .header-right -->
+        </div>
+    </div>
+
+    <div class="container d-none  d-lg-block">
+                <div class="row">
+                    <aside class="sidebar-home col-lg-3 mobile-sidebar toggle-menu-wrap">
+                        <div class="side-menu-wrapper text-uppercase d-none d-lg-block">
+                            <h2 class="side-menu-title cursor-pointer">
+                                <a class="collpased d-block btn-dark" data-toggle="collapse" href="#side-nav" role="button" aria-expanded="true" aria-controls="side-nav">
+                                    <i class="fas fa-bars"></i>Shop By Category
+                                </a>
+                            </h2>
+                            <div class="collapse w-100 bg-white" id="side-nav">
+                                <nav class="side-nav bg-white">
+                                    <ul class="menu menu-vertical sf-arrows">
+                                        <li class="active"><a href="@Url.Action("DashBoard","DashBoard",new {area="User"})"><i class="sicon-home"></i>Home</a></li>
+                                        <li>
+                                            <a href="#" class="sf-with-ul"><i
+                                                    class="sicon-briefcase"></i>Categories</a>
+                                            <div class="megamenu megamenu-fixed-width megamenu-3cols">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <ul class="submenu">
+                                                            @if (category1.Any())
+                                                            {
+                                                                @foreach (var item in category1)
+                                                                {
+                                                                    <li><a href="@Url.Action("CategoryProduct","DashBoard", new{area="User",category=@item.CategoryName})">@item.CategoryName</a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <ul class="submenu">
+                                                            @if (category2.Any())
+                                                            {
+                                                                @foreach (var item in category2)
+                                                                {
+                                                                    <li><a href="@Url.Action("CategoryProduct","DashBoard", new{area="User",category=@item.CategoryName})">@item.CategoryName</a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End .megamenu -->
+                                        </li>
+                                        <li>
+                                            <a href="#" class="sf-with-ul"><i
+                                                    class="sicon-present"></i>Brand</a>
+                                            <div class="megamenu megamenu-fixed-width">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <ul class="submenu">
+                                                            @if (brand1.Any())
+                                                            {
+                                                                @foreach (var item in brand1)
+                                                                {
+                                                                    <li><a href="@Url.Action("BrandProduct","DashBoard", new{area="User",brandName=@item.BrandName})">@item.BrandName</a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <!-- End .col-lg-4 -->
+
+                                                    <div class="col-lg-4">
+                                                        <ul class="submenu">
+                                                            @if (brand2.Any())
+                                                            {
+                                                                @foreach (var item in brand2)
+                                                                {
+                                                                    <li><a href="@Url.Action("BrandProduct","DashBoard", new{area="User",brandName=@item.BrandName})">@item.BrandName</a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <!-- End .col-lg-4 -->
+                                                </div>
+                                                <!-- End .row -->
+                                            </div>
+                                            <!-- End .megamenu -->
+                                        </li>
+                                        @*
+                                        <li>
+                                            <a href="#" class="sf-with-ul"><i class="sicon-docs"></i>Pages</a>
+                                            <ul>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="cart.html">Shopping Cart</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a href="dashboard.html">Dashboard</a></li>
+                                                <li><a href="demo9-about.html">About Us</a></li>
+                                                <li><a href="#">Blog</a>
+                                                    <ul>
+                                                        <li><a href="blog.html">Blog</a></li>
+                                                        <li><a href="single.html">Blog Post</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="demo9-contact.html">Contact Us</a></li>
+                                                <li><a href="login.html">Login</a></li>
+                                                <li><a href="forgot-password.html">Forgot Password</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="blog.html"><i class="sicon-book-open"></i>blog</a></li>
+                                        <li><a href="demo9-about.html"><i class="sicon-users"></i>About Us</a></li>
+                                        <li class="item-menu-sale"><a href="#" class="border-top-0">HUGE SALE – 70%
+                                                OFF</a>
+                                        </li> *@
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- End .side-menu-container -->
+                    </aside>
+                    <!-- End .col-lg-3 -->
+                </div>
+    </div>
+

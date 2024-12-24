@@ -6,8 +6,10 @@ namespace QLBanHang_API.Repositories.IRepository
     public interface IUserInfoRepository
     {
         Task<UserInfo> GetByUserNameAsync(string username);
-        Task<UserInfo> UpdateAsync(string username, UpdateUserInfoDto userInfo);
-        Task<UserInfo> AddUserInfoAsync(string username,UserInfo userInfo);
+        Task<UserInfo> UpdateAsync(Guid id, UpdateUserInfoDto userInfo);
+        Task<UserInfo> AddUserInfoAsync(UserInfo userInfo);
+
+        Task<UserInfo> GetByUserId(Guid userId);
     }
 }
 

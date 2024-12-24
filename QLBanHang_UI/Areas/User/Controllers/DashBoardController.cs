@@ -10,6 +10,7 @@ using QLBanHang_UI.Models;
 using QLBanHang_UI.Models.Request;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 
@@ -37,19 +38,24 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 Brands = brandsDto
             };
             var cart = new List<CartItemDto>();
-            HttpContext.Session.SetObjectAsJson("AllProduct", productsDto);
             //Kiem tra neu Session cart chua ton tai
-            if (!SessionExtension.IsCartExist(HttpContext.Session))
+            if (HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
-                var userName = "nguyen22";
-                cart = await GetAllCartItem(userName);
-                HttpContext.Session.SetObjectAsJson("Cart", cart);
+                var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+                if (!SessionExtension.IsCartExist(HttpContext.Session))
+                {
+                    //var userId = Guid.Parse(Request.Cookies["UserId"]);
+                    cart = await GetAllCartItem(userId);
+                    HttpContext.Session.SetObjectAsJson("Cart", cart);
+                }
+                else
+                {
+                    cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
+                }
+                ViewData["Carts"] = cart;
+                viewModel.Carts = cart;
             }
-            else
-            {
-                cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
-            }
-            ViewData["Carts"]= cart;
+            HttpContext.Session.SetObjectAsJson("ViewModel", viewModel);
             return View("~/Areas/User/Views/DashBoardUser.cshtml",viewModel);
         }
 
@@ -70,10 +76,24 @@ namespace QLBanHang_UI.Areas.User.Controllers
             string targetUrl = $"/User/Dashboard/CategoryView?brandName={encodeSearch}&page=1";
             return Redirect(targetUrl);
         }
+
+        //Action for Category
+        [HttpGet]
+        public IActionResult CategoryProduct(string category)
+        {
+            string encodeSearch = Uri.EscapeDataString(category);
+            string targetUrl = $"/User/Dashboard/CategoryView?category={encodeSearch}&page=1";
+            return Redirect(targetUrl);
+        }
+
+
         //View Category
         public IActionResult CategoryView()
         {
-            return View("~/Areas/User/Views/Category.cshtml");
+            var viewModel = HttpContext.Session.GetObjectFromJson<ViewModel>("ViewModel");
+            var cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
+            viewModel.Carts = cart;
+            return View("~/Areas/User/Views/Category.cshtml", viewModel);
         }
         //Product Detail View
         [HttpGet]
@@ -88,10 +108,11 @@ namespace QLBanHang_UI.Areas.User.Controllers
             {
                 Products = productsDto,
                 Categorys = categoriesDto,
-                Brands = brandsDto
+                Brands = brandsDto,
+                Carts = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart")
             };
             ViewData["ProductDetail"] = product;
-            ViewData["Carts"] = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
+            
             return View("~/Areas/User/Views/ProductDetail.cshtml", viewModel);
         }
 
@@ -102,9 +123,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
             var cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart") ?? new List<CartItemDto>();
             cart.RemoveAll(x => x.CartItemId == id);
             HttpContext.Session.SetObjectAsJson("Cart", cart);
-
             // Trả về một PartialView cập nhật lại giỏ hàng sau khi xóa sản phẩm
-            var totalPrice = cart.Sum(x => x.Quantity * (x.Product.PromotionPrice ?? x.Product.Price));
             var View =  PartialView("~/Areas/User/Views/_CartPartial.cshtml", cart); // Đảm bảo bạn trả về PartialView với danh sách giỏ hàng mới
             return View;
         }
@@ -135,9 +154,6 @@ namespace QLBanHang_UI.Areas.User.Controllers
 
             HttpContext.Session.SetObjectAsJson("Cart", cart);
             var newCarts = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
-            var totalPrice = newCarts.Sum(x => x.Quantity * (x.Product.PromotionPrice ?? x.Product.Price));
-            ViewData["Carts"] = newCarts;
-            ViewData["SubTotal"] = totalPrice;
             return PartialView("~/Areas/User/Views/_CartPartial.cshtml", newCarts);
         }
 
@@ -317,7 +333,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
 
         // Cac Method Xu ly Cart
         //Lấy tất cả CartItem lên
-        public async Task<List<CartItemDto>> GetAllCartItem(string username)
+        public async Task<List<CartItemDto>> GetAllCartItem(Guid id)
         {
             try
             {
@@ -325,7 +341,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 var httpMessage = new HttpRequestMessage()
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://localhost:7069/GetAllCartItem/{username}")
+                    RequestUri = new Uri($"https://localhost:7069/GetAllCartItem/{id}")
                 };
                 var httpResponse = await client.SendAsync(httpMessage);
                 if (!httpResponse.IsSuccessStatusCode)

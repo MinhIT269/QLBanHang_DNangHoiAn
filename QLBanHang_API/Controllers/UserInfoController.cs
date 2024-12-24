@@ -30,13 +30,14 @@ namespace QLBanHang_API.Controllers
             return Ok(userInfo);
         }
 
+
         //Update UserInfo
         // /api/UserInfo/Update/username=?
         [HttpPut]
-        [Route("Update/{username}")]
-        public async Task<IActionResult> UpdateUserInfo([FromRoute] string username, UpdateUserInfoDto userInfoUpdate)
+        [Route("Update/{id:guid}")]
+        public async Task<IActionResult> UpdateUserInfo([FromRoute] Guid id, [FromBody]UpdateUserInfoDto userInfoUpdate)
         {
-            var userInfo = await userInfoService.UpdateUserInfo(username, userInfoUpdate);
+            var userInfo = await userInfoService.UpdateUserInfo(id, userInfoUpdate);
             if (userInfo == null)
             {
                 return NotFound();
@@ -47,13 +48,25 @@ namespace QLBanHang_API.Controllers
         //Add UserInfo
         // /api/UserInfo/Add/username=?
         [HttpPost]
-        [Route("Add/{username}")]
-        public async Task<IActionResult> AddUserInfo([FromRoute]string username,AddUserInfoDto userInfoDto)
+        [Route("Add")]
+        public async Task<IActionResult> AddUserInfo([FromBody]AddUserInfoDto userInfoDto)
         {
-            var userInfo = await userInfoService.AddUserInfo(username, userInfoDto);
+            var userInfo = await userInfoService.AddUserInfo(userInfoDto);
             if (userInfo == null)
             {
                 return BadRequest();
+            }
+            return Ok(userInfo);
+        }
+
+        [HttpGet]
+        [Route("GetId/{id:guid}")]
+        public async Task<IActionResult> GetUserInfoById(Guid id)
+        {
+            var userInfo = await userInfoService.GetUserById(id);
+            if (userInfo == null)
+            {
+                return NotFound();
             }
             return Ok(userInfo);
         }

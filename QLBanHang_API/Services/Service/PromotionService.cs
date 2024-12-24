@@ -95,5 +95,12 @@ namespace QLBanHang_API.Services.Service
         {
             return await promotionRepository.GetPromotionStatsAsync();
         }
+
+        public async Task<PromotionDto> GetPromotionByCode(string code)
+        {
+            var promotion = await promotionRepository.GetPromotionAsync(code);
+            var promotionDto = mapper.Map<PromotionDto>(promotion);
+            return promotionDto;
+        }
     }
 }
