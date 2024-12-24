@@ -31,12 +31,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
             var productsDto = await GetAllProduct();
             var categoriesDto = await GetAllCategory();
             var brandsDto = await GetAllBrand();
-            var viewModel = new ViewModel()
-            {
-                Products = productsDto,
-                Categorys = categoriesDto,
-                Brands = brandsDto
-            };
+            
             var cart = new List<CartItemDto>();
             //Kiem tra neu Session cart chua ton tai
             if (HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
@@ -53,8 +48,14 @@ namespace QLBanHang_UI.Areas.User.Controllers
                     cart = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
                 }
                 ViewData["Carts"] = cart;
-                viewModel.Carts = cart;
             }
+            var viewModel = new ViewModel()
+            {
+                Products = productsDto,
+                Categorys = categoriesDto,
+                Brands = brandsDto,
+                Carts = cart
+            };
             HttpContext.Session.SetObjectAsJson("ViewModel", viewModel);
             return View("~/Areas/User/Views/DashBoardUser.cshtml",viewModel);
         }

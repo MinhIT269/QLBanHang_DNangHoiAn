@@ -55,7 +55,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 }
 
                 var response = await httpResponse.Content.ReadFromJsonAsync<LoginResponse>();
-                Console.WriteLine(response.JwtToken);
+
                 if (response == null)
                 {
                     ModelState.AddModelError("", "Login failed:");
@@ -64,7 +64,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 var role = GetRoleFromToken(response.JwtToken);
                 var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier,response.UserId.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier,response.Id.ToString()),
                     new Claim("JwtToken",response.JwtToken),
                     new Claim(ClaimTypes.Role,role)
                 };

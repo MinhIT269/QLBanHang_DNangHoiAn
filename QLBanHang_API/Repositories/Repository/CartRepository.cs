@@ -140,9 +140,9 @@ namespace PBL6.Repositories.Repository
                 var cart = dataContext.CartItems.Where(x => x.CartId == cartId).ToList();
 				if (cart != null)
 				{
-					dataContext.RemoveRange(cart);
+					dataContext.CartItems.RemoveRange(cart);
                 }
-                await dataContext.AddRangeAsync(cartItems);
+                await dataContext.CartItems.AddRangeAsync(cartItems);
                 await dataContext.SaveChangesAsync();
                 return cartItems;
             }
