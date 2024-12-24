@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QLBanHang_API.Dto
+namespace PBL6.Dto
 {
     public class UpBrandDto
     {

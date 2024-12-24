@@ -1,16 +1,16 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using PBL6.Repositories.IRepository;
 using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace QLBanHang_API.Repositories.Repository
+namespace PBL6.Repositories.Repository
 {
     public class TokenRepository : ITokenRepository
     {
         private readonly IConfiguration configuration;
-        public TokenRepository (IConfiguration configuration)
+        public TokenRepository(IConfiguration configuration)
         {
             this.configuration = configuration;
         }

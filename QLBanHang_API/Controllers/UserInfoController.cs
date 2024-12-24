@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL6.Dto;
+using PBL6.Services.IService;
 using QLBanHang_API.Dto;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Services.IService;
 
-namespace QLBanHang_API.Controllers
+namespace PBL6.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UserInfoController : ControllerBase
     {
         private readonly IUserInfoService userInfoService;
@@ -23,6 +22,8 @@ namespace QLBanHang_API.Controllers
         public async Task<IActionResult> GetUserInfo(string username)
         {
             var userInfo = await userInfoService.GetByUserName(username);
+      
+
             if (userInfo == null)
             {
                 return NotFound();

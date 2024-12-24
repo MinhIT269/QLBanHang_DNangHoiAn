@@ -1,6 +1,6 @@
 ﻿using QLBanHang_API.Dto.Request;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.IService
 {
     public interface IEmailService
     {

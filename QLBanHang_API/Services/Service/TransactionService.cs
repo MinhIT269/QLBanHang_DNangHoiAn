@@ -1,7 +1,11 @@
-﻿using PBL6_QLBH.Models;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Services.IService;
-namespace QLBanHang_API.Services.Service
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6.Repositories.IRepository;
+using PBL6.Repositories.Repository;
+using PBL6_BackEnd.Services.Service;
+using PBL6_QLBH.Data;
+using PBL6_QLBH.Models;
+
+namespace PBL6_BackEnd.Services.ServiceImpl
 {
     public class TransactionService : ITransactionService
     {
@@ -31,5 +35,13 @@ namespace QLBanHang_API.Services.Service
         {
             await _transactionRepository.SaveChangeAsync();
         }
+
+        //public async Task<int> getMaxTransactionId()
+        //{
+        //   return  await _context.Transactions
+        //            .OrderByDescending(t => t.TransactionId)
+        //            .Select(t => t.TransactionId)
+        //            .FirstOrDefaultAsync();
+        //}
     }
 }

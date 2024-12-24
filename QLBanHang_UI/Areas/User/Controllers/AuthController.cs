@@ -257,7 +257,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 var httpMessage = new HttpRequestMessage()
                 {
                     Method = HttpMethod.Put,
-                    RequestUri = new Uri("https://localhost:7069/UpdateCart"),
+                    RequestUri = new Uri("https://localhost:7069/api/Cart/UpdateCart"),
                     Content = new StringContent(JsonSerializer.Serialize(cartItemRequests), Encoding.UTF8, "application/json")
                 };
                 var httpResponse = await client.SendAsync(httpMessage);

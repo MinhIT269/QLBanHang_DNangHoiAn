@@ -1,7 +1,7 @@
-﻿using PBL6_QLBH.Models;
+﻿using PBL6.Dto;
 using QLBanHang_API.Dto;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.IService
 {
     public interface IUserInfoService
     {
@@ -9,5 +9,6 @@ namespace QLBanHang_API.Services.IService
         Task<UserInfoDto> UpdateUserInfo(Guid id, UpdateUserInfoDto userUpdate);
         Task<UserInfoDto> AddUserInfo( AddUserInfoDto userInfoDto);
         Task<UserInfoDto> GetUserById(Guid userId);
+        
     }
 }

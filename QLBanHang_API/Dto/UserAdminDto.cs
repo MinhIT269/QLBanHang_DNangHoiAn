@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace QLBanHang_API.Dto
+﻿namespace PBL6.Dto
 {
     public class UserAdminDto
     {
@@ -9,6 +7,6 @@ namespace QLBanHang_API.Dto
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
         public decimal TotalAmount { get; set; }
-        public int Order {  get; set; }
+        public int Order { get; set; }
     }
 }

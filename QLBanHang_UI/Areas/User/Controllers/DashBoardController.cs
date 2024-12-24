@@ -124,7 +124,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
             cart.RemoveAll(x => x.CartItemId == id);
             HttpContext.Session.SetObjectAsJson("Cart", cart);
             // Trả về một PartialView cập nhật lại giỏ hàng sau khi xóa sản phẩm
-            var View =  PartialView("~/Areas/User/Views/_CartPartial.cshtml", cart); // Đảm bảo bạn trả về PartialView với danh sách giỏ hàng mới
+            var View =  PartialView("~/Areas/User/Views/Shared/_CartPartial.cshtml", cart); // Đảm bảo bạn trả về PartialView với danh sách giỏ hàng mới
             return View;
         }
 
@@ -154,7 +154,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
 
             HttpContext.Session.SetObjectAsJson("Cart", cart);
             var newCarts = HttpContext.Session.GetObjectFromJson<List<CartItemDto>>("Cart");
-            return PartialView("~/Areas/User/Views/_CartPartial.cshtml", newCarts);
+            return PartialView("~/Areas/User/Views/Shared/_CartPartial.cshtml", newCarts);
         }
 
 
@@ -186,7 +186,8 @@ namespace QLBanHang_UI.Areas.User.Controllers
             }
 
             HttpContext.Session.SetObjectAsJson("Cart", cart);
-            return PartialView("~/Areas/User/Views/_CartPartial.cshtml", cart);
+
+            return PartialView("~/Areas/User/Views/Shared/_CartPartial.cshtml", cart);
         }
 
 
@@ -341,7 +342,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 var httpMessage = new HttpRequestMessage()
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://localhost:7069/GetAllCartItem/{id}")
+                    RequestUri = new Uri($"https://localhost:7069/api/Cart/GetAllCartItem/{id}")
                 };
                 var httpResponse = await client.SendAsync(httpMessage);
                 if (!httpResponse.IsSuccessStatusCode)

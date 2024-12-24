@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL6_BackEnd.Services.Service;
 using PBL6_QLBH.Data;
-using PBL6_QLBH.Models;
-using QLBanHang_API.Dto.Request;
-using QLBanHang_API.Service;
-using QLBanHang_API.Services.IService;
-using QLBanHang_API.Services.Service;
+using Microsoft.EntityFrameworkCore;
 
-namespace QLBanHang_API.Controllers
+using PBL6_QLBH.Models;
+using PBL6_BackEnd.Services.ServiceImpl;
+using PBL6.Dto.Request;
+using PBL6_BackEnd.Request;
+using PBL6.Services.Service;
+using PBL6.Services.IService;
+
+namespace PBL6.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+	[Route("api/[controller]")]
+	public class OrderController : ControllerBase
     {
         private readonly IOrderService orderService;
         private readonly IVnPayService vnPayService;
@@ -34,10 +37,25 @@ namespace QLBanHang_API.Controllers
             this.userInfoService = userInfoService;
         }
 
-        // URL - /api/Order/AllOrder/username
+
+        [HttpGet("getOrderByStatus")]
+        public async Task<ActionResult<List<Order>>> GetOrderByStatus([FromQuery] string status, [FromQuery] int page = 1, [FromQuery] int size = 10 )
+        {
+
+            int skip = (page - 1) * size;
+            var orders = await orderService.getOrderByStatus(status)
+                            .Skip(skip) 
+                            .Take(size) 
+                            .ToListAsync(); 
+
+
+            return Ok(orders);
+        }
+
+
         [HttpGet]
         [Route("AllOrder")]
-        public async Task<IActionResult> GetAllOrder([FromQuery] Guid id, [FromQuery] string? searchQuery,[FromQuery] int page = 1, int pageSize = 5)
+        public async Task<IActionResult> GetAllOrder([FromQuery] Guid id, [FromQuery] string? searchQuery, [FromQuery] int page = 1, int pageSize = 5)
         {
             try
             {
@@ -58,39 +76,6 @@ namespace QLBanHang_API.Controllers
                 // Xử lý lỗi không mong muốn
                 return StatusCode(500, new { Message = "An error occurred while processing the request.", Details = ex.Message });
             }
-        }
-        [HttpGet("TotalPagesOrdered_Detail")]
-        public async Task<IActionResult> GetTotalPagesCategory_Detail([FromQuery] Guid id, [FromQuery] string searchQuery = "")
-        {
-            var ordersDTO = await orderService.GetAllOrders(id, searchQuery);
-            // Check if the list is null or empty
-            if (ordersDTO == null || !ordersDTO.Any())
-            {
-                // Return 0 pages if no orders are found
-                return Ok(0);
-            }
-
-            // Get the total number of records
-            var totalRecords = ordersDTO.Count;
-            var totalPages = (int)Math.Ceiling((double)totalRecords / 5); // Điều chỉnh số item trên mỗi trang nếu cần
-            return Ok(totalPages);
-        }
-
-        [HttpGet("GetOrdersStats_UserDetail")]
-        public async Task<IActionResult> GetOrdersStats_UserDetail([FromQuery] Guid id)
-        {
-            var totalOrders = await orderService.TotalOrdersByUser(id);
-            var totalOrdersPending = await orderService.TotalOrdersPendingByUser(id);
-            var totalOrdersSuccess = await orderService.TotalOrdersSuccessByUser(id);
-            var SumOrder = await orderService.SumCompletedOrdersAmountByUser(id);
-
-            return Ok(new
-            {
-                TotalOrders = totalOrders,
-                OrdersPending = totalOrdersPending,
-                OrderSuccess = totalOrdersSuccess,
-                SumOrder = SumOrder
-            });
         }
 
         // URL - /api/Order/OrderDetail/id
@@ -116,9 +101,96 @@ namespace QLBanHang_API.Controllers
             {
                 return NotFound();
             }
-
             return Ok(orderDTO);
         }
+
+        [HttpGet("GetFilterOrdered")]
+        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
+        {
+            var orders = await orderService.GetFilteredOrders(page, pageSize, searchQuery, sortCriteria, isDescending);
+
+            return Ok(orders);
+        }
+
+        [HttpGet("TotalPagesOrdered")]
+        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
+        {
+            var totalRecords = await orderService.GetTotalOrdersAsync(searchQuery);
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("TotalOrders")]
+        public async Task<IActionResult> TotalOrders()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            return Ok(totalOrders);
+        }
+
+        [HttpGet("GetOrdersStats")]
+        public async Task<IActionResult> GetProductStats()
+        {
+            var totalOrders = await orderService.TotalOrders();
+            var totalOrdersPending = await orderService.TotalOrdersPending();
+            var totalOrdersSuccess = await orderService.TotalOrdersSuccess();
+            var totalOrdersCancel = await orderService.TotalOrdersCancel();
+            var totalAmount = await orderService.GetTotalAmountOfCompletedOrdersAsync();
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                OrderCancel = totalOrdersCancel,
+                TotalAmount = totalAmount
+            });
+        }
+
+
+        [HttpGet("CheckMissionForBeginner")]
+        public async Task<IActionResult> CheckMissionForBeginner([FromQuery] string userId)
+        {
+            return Ok(orderService.CheckMissionForBeginner(Guid.Parse(userId)));
+        }
+
+
+
+       
+        [HttpGet("TotalPagesOrdered_Detail")]
+        public async Task<IActionResult> GetTotalPagesCategory_Detail([FromQuery] Guid id, [FromQuery] string searchQuery = "")
+        {
+            var ordersDTO = await orderService.GetAllOrders(id, searchQuery);
+            // Check if the list is null or empty
+            if (ordersDTO == null || !ordersDTO.Any())
+            {
+                // Return 0 pages if no orders are found
+                return Ok(0);
+            }
+
+            // Get the total number of records
+            var totalRecords = ordersDTO.Count;
+            var totalPages = (int)Math.Ceiling((double)totalRecords / 5); // Điều chỉnh số item trên mỗi trang nếu cần
+            return Ok(totalPages);
+        }
+
+        [HttpGet("GetOrdersStats_UserDetail")]
+        public async Task<IActionResult> GetOrdersStats_UserDetail([FromQuery] Guid id)
+        {
+            var totalOrders = await orderService.TotalOrdersByUser(id);
+            var totalOrdersPending = await orderService.TotalOrdersPendingByUser(id);
+            var totalOrdersSuccess = await orderService.TotalOrdersSuccessByUser(id);
+            var sumOrder = await orderService.SumCompletedOrdersAmountByUser(id);
+            return Ok(new
+            {
+                TotalOrders = totalOrders,
+                OrdersPending = totalOrdersPending,
+                OrderSuccess = totalOrdersSuccess,
+                SumOrder = sumOrder
+            });
+        }
+
+    
+
+  
 
         //Create Order
         [HttpPost]
@@ -337,44 +409,21 @@ namespace QLBanHang_API.Controllers
             }
         }
 
-        [HttpGet("GetFilterOrdered")]
-        public async Task<IActionResult> GetFilteredCategories([FromQuery] string searchQuery = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 8, [FromQuery] string sortCriteria = "name", [FromQuery] bool isDescending = false)
-        {
-            var orders = await orderService.GetFilteredOrders(page, pageSize, searchQuery, sortCriteria, isDescending);
+		[HttpGet("statistics")]
+		public async Task<IActionResult> GetOrderStatistics(string period)
+		{
+			try
+			{
+				var stats = await orderService.GetOrderStatistics(period);
+				return Ok(stats);
+			}
+			catch (ArgumentException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
-            return Ok(orders);
-        }
 
-        [HttpGet("TotalPagesOrdered")]
-        public async Task<IActionResult> GetTotalPagesCategory([FromQuery] string searchQuery = "")
-        {
-            var totalRecords = await orderService.GetTotalOrdersAsync(searchQuery);
-            var totalPages = (int)Math.Ceiling((double)totalRecords / 8); // Điều chỉnh số item trên mỗi trang nếu cần
-            return Ok(totalPages);
-        }
 
-        [HttpGet("TotalOrders")]
-        public async Task<IActionResult> TotalOrders()
-        {
-            var totalOrders = await orderService.TotalOrders();
-            return Ok(totalOrders);
-        }
-
-        [HttpGet("GetOrdersStats")]
-        public async Task<IActionResult> GetProductStats()
-        {
-            var totalOrders = await orderService.TotalOrders();
-            var totalOrdersPending = await orderService.TotalOrdersPending();
-            var totalOrdersSuccess= await orderService.TotalOrdersSuccess();
-            var totalOrdersCancel = await orderService.TotalOrdersCancel();
-
-            return Ok(new
-            {
-                TotalOrders = totalOrders,
-                OrdersPending = totalOrdersPending,
-                OrderSuccess = totalOrdersSuccess,
-                OrderCancel = totalOrdersCancel
-            });
-        }
-    }
+	}
 }

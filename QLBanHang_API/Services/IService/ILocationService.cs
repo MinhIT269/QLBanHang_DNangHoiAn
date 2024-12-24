@@ -1,8 +1,8 @@
-﻿using PBL6_QLBH.Models;
+﻿using PBL6.Dto.Request;
+using PBL6.Dto;
 using QLBanHang_API.Dto;
-using QLBanHang_API.Dto.Request;
 
-namespace QLBanHang_API.Services.IService
+namespace PBL6.Services.IService
 {
     public interface ILocationService
     {

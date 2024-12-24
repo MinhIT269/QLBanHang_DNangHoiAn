@@ -1,42 +1,43 @@
 ﻿using AutoMapper;
+using PBL6.Dto;
+using PBL6.Repositories.IRepository;
+using PBL6.Services.IService;
 using PBL6_QLBH.Models;
 using QLBanHang_API.Dto;
-using QLBanHang_API.Repositories.IRepository;
-using QLBanHang_API.Services.IService;
 
-namespace QLBanHang_API.Services.Service
+namespace PBL6.Services.Service
 {
     public class UserInfoService : IUserInfoService
     {
         private readonly IUserInfoRepository userInfoRepository;
         private readonly IMapper mapper;
-        public UserInfoService (IUserInfoRepository userInfoRepository, IMapper mapper)
+        public UserInfoService(IUserInfoRepository userInfoRepository, IMapper mapper)
         {
             this.userInfoRepository = userInfoRepository;
             this.mapper = mapper;
         }
 
-        public async Task<UserInfoDto> GetByUserName(string userName)
-        {
-            var userInfo = await userInfoRepository.GetByUserNameAsync(userName);
-            var userInfoDto = new UserInfoDto()
-            {
-                UserInfoId = userInfo.UserId,
-                Address = userInfo.Address,
-                PhoneNumber = userInfo.PhoneNumber,
-                Email = userInfo.User!.Email!,
-                UserName = userName,
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
-                Gender = userInfo.Gender,
-                user = new UserDto()
-                {
-                    UserName = userInfo.User.UserName,
-                    Email = userInfo.User.Email,
-                }
-            };
-            return userInfoDto;
-        }
+		public async Task<UserInfoDto> GetByUserName(string userName)
+		{
+			var userInfo = await userInfoRepository.GetByUserNameAsync(userName);
+			var userInfoDto = new UserInfoDto()
+			{
+				UserInfoId = userInfo.UserId,
+				Address = userInfo.Address,
+				PhoneNumber = userInfo.PhoneNumber,
+				Email = userInfo.User!.Email!,
+				UserName = userName,
+				FirstName = userInfo.FirstName,
+				LastName = userInfo.LastName,
+				Gender = userInfo.Gender,
+				user = new UserDto()
+				{
+					UserName = userInfo.User.UserName,
+					Email = userInfo.User.Email,
+				}
+			};
+			return userInfoDto;
+		}
 
 
         public async Task<UserInfoDto> UpdateUserInfo(Guid id,UpdateUserInfoDto userUpdate)
@@ -89,6 +90,7 @@ namespace QLBanHang_API.Services.Service
                 FirstName = userInfo.FirstName,
                 LastName = userInfo.LastName,
                 Gender = userInfo.Gender,
+
             };
             return userInfoDto;
         }

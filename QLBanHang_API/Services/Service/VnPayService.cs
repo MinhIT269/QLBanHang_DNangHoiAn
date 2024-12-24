@@ -1,24 +1,20 @@
-﻿using PBL6_QLBH.Models;
-using QLBanHang_API.Dto.Response;
-using QLBanHang_API.Dto.Request;
-using System.Globalization;
-using System.Net.Sockets;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using PBL6_QLBH.Data;
-using QLBanHang_API.Helper;
-using QLBanHang_API.Services.IService;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using PBL6_BackEnd.Helpers;
 
-namespace QLBanHang_API.Services.Service
+using PBL6_BackEnd.Request;
+using PBL6_BackEnd.Response;
+using PBL6_BackEnd.Services.Service;
+using PBL6_QLBH.Data;
+using PBL6_QLBH.Models;
+
+namespace PBL6_BackEnd.Services.ServiceImpl
 {
-    public class VnPayService(IConfiguration config, DataContext context) : IVnPayService
+    public class VnPayService(IConfiguration config,DataContext context) : IVnPayService
     {
         private readonly IConfiguration _config = config;
         private readonly DataContext _context = context;
-
-        public async Task<decimal> CalculateTotalPriceOfAOrder(Order order, string promoteId)
+       
+        public async Task<decimal> CalculateTotalPriceOfAOrder(Order order,string promoteId)
         {
             decimal totalPrice = 0;
             foreach (OrderDetail detail in order.OrderDetails)
@@ -40,7 +36,8 @@ namespace QLBanHang_API.Services.Service
             if (!string.IsNullOrEmpty(promoteId))
             {
                 var promotion = await _context.Promotions.FirstOrDefaultAsync(p => p.PromotionId == Guid.Parse(promoteId));
-
+                order.DiscountPercentage = promotion.Percentage;
+                _context.SaveChangesAsync();    
                 if (promotion != null && promotion.Percentage > 0)
                 {
                     decimal discountAmount = totalPrice * (promotion.Percentage / 100);
@@ -61,7 +58,7 @@ namespace QLBanHang_API.Services.Service
             vnpay.AddRequestData("vnp_Version", _config["VnPay:Version"]);
             vnpay.AddRequestData("vnp_Command", _config["VnPay:Command"]);
             vnpay.AddRequestData("vnp_TmnCode", _config["VnPay:TmnCode"]);
-            vnpay.AddRequestData("vnp_Amount", (model.Ammount * 100).ToString());
+            vnpay.AddRequestData("vnp_Amount", (model.Ammount * 100).ToString()); 
 
             vnpay.AddRequestData("vnp_CreateDate", model.CreatedDate.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", _config["VnPay:CurrCode"]);
@@ -69,7 +66,7 @@ namespace QLBanHang_API.Services.Service
             vnpay.AddRequestData("vnp_Locale", _config["VnPay:locale"]);
 
 
-            vnpay.AddRequestData("vnp_OrderInfo", model.OrderId.ToString());
+            vnpay.AddRequestData("vnp_OrderInfo",  model.OrderId.ToString());
             vnpay.AddRequestData("vnp_OrderType", "other"); //default value: other
             //vnpay.AddRequestData("vnp_ReturnUrl", _config["VnPay:PaymentBackReturnUrl"]);
             //vnpay.AddRequestData("vnp_TxnRef", tick);
@@ -82,6 +79,14 @@ namespace QLBanHang_API.Services.Service
             vnpay.AddRequestData("vnp_ReturnUrl", hostUrl);
             vnpay.AddRequestData("vnp_TxnRef", tick);
             
+//=======
+//                ? "http://10.0.2.2:5273/api/Cart/PaymentBack"
+//                : $"{context.Request.Scheme}://{context.Request.Host}/Cart/PaymentBack";
+
+//            vnpay.AddRequestData("vnp_ReturnUrl", hostUrl);
+//            vnpay.AddRequestData("vnp_TxnRef", tick);
+
+//>>>>>>> master
             var paymentUrl = vnpay.CreateRequestUrl(_config["VnPay:BaseUrl"], _config["VnPay:HashSecret"]);
 
             return paymentUrl;
@@ -128,6 +133,4 @@ namespace QLBanHang_API.Services.Service
 
         }
     }
-
-
 }

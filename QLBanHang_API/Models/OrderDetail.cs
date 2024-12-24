@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PBL6_QLBH.Models
 {
@@ -18,6 +19,8 @@ namespace PBL6_QLBH.Models
         [Required, Range(0, double.MaxValue)]
         [Column(TypeName = "decimal(18, 3)")]
         public decimal UnitPrice { get; set; }
+
+        [JsonIgnore]
 
         public Order? Order { get; set; }     // Navigation property
         public Product? Product { get; set; } // Navigation property
