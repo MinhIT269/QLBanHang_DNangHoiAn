@@ -11,6 +11,17 @@ namespace PBL6.Repositories.Repository
         private readonly DataContext dataContext;
         private readonly IProductRepository _productRepository;
 
+		public async Task<List<CartItem>> GetAllCartItemAsync(Guid userId)
+		{
+            var CartId = await dataContext.Carts
+						.Where(x => x.User!.UserId == userId)
+						.Select(x => x.CartId)
+						.FirstOrDefaultAsync();
+            var cartItems = await dataContext.CartItems
+                                  .Include(x => x.Product)
+                                  .Where(p => p.CartId == CartId).ToListAsync();
+            return cartItems;
+        }
         public CartRepository(DataContext dataContext , IProductRepository productRepository)
         {
             this.dataContext = dataContext;
@@ -93,8 +104,7 @@ namespace PBL6.Repositories.Repository
                         .Where(x => x.User.UserName == userName)
                         .Select(x => x.CartId)
                         .FirstOrDefaultAsync();
-
-            var cartItems = await dataContext.CartItems
+        var cartItems = await dataContext.CartItems
                                 .Include(x => x.Product)
                                 .Where(p => p.CartId == CartId).ToListAsync();
             return cartItems;
@@ -128,12 +138,11 @@ namespace PBL6.Repositories.Repository
             {
                 var cartId = cartItems.First().CartId;
                 var cart = dataContext.CartItems.Where(x => x.CartId == cartId).ToList();
-                if (cart == null)
-                {
-                    return null;
+				if (cart != null)
+				{
+					dataContext.CartItems.RemoveRange(cart);
                 }
-                dataContext.RemoveRange(cart);
-                await dataContext.AddRangeAsync(cartItems);
+                await dataContext.CartItems.AddRangeAsync(cartItems);
                 await dataContext.SaveChangesAsync();
                 return cartItems;
             }

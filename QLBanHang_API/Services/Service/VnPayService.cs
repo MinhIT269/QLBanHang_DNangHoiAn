@@ -73,12 +73,20 @@ namespace PBL6_BackEnd.Services.ServiceImpl
 
             var isAndroidEmulator = context.Request.Headers["User-Agent"].ToString().Contains("Android");
             var hostUrl = isAndroidEmulator
-                ? "http://10.0.2.2:5273/api/Cart/PaymentBack"
-                : $"{context.Request.Scheme}://{context.Request.Host}/Cart/PaymentBack";
+                ? "https://10.0.2.2:7080/api/Order/PaymentBack"
+                : $"{context.Request.Scheme}://{context.Request.Host}/api/Order/PaymentBack";
 
             vnpay.AddRequestData("vnp_ReturnUrl", hostUrl);
             vnpay.AddRequestData("vnp_TxnRef", tick);
+            
+//=======
+//                ? "http://10.0.2.2:5273/api/Cart/PaymentBack"
+//                : $"{context.Request.Scheme}://{context.Request.Host}/Cart/PaymentBack";
 
+//            vnpay.AddRequestData("vnp_ReturnUrl", hostUrl);
+//            vnpay.AddRequestData("vnp_TxnRef", tick);
+
+//>>>>>>> master
             var paymentUrl = vnpay.CreateRequestUrl(_config["VnPay:BaseUrl"], _config["VnPay:HashSecret"]);
 
             return paymentUrl;

@@ -4,8 +4,10 @@ using PBL6_QLBH.Models;
 
 namespace PBL6.Services.IService
 {
-    public interface ICartService
-    {
+	public interface ICartService
+	{
+        Task<List<CartItemDto>> GetAllCartItems(Guid userId);
+
         Task<CartDto> AddProductToCart(Guid productId);
 
         Task<CartDto> GetCartOfUser(Guid userId);

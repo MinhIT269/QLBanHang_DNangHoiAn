@@ -86,36 +86,23 @@ namespace PBL6.Mapping
 					Gender = src.User.UserInfo.Gender,
 				}))
 				;
-
-
-			//Promotion
-			CreateMap<Promotion, PromotionDto>().ReverseMap();
-			CreateMap<Promotion, UpPromotionDto>().ReverseMap();
-			CreateMap<Promotion, AddPromotionDto>().ReverseMap();
-			//Review
-			CreateMap<Review, ReviewDto>().ReverseMap();
-			CreateMap<Review, UpReviewDto>().ReverseMap();
-			CreateMap<Review, AddReviewDto>().ReverseMap();
-			//User UserInfo
-			CreateMap<UserInfo, UserInfoDto>().ReverseMap();
-			CreateMap<UserInfo, AddUserInfoDto>().ReverseMap();
-			CreateMap<User, AddUserDto>().ReverseMap();
-			CreateMap<User, UserDto>().ReverseMap();
-			//Cart Item
-			CreateMap<CartItem, CartItemDto>()
-				.ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
-			CreateMap<CartItem, CartItemRequest>();
-			//.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
-			//.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
-			CreateMap<OrderDetail, OrderDetailsRequest>().ReverseMap();
-			CreateMap<Promotion, UpPromotionDto>().ReverseMap();
-			CreateMap<Promotion, AddPromotionDto>().ReverseMap();
-
-			//Review
-			CreateMap<Review, ReviewDto>().ReverseMap();
-			CreateMap<Review, UpReviewDto>().ReverseMap();
-			CreateMap<Review, AddReviewDto>().ReverseMap();
-
+            //Promotion
+            CreateMap<Promotion, PromotionDto>().ReverseMap();
+            CreateMap<Promotion, UpPromotionDto>().ReverseMap();
+            CreateMap<Promotion, AddPromotionDto>().ReverseMap();
+            //Review
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Review, UpReviewDto>().ReverseMap();
+            CreateMap<Review, AddReviewDto>().ReverseMap();
+            //Cart Item
+            CreateMap<CartItem, CartItemDto>()
+                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
+			CreateMap<CartItem, CartItemRequest>()
+			.ForMember(dest => dest.CartId, opt => opt.MapFrom(src => src.CartId))
+			.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+			.ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.ProductId))
+			.ForMember(dest => dest.CartItemId, opt => opt.MapFrom(src => src.CartItemId));
+			CreateMap<OrderDetail,OrderDetailsRequest>().ReverseMap();
 			//User UserInfo
 			CreateMap<UserInfo, UserInfoDto>().ReverseMap();
 			CreateMap<UserInfo, AddUserInfoDto>().ReverseMap();

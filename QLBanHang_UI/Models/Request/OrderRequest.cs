@@ -12,7 +12,7 @@ namespace QLBanHang_UI.Models.Request
         [Column(TypeName = "decimal(18, 3)")]
         public decimal TotalAmount { get; set; }
         public string? Status { get; set; }
-
+        public decimal? DiscountPercentage { get; set; }
         public Guid UserId { get; set; }
 
         public Guid? PromotionId { get; set; }    // Foreign Key to Promotion

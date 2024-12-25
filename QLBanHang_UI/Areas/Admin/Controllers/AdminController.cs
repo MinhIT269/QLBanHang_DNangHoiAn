@@ -7,7 +7,11 @@ namespace QLBanHang_UI.Areas.Admin.Controllers
 	{
 		public IActionResult Index()
 		{
-			return View();
+            if (HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+			{
+				return View();
+			}
+			return Error();           
 		}
 		public IActionResult Error()
 		{

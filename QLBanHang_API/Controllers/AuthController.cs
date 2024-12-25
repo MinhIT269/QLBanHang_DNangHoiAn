@@ -79,14 +79,14 @@ namespace PBL6.Controllers
                 if (identityResult)
                 {
                     var roles = await userManager.GetRolesAsync(user);
-                    Console.WriteLine("role size:" + roles[0].ToString());
                     //CreateToken
                     if (roles != null)
                     {
                         var jwtToken = tokenRepository.CreateJWTToken(user, roles.ToList());
                         var response = new LoginResponse()
                         {
-                            JwtToken = jwtToken
+                            JwtToken = jwtToken,
+                            Id = user.UserId
                         };
                         return Ok(response);
                     }

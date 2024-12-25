@@ -34,14 +34,24 @@ namespace PBL6.Controllers
             }
             return Ok(promotionsDTO);
         }
-
-        // Lấy chương trình khuyến mãi theo mã
-        //URL - /api/Promotions/GetOne/code=?
         [HttpGet]
         [Route("GetOne/{code}")]
         public async Task<IActionResult> GetPromotionByCode([FromRoute] Guid code)
         {
             var promotionDTO = await promotionService.GetPromotion(code);
+            if (promotionDTO == null)
+            {
+                return NotFound();
+            }
+            return Ok(promotionDTO);
+        }
+
+        //Lấy khuyến mãi theo mã
+        [HttpGet]
+        [Route("GetByCode/{code}")]
+        public async Task<IActionResult> GetPromotion([FromRoute] string code)
+        {
+            var promotionDTO = await promotionService.GetPromotionByCode(code);
             if (promotionDTO == null)
             {
                 return NotFound();

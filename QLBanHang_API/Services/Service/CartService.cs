@@ -12,19 +12,49 @@ namespace PBL6.Services.Service
     {
         private readonly ICartRepository cartRepository;
         private readonly IMapper mapper;
-
         public CartService(ICartRepository cartRepository, IMapper mapper)
         {
             this.mapper = mapper;
             this.cartRepository = cartRepository;
         }
-
+        public async Task<List<CartItemDto>> GetAllCartItems(Guid userId)
+        {
+            var cartItems = await cartRepository.GetAllCartItemAsync(userId);
+            var cartItemsDto = mapper.Map<List<CartItemDto>>(cartItems);
+            return cartItemsDto;
+        }
         public async  Task<CartDto> AddProductToCart(Guid productId)
         {
             var cart = await cartRepository.AddProductToCart(productId);
             return mapper.Map<CartDto>(cart);
         }
 
+		public async Task<List<CartItemDto>> DeleteCartItem(List<CartItemRequest> cartRequest)
+		{
+			var deleteCartItem = mapper.Map<List<CartItem>>(cartRequest);
+			var deleteCartItemDomain = await cartRepository.DeleteCartItemAsync(deleteCartItem);
+			var deleteCartItemsDto = mapper.Map<List<CartItemDto>>(deleteCartItemDomain);
+			return deleteCartItemsDto;
+		}
+		public async Task<List<CartItemDto>> UpdateCartItem(List<CartItemRequest> cartItems)
+		{
+			var updateCartItem = new List<CartItem>();
+			foreach (var cartItem in cartItems)
+			{
+				var cartUpdate = new CartItem()
+				{
+					CartItemId = cartItem.CartItemId,
+					ProductId = cartItem.ProductId,
+					Quantity = cartItem.Quantity,
+					CartId = cartItem.CartId,
+				};
+				updateCartItem.Add(cartUpdate);
+			}
+			var updateCartItemDomain = await cartRepository.UpdateCartItemAsync(updateCartItem);
+			var updateCartItemsDto = mapper.Map<List<CartItemDto>>(updateCartItemDomain);
+			return updateCartItemsDto;
+		}
+	
         public async Task<CartDto> GetCartOfUser(Guid userId)
         {
             var cart = await cartRepository.GetCartByUserIdAsync(userId);
@@ -54,19 +84,5 @@ namespace PBL6.Services.Service
             return cartItemDto;
         }
 
-        public async Task<List<CartItemDto>> DeleteCartItem(List<CartItemRequest> cartRequest)
-        {
-            var deleteCartItem = mapper.Map<List<CartItem>>(cartRequest);
-            var deleteCartItemDomain = await cartRepository.DeleteCartItemAsync(deleteCartItem);
-            var deleteCartItemsDto = mapper.Map<List<CartItemDto>>(deleteCartItemDomain);
-            return deleteCartItemsDto;
-        }
-        public async Task<List<CartItemDto>> UpdateCartItem(List<CartItemRequest> cartItems)
-        {
-            var updateCartItem = mapper.Map<List<CartItem>>(cartItems);
-            var updateCartItemDomain = await cartRepository.UpdateCartItemAsync(updateCartItem);
-            var updateCartItemsDto = mapper.Map<List<CartItemDto>>(updateCartItemDomain);
-            return updateCartItemsDto;
-        }
     }
 }

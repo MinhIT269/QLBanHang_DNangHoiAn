@@ -1,6 +1,6 @@
-﻿namespace QLBanHang_API.Dto
+﻿namespace QLBanHang_UI.Models.Request
 {
-    public class AddUserInfoDto
+    public class AddUserInfo
     {
         public Guid UserId { get; set; }
         public string? Address { get; set; }

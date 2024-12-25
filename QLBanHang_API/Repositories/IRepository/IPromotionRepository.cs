@@ -13,5 +13,6 @@ namespace PBL6.Repositories.IRepository
 
         IQueryable<Promotion> GetFilteredPromotionsQuery(string searchQuery, string sortCriteria, bool isDescending);
         Task<object> GetPromotionStatsAsync();
+        Task<Promotion> GetPromotionAsync(string code);
     }
 }

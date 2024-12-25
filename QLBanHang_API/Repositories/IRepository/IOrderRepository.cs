@@ -22,6 +22,8 @@ namespace PBL6.Repositories.IRepository
         Task<int> TotalOrdersPendingByUser(Guid userId);
         Task<decimal> GetTotalAmountOfCompletedOrdersAsync();
         Task<decimal> SumCompletedOrdersAmountByUser(Guid userId);
+        Task UpdateProductAfterSucessAsync(Order order);
+
         Task<Object> MissionForBeginnerStatus(Guid userId);
         Task<Order> CreateOrderAsync(Order order);
         Task<Dictionary<string, decimal>> GetOrderStatistics(string period);

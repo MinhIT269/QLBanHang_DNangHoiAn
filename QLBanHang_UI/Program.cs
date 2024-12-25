@@ -10,6 +10,16 @@ builder.Services.AddSession(option =>
     option.Cookie.HttpOnly = true;
     option.Cookie.IsEssential = true;
 });
+
+//Đăng nhập 
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.LoginPath = "/User/Auth/Login"; // Đường dẫn trang login
+        options.ExpireTimeSpan = TimeSpan.FromHours(2); // Thời gian hết hạn cookie
+        options.SlidingExpiration = true; // Gia hạn cookie nếu người dùng còn hoạt động
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "Areas",

@@ -16,6 +16,6 @@ namespace PBL6.Dto.Request
         public Guid UserId { get; set; }
 
         public Guid? PromotionId { get; set; }    // Foreign Key to Promotion
-        //public decimal? DiscountPercentage { get; set; }
+        public decimal? DiscountPercentage { get; set; }
     }
 }

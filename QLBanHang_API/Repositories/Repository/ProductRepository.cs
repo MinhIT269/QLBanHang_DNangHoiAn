@@ -394,11 +394,15 @@ namespace PBL6.Repositories.Repository
 
             if (!string.IsNullOrEmpty(category))
             {
-                products = products.Include(p => p.ProductCategories!).ThenInclude(p => p.Category!.CategoryName)
-                    .Where(p => p.ProductCategories!.FirstOrDefault()!.Category!.CategoryName == category);
+                products = products.Include(p => p.ProductCategories)
+                   .ThenInclude(pc => pc.Category)
+                   .Where(p => p.ProductCategories!
+                                .Any(pc => pc.Category!.CategoryName == category));
+
             }
             if (!string.IsNullOrEmpty(brandName))
             {
+
                 products = products.Where(p => EF.Functions.Collate(p.Brand!.BrandName!, "SQL_Latin1_General_CP1_CI_AI").Contains(brandName.Trim()));
             }
 

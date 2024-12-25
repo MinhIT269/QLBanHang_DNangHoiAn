@@ -27,11 +27,11 @@ namespace PBL6.Repositories.Repository
         }
 
         //Update UserInfo
-        public async Task<UserInfo> UpdateAsync(string? username, UpdateUserInfoDto userUpdate)
+        public async Task<UserInfo> UpdateAsync(Guid id , UpdateUserInfoDto userUpdate)
         {
             var userInfo = await dbContext.UserInfos
                 .Include(u => u.User) // Tải đối tượng User
-                .FirstOrDefaultAsync(x => x.User.UserName == username);
+                .FirstOrDefaultAsync(x => x.User!.UserId == id);
 
             // Kiểm tra xem userInfo có null hay không
             if (userInfo == null)
@@ -44,7 +44,6 @@ namespace PBL6.Repositories.Repository
             userInfo.LastName = userUpdate.LastName;
             userInfo.PhoneNumber = userUpdate.PhoneNumber;
             userInfo.Address = userUpdate.Address;
-            userInfo.Gender = (bool)userUpdate.Gender;
 
             // Kiểm tra User trước khi gán Email
             if (userInfo.User != null)
@@ -62,6 +61,17 @@ namespace PBL6.Repositories.Repository
             userInfo.UserInfoId = Guid.NewGuid();
             await dbContext.UserInfos.AddAsync(userInfo);
             await dbContext.SaveChangesAsync();
+            return userInfo;
+        }
+
+        //Get by Id
+        public async Task<UserInfo> GetByUserId(Guid userId)
+        {
+            var userInfo = await dbContext.UserInfos.Include("User").FirstOrDefaultAsync(x => x.User!.UserId == userId);
+            if (userInfo == null)
+            {
+                return null;
+            }
             return userInfo;
         }
     }

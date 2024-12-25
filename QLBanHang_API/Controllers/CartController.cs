@@ -332,6 +332,18 @@ namespace PBL6.Controllers
 
 
         [HttpGet]
+		[Route("GetAllCartItem/{id:guid}")]
+		public async Task<IActionResult> GetAllCartItems([FromRoute] Guid id)
+		{
+			var cartItems = await cartService.GetAllCartItems(id);
+			if (cartItems == null)
+			{
+				return NotFound();
+			}
+			return Ok(cartItems);
+		}
+
+        [HttpGet]
         [Route("GetAllCartItem/{username}")]
         public async Task<IActionResult> GetAllCartItems([FromRoute] string username)
         {
@@ -343,6 +355,32 @@ namespace PBL6.Controllers
             return Ok(cartItems);
         }
 
+		[HttpDelete]
+		[Route("DeleteCartItem")]
+		public async Task<IActionResult> DeleteCartItem([FromBody] List<CartItemRequest> cartRequests)
+		{
+			var cartItems = await cartService.DeleteCartItem(cartRequests);
+			if (cartItems == null )
+			{
+				return BadRequest();
+			}
+			return Ok();
+		}
+		[HttpPut]
+		[Route("UpdateCart")]
+		public async Task<IActionResult> UpdateCartItem([FromBody] List<CartItemRequest> cartItemRequests)
+		{
+            if (cartItemRequests == null || !cartItemRequests.Any())
+            {
+                return BadRequest("No cart items provided.");
+            }
+            var cartItem = await cartService.UpdateCartItem(cartItemRequests);
+			if(cartItem == null)
+			{
+				return BadRequest();
+			}
+			return Ok(cartItem);
+		}
         [HttpPost]
         [Route("AddCartItem")]
         public async Task<IActionResult> AddCartItem([FromBody] CartItemRequest cartRequest)
@@ -353,29 +391,6 @@ namespace PBL6.Controllers
                 return BadRequest();
             }
             return Ok(cartItems);
-        }
-
-        [HttpDelete]
-        [Route("DeleteCartItem")]
-        public async Task<IActionResult> DeleteCartItem([FromBody] List<CartItemRequest> cartRequests)
-        {
-            var cartItems = await cartService.DeleteCartItem(cartRequests);
-            if (cartItems == null)
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
-        [HttpPut]
-        [Route("UpdateCart")]
-        public async Task<IActionResult> UpdateCartItem([FromBody] List<CartItemRequest> cartItemRequests)
-        {
-            var cartItem = await cartService.UpdateCartItem(cartItemRequests);
-            if (cartItem == null)
-            {
-                return BadRequest();
-            }
-            return Ok(cartItem);
         }
 
     }

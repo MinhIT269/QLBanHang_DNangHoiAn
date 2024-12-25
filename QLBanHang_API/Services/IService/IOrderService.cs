@@ -30,6 +30,7 @@ namespace PBL6_BackEnd.Services.Service
         Task<int> TotalOrdersSuccessByUser(Guid userId);
         Task<int> TotalOrdersPendingByUser(Guid userId);
         Task<decimal> SumCompletedOrdersAmountByUser(Guid userId);
+        Task UpdateProductAfterSuccess(Order order);
         Task<Dictionary<string, decimal>> GetOrderStatistics(string period);
 
 	}

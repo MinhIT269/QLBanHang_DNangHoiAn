@@ -8,6 +8,7 @@ using PBL6_BackEnd.Services.ServiceImpl;
 using PBL6.Dto.Request;
 using PBL6_BackEnd.Request;
 using PBL6.Services.Service;
+using PBL6.Services.IService;
 
 namespace PBL6.Controllers
 {
@@ -21,9 +22,11 @@ namespace PBL6.Controllers
         private readonly IProductService productService;
         private readonly IPromotionService promotionService;
         private readonly ITransactionService transactionService;
+        private readonly IUserInfoService userInfoService;
 
         public OrderController(IOrderService orderService, IPromotionService promotionService, ITransactionService transactionService
-            , IProductService productService, IVnPayService vnPayService, DataContext dataContext)
+            , IProductService productService, IVnPayService vnPayService, DataContext dataContext,
+            IUserInfoService userInfoService)
         {
             this.orderService = orderService;
             this.productService = productService;
@@ -31,6 +34,7 @@ namespace PBL6.Controllers
             this.transactionService = transactionService;
             this.vnPayService = vnPayService;
             this.dataContext = dataContext;
+            this.userInfoService = userInfoService;
         }
 
 
@@ -211,6 +215,8 @@ namespace PBL6.Controllers
             }
             return Ok(orderDetail);
         }
+
+
         [HttpPost("checkout")]
 
         public async Task<IActionResult> CheckOut([FromBody] OrderRequest orderRequest, [FromQuery] string payment)
@@ -226,9 +232,9 @@ namespace PBL6.Controllers
                     Console.WriteLine("id is null");
                 }
                 var savedOrder = await orderService.CreateOrder(orderRequest);
-
-
-
+                
+                // Lay UserInfo
+                var userInfo = userInfoService.GetUserById(orderRequest.UserId);
                 var newTransaction = new Transaction
                 {
                     TransactionId = Guid.NewGuid(),
@@ -239,7 +245,7 @@ namespace PBL6.Controllers
                     TransactionDetails = $"Thanh toán cho đơn hàng {orderRequest.OrderId} {DateTime.Now}",
                 };
 
-                var callbackUrl = "https://10.0.2.2:7069/api/Cart/PaymentBack";
+                var callbackUrl = "https://10.0.2.2:7069/api/Order/PaymentBack";
 
                 var model = new VnPaymentRequestModel
                 {
@@ -339,6 +345,8 @@ namespace PBL6.Controllers
             await transactionService.AddTransactionAsync(transaction);
             return Ok(paymentUrl);
         }
+
+
         [HttpGet("PaymentBack")]
 
         public async Task<IActionResult> PaymentCallBack()
@@ -366,7 +374,7 @@ namespace PBL6.Controllers
 
                 order.Status = "done";
                 transaction.Status = "done";
-                await orderService.UpdateOrderAfterCompleteTransaction(order);
+                await orderService.UpdateProductAfterSuccess(order);
                 await transactionService.SaveChangeAsync();
                 Console.WriteLine("order date" + order.OrderDate);
 

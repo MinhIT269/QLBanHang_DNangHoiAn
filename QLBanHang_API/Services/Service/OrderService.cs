@@ -182,7 +182,8 @@ namespace PBL6_BackEnd.Services.ServiceImpl
                 OrderDate = orderRequest.OrderDate,
                 TotalAmount = orderRequest.TotalAmount,
                 Status = orderRequest.Status,
-                PromotionId = orderRequest.PromotionId
+                PromotionId = orderRequest.PromotionId,
+                DiscountPercentage = orderRequest.DiscountPercentage
             };
             var orderDomain = await orderRepository.CreateOrderAsync(orderAdd);
             var orderDto = mapper.Map<OrderDto>(orderDomain);
@@ -212,6 +213,11 @@ namespace PBL6_BackEnd.Services.ServiceImpl
         public async Task<decimal> SumCompletedOrdersAmountByUser(Guid userId)
         {
             return await orderRepository.SumCompletedOrdersAmountByUser(userId);
+        }
+
+        //PN updateProduct after order status change
+        public async Task UpdateProductAfterSuccess(Order order){
+            await orderRepository.UpdateProductAfterSucessAsync(order);
         }
         public async Task<decimal> GetTotalAmountOfCompletedOrdersAsync()
         {
