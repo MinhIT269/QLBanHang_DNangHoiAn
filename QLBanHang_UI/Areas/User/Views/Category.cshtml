@@ -7,23 +7,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:58:52 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Porto - Bootstrap eCommerce Template</title>
+    <title>Đặc Sản Hội An-Đà Nẵng</title>
 
     <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="description" content="Đặc Sản Đà Nẵng Hội An" />
+    <meta name="author" content="BKDN" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.png">
+    <link rel="shortcut icon" href="~/images/logo.png">
 
     <script>
         WebFontConfig = {
@@ -45,22 +42,27 @@
 
     <!-- Main CSS File -->
     <link rel="stylesheet" href="~/css/demo9.min.css">
-    <link rel="stylesheet" href="~/css/style.min.css">
+
     <link rel="stylesheet" type="text/css" href="~/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="~/vendor/simple-line-icons/css/simple-line-icons.min.css">
 </head>
 
-<body>
+<body class="boxed">
     <div class="page-wrapper">
-        <header class="header">
-            @await Html.PartialAsync("_Header",Model)
+        <header class="header mb-0" data-y="0" style="border-bottom: 0 !important;">
+            @await Html.PartialAsync("_Header", Model)
         </header>
-        <!-- End .header -->
 
-        <main class="main">
+    </div>
+    <!-- End .header -->
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 main-content">
+    <main class="main">
+
+        <div class="container">
+            <div>
+                <section class="featured-products-section">
+                    <h2 class="section-title title-decorate text-center d-flex align-items-center appear-animate" data-animation-delay="100" data-animation-duration="1500">Tất cả sản phẩm</h2>
+                    <div class="col-lg-12 main-content">
 
                         <div class="row" id="product-list">
                             <!-- End .col-sm-4 -->
@@ -104,175 +106,24 @@
                         </nav>
 
                     </div>
-                    <!-- End .col-lg-9 -->
+                </section>
+                <!-- End .col-lg-9 -->
 
-                    <div class="sidebar-overlay"></div>
-                    <!-- End .col-lg-3 -->
-                </div>
-                <!-- End .row -->
+                <div class="sidebar-overlay"></div>
+                <!-- End .col-lg-3 -->
             </div>
-            <!-- End .container -->
+            <!-- End .row -->
+        </div>
+        <!-- End .container -->
 
-            <div class="mb-4"></div>
-            <!-- margin -->
-        </main>
-        <!-- End .main -->
-        @await Html.PartialAsync("_Footer")
-        <!-- End .footer -->
-    </div>
+        <div class="mb-4"></div>
+        <!-- margin -->
+    </main>
+    <!-- End .main -->
+    @await Html.PartialAsync("_Footer")
+    <!-- End .footer -->
     <!-- End .page-wrapper -->
 
-
-    <div class="mobile-menu-overlay"></div>
-    <!-- End .mobil-menu-overlay -->
-
-    <div class="mobile-menu-container">
-        <div class="mobile-menu-wrapper">
-            <span class="mobile-menu-close"><i class="fa fa-times"></i></span>
-            <nav class="mobile-nav">
-                <ul class="mobile-menu">
-                    <li><a href="demo4.html">Home</a></li>
-                    <li>
-                        <a href="category.html">Categories</a>
-                        <ul>
-                            <li><a href="category.html">Full Width Banner</a></li>
-                            <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a></li>
-                            <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a></li>
-                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/category-sidebar-left.html">Left Sidebar</a></li>
-                            <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
-                            <li><a href="category-off-canvas.html">Off Canvas Filter</a></li>
-                            <li><a href="category-horizontal-filter1.html">Horizontal Filter 1</a></li>
-                            <li><a href="category-horizontal-filter2.html">Horizontal Filter 2</a></li>
-                            <li><a href="#">List Types</a></li>
-                            <li>
-                                <a href="category-infinite-scroll.html">
-                                    Ajax Infinite Scroll<span class="tip tip-new">New</span>
-                                </a>
-                            </li>
-                            <li><a href="category.html">3 Columns Products</a></li>
-                            <li><a href="category-4col.html">4 Columns Products</a></li>
-                            <li><a href="category-5col.html">5 Columns Products</a></li>
-                            <li><a href="category-6col.html">6 Columns Products</a></li>
-                            <li><a href="category-7col.html">7 Columns Products</a></li>
-                            <li><a href="category-8col.html">8 Columns Products</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="product.html">Products</a>
-                        <ul>
-                            <li>
-                                <a href="#" class="nolink">PRODUCT PAGES</a>
-                                <ul>
-                                    <li><a href="product.html">SIMPLE PRODUCT</a></li>
-                                    <li><a href="product-variable.html">VARIABLE PRODUCT</a></li>
-                                    <li><a href="product.html">SALE PRODUCT</a></li>
-                                    <li><a href="product.html">FEATURED & ON SALE</a></li>
-                                    <li><a href="product-sticky-info.html">WIDTH CUSTOM TAB</a></li>
-                                    <li><a href="product-sidebar-left.html">WITH LEFT SIDEBAR</a></li>
-                                    <li><a href="product-sidebar-right.html">WITH RIGHT SIDEBAR</a></li>
-                                    <li><a href="product-addcart-sticky.html">ADD CART STICKY</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" class="nolink">PRODUCT LAYOUTS</a>
-                                <ul>
-                                    <li><a href="product-extended-layout.html">EXTENDED LAYOUT</a></li>
-                                    <li><a href="product-grid-layout.html">GRID IMAGE</a></li>
-                                    <li><a href="product-full-width.html">FULL WIDTH LAYOUT</a></li>
-                                    <li><a href="product-sticky-info.html">STICKY INFO</a></li>
-                                    <li><a href="product-sticky-both.html">LEFT & RIGHT STICKY</a></li>
-                                    <li><a href="product-transparent-image.html">TRANSPARENT IMAGE</a></li>
-                                    <li><a href="product-center-vertical.html">CENTER VERTICAL</a></li>
-                                    <li><a href="#">BUILD YOUR OWN</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Pages<span class="tip tip-hot">Hot!</span></a>
-                        <ul>
-                            <li>
-                                <a href="wishlist.html">Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="cart.html">Shopping Cart</a>
-                            </li>
-                            <li>
-                                <a href="checkout.html">Checkout</a>
-                            </li>
-                            <li>
-                                <a href="dashboard.html">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="forgot-password.html">Forgot Password</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li>
-                        <a href="#">Elements</a>
-                        <ul class="custom-scrollbar">
-                            <li><a href="element-accordions.html">Accordion</a></li>
-                            <li><a href="element-alerts.html">Alerts</a></li>
-                            <li><a href="element-animations.html">Animations</a></li>
-                            <li><a href="element-banners.html">Banners</a></li>
-                            <li><a href="element-buttons.html">Buttons</a></li>
-                            <li><a href="element-call-to-action.html">Call to Action</a></li>
-                            <li><a href="element-countdown.html">Count Down</a></li>
-                            <li><a href="element-counters.html">Counters</a></li>
-                            <li><a href="element-headings.html">Headings</a></li>
-                            <li><a href="element-icons.html">Icons</a></li>
-                            <li><a href="element-info-box.html">Info box</a></li>
-                            <li><a href="element-posts.html">Posts</a></li>
-                            <li><a href="element-products.html">Products</a></li>
-                            <li><a href="element-product-categories.html">Product Categories</a></li>
-                            <li><a href="element-tabs.html">Tabs</a></li>
-                            <li><a href="element-testimonial.html">Testimonials</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="mobile-menu mt-2 mb-2">
-                    <li class="border-0">
-                        <a href="#">
-                            Special Offer!
-                        </a>
-                    </li>
-                    <li class="border-0">
-                        <a href="#" target="_blank">
-                            Buy Porto!
-                            <span class="tip tip-hot">Hot</span>
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="mobile-menu">
-                    <li><a href="login.html">My Account</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="wishlist.html">My Wishlist</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="login.html" class="login-link">Log In</a></li>
-                </ul>
-            </nav>
-            <!-- End .mobile-nav -->
-            <div class="social-icons">
-                <a href="#" class="social-icon social-facebook icon-facebook" target="_blank">
-                </a>
-                <a href="#" class="social-icon social-twitter icon-twitter" target="_blank">
-                </a>
-                <a href="#" class="social-icon social-instagram icon-instagram" target="_blank">
-                </a>
-            </div>
-        </div>
-        <!-- End .mobile-menu-wrapper -->
-    </div>
-    <!-- End .mobile-menu-container -->
-
-    
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
 
@@ -343,43 +194,46 @@
                     let productsHtml = '';
                     products.forEach((product) => {
                         productsHtml += `
-                                    <div class="col-6 col-sm-4">
-                                        <div class="product-default">
-                                            <figure>
-                                                <a href="product.html">
-                                                    <img src="https://localhost:7069${product.imageUrl}" width="280" height="280" alt="product" />
-                                                </a>
-                                                <div class="label-group">
-                                                    <div class="product-label label-hot">HOT</div>
-                                                    <div class="product-label label-sale">-20%</div>
-                                                </div>
-                                            </figure>
-                                            <div class="product-details">
-                                                <div class="category-wrap">
-                                                    <div class="category-list">
-                                                        <a href="category.html" class="product-category">${product.categoryNames}</a>
+                                            <div class="col-6 col-sm-4">
+                                                <div class="product-default">
+                                                    <figure>
+                                                        <a href="product.html">
+                                                            <img src="${product.imageUrl}" width="280" height="280" alt="product" style="width:300px; height:300px "/>
+                                                        </a>
+                                                        <div class="label-group">
+                                                            <div class="product-label label-hot">HOT</div>
+                                                        </div>
+                                                    </figure>
+                                                    <div class="product-details">
+                                                        <div class="category-wrap">
+                                                            <div class="category-list">
+                                                                <a href="category.html" class="product-category">${product.categoryNames}</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="product-title">
+                                                            <a href="product.html">${product.name}</a>
+                                                        </h3>
+                                                        <div class="price-box">
+                                                                    <span class="old-price">
+                                                                         ${product.promotionPrice
+                                ? `${product.price.toLocaleString('vi-VN')}đ`
+                                : ''}
+                                                                    </span>
+                                                            <span class="product-price">
+                                                                ${product.promotionPrice
+                                ? `${product.promotionPrice.toLocaleString('vi-VN')}đ`
+                                : `${product.price.toLocaleString('vi-VN')}đ`}
+                                                            </span>
+
+                                                        </div>
+                                                        <div class="product-action">
+                                                            <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i class="icon-heart"></i></a>
+                                                            <a href="product.html" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>Thêm vào giỏ</span></a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <h3 class="product-title">
-                                                    <a href="product.html">${product.name}</a>
-                                                </h3>
-                                                <div class="price-box">
-                                                    <span class="old-price">
-                                                        ${product.promotionPrice ? product.price : ''}
-                                                    </span>
-                                                    <span class="product-price">
-                                                        ${product.promotionPrice || product.price}
-                                                    </span>
-                                                </div>
-                                                <div class="product-action">
-                                                    <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i class="icon-heart"></i></a>
-                                                    <a href="product.html" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
-                                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
-                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                `;
+                                        `;
                     });
 
                     if (productListElement) {

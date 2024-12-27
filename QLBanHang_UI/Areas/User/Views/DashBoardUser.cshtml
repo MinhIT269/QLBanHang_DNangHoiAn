@@ -10,36 +10,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/@Url.Action("DashBoard","DashBoard",new{area="User"}) by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:55:18 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Porto - Bootstrap eCommerce Template</title>
+    <title>Đặc Sản Hội An-Đà Nẵng</title>
 
     <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="description" content="Đặc Sản Đà Nẵng Hội An" />
+    <meta name="author" content="BKDN" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.png">
+    <link rel="shortcut icon" href="~/images/logo.png">
 
     <script>
         WebFontConfig = {
-        google: {
-        families: ['Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700']
-        }
+            google: {
+                families: ['Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700']
+            }
         };
         (function (d) {
-        var wf = d.createElement('script'),
-        s = d.scripts[0];
-        wf.src = '/js/webfont.js';
-        wf.async = true;
-        s.parentNode.insertBefore(wf, s);
+            var wf = d.createElement('script'),
+                s = d.scripts[0];
+            wf.src = '/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
         })(document);
     </script>
 
@@ -57,7 +54,7 @@
         <header class="header mb-0" data-y="0">
             @await Html.PartialAsync("_Header", Model)
         </header>
-        
+
     </div>
     <!-- End .header -->
 
@@ -126,7 +123,7 @@
             <!-- End .row -->
 
             <section class="featured-products-section">
-                <h2 class="section-title title-decorate text-center d-flex align-items-center appear-animate" data-animation-delay="100" data-animation-duration="1500">Featured Products</h2>
+                <h2 class="section-title title-decorate text-center d-flex align-items-center appear-animate" data-animation-delay="100" data-animation-duration="1500">Sản phẩm nổi bật</h2>
 
                 <div class="owl-carousel owl-theme nav-image-center" data-owl-options="{
                             'margin': 20,
@@ -146,13 +143,13 @@
                                 }
                             }
                         }">
-                    
+
                     @foreach (var product in product1s)
                     {
                         <div class="product-default left-details">
                             <figure>
                                 <a asp-area="User" asp-controller="Dashboard" asp-action="ProductDetail" asp-route-id="@product.ProductId">
-                                    <img src="@product.ImageUrl" alt="product" width="300" height="300">
+                                    <img src="@product.ImageUrl" alt="product" width="300" height="300" style="width: 300px; height: 300px">
                                 </a>
                                 <div class="label-group">
                                     <span class="product-label label-hot">HOT</span>
@@ -170,7 +167,7 @@
                                 </h3>
                                 <div class="ratings-container">
                                     <div class="product-ratings">
-                                        <span class="ratings" style="width:0%"></span>
+                                        <span class="ratings" style="width:100%"></span>
                                         <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
@@ -180,25 +177,24 @@
                                 <div class="price-box">
                                     @if (product.PromotionPrice != null)
                                     {
-                                        <span class="old-price">@product.Price VND</span>
-                                        <span class="new-price">@product.PromotionPrice VND</span>
+                                        <span class="old-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.Price)</span>
+                                        <span class="new-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.PromotionPrice)</span>
+
+
                                     }
                                     else
                                     {
-                                        <span class="new-price">@product.Price</span>
+                                        <span class="new-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.Price)</span>
                                     }
 
                                 </div>
                                 <!-- End .price-box -->
                                 <div class="product-action">
                                     <a asp-area="User" asp-controller="Dashboard" asp-action="AddItem" asp-route-id="@product.ProductId" class="btn-icon btn-add-cart product-type-simple">
-                                        <i class="icon-shopping-cart"></i><span>ADD TO CART</span>
+                                        <i class="icon-shopping-cart"></i><span>THÊM VÀO GIỎ</span>
                                     </a>
                                     <a href="#" class="btn-icon-wish" title="wishlist">
                                         <i class="icon-heart"></i>
-                                    </a>
-                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">
-                                        <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </div>
                             </div>
@@ -207,15 +203,15 @@
                     }
                     <!-- End .product-details -->
                 </div>
+            </section>
         </div>
-        </section>
 
-
+        <div class="container">
         <div class="home-products-container text-center">
             <div class="row">
                 <div class="col-md-6 mb-2 appear-animate" data-animation-delay="200" data-animation-name="fadeIn">
                     <div class="home-products bg-gray p-y-5">
-                        <h3 class="section-sub-title">BEST SELLERS PRODUCTS</h3>
+                         <h3 class="section-sub-title">SẢN PHẨM BÁN CHẠY NHẤT</h3>
 
                         <div class="owl-carousel owl-theme nav-image-center nav-thin nav-style-1" data-owl-options="{
                                     'dots': false,
@@ -234,102 +230,9 @@
                             <div class="product-default pl-3 pr-3 pl-3 pr-3">
                                 <figure>
                                     <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-1.jpg" alt="product" width="300" height="300" />
+                                         <img src="~/images/qua-tet-2025(3).jpg" alt="product" width="300" height="300" style="height: 335px; width: 500px" />
                                     </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-hot">HOT</span>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">headphone</a>,
-                                        <a href="demo9-shop.html" class="product-category">toys</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Women Bag</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$299.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
-                            </div>
-
-                            <div class="product-default pl-3 pr-3">
-                                <figure>
-                                    <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-2.jpg" alt="product" width="300" height="300" />
-                                    </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-sale">-10%</span>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">category</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Women Winter Shoes</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$209.00 – $249.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
-                            </div>
-
-                            <div class="product-default pl-3 pr-3">
-                                <figure>
-                                    <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-7.jpg" alt="product" width="300" height="300" />
-                                    </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-sale">-30%</span>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">category</a>,
-                                        <a href="demo9-shop.html" class="product-category">clothing</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Women Black Bag</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$299.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
+                                </figure>           
                             </div>
                         </div>
                     </div>
@@ -338,7 +241,7 @@
 
                 <div class="col-md-6 mb-2 appear-animate" data-animation-delay="500" data-animation-name="fadeIn">
                     <div class="home-products bg-gray p-y-5">
-                        <h3 class="section-sub-title">NEW ARRIVAL PRODUCTS</h3>
+                        <h3 class="section-sub-title">HAPPY NEW YEAR 2025</h3>
 
                         <div class="owl-carousel owl-theme nav-image-center nav-thin nav-style-1" data-owl-options="{
                                     'dots': false,
@@ -355,102 +258,9 @@
                             <div class="product-default pl-3 pr-3 pl-3 pr-3">
                                 <figure>
                                     <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-2.jpg" alt="product" width="300" height="300" />
+                                        <img src="~/images/tet.jpg" alt="product" width="300" height="300" style="height: 335px; width: 500px" />
                                     </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-hot">HOT</span>
-                                    </div>
                                 </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">headphone</a>,
-                                        <a href="demo9-shop.html" class="product-category">toys</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Women Winter Shoes</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$299.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
-                            </div>
-
-                            <div class="product-default pl-3 pr-3">
-                                <figure>
-                                    <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-9.jpg" alt="product" width="300" height="300" />
-                                    </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-sale">-10%</span>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">category</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Black Women Underwear</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$209.00 – $249.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
-                            </div>
-
-                            <div class="product-default pl-3 pr-3">
-                                <figure>
-                                    <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">
-                                        <img src="~/images/demoes/demo9/products/product-7.jpg" alt="product" width="300" height="300" />
-                                    </a>
-                                    <div class="label-group">
-                                        <span class="product-label label-sale">-30%</span>
-                                    </div>
-                                </figure>
-                                <div class="product-details">
-                                    <div class="category-list">
-                                        <a href="demo9-shop.html" class="product-category">category</a>,
-                                        <a href="demo9-shop.html" class="product-category">clothing</a>
-                                    </div>
-                                    <h3 class="product-title">
-                                        <a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Women Black Bag</a>
-                                    </h3>
-                                    <div class="ratings-container">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
-                                            <!-- End .ratings -->
-                                            <span class="tooltiptext tooltip-top"></span>
-                                        </div>
-                                        <!-- End .product-ratings -->
-                                    </div>
-                                    <!-- End .product-container -->
-                                    <div class="price-box">
-                                        <span class="product-price">$299.00</span>
-                                    </div>
-                                    <!-- End .price-box -->
-                                </div>
-                                <!-- End .product-details -->
                             </div>
                         </div>
                     </div>
@@ -459,14 +269,15 @@
             </div>
             <!-- End .row -->
         </div>
+        </div>
         <!-- End .row.home-products -->
 
         <div class="mb-3"></div>
         <!-- margin -->
-
+        <div class="container">
         <section class="fashion-products-section pb-2 appear-animate" data-animation-delay="100" data-animation-duration="1500">
             <h2 class="section-title title-decorate text-center d-flex align-items-center">
-                FASHION SELECTION
+                LỰA CHỌN KHÁC
             </h2>
             <div class="owl-carousel owl-theme nav-image-center" data-owl-options="{
                         'margin': 20,
@@ -491,7 +302,7 @@
                     <div class="product-default left-details">
                         <figure>
                             <a asp-area="User" asp-controller="Dashboard" asp-action="ProductDetail" asp-route-id="@product.ProductId">
-                                <img src="@product.ImageUrl" alt="product" width="300" height="300">
+                                  <img src="@product.ImageUrl" alt="product" width="300" height="300" style="width: 300px; height: 300px">
                             </a>
                             <div class="label-group">
                                 <span class="product-label label-hot">HOT</span>
@@ -519,25 +330,22 @@
                             <div class="price-box">
                                 @if (product.PromotionPrice != null)
                                 {
-                                    <span class="old-price">@product.Price VND</span>
-                                    <span class="new-price">@product.PromotionPrice VND</span>
+                                    <span class="old-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.Price)</span>
+                                    <span class="new-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.PromotionPrice)</span>
                                 }
                                 else
                                 {
-                                    <span class="new-price">@product.Price</span>
+                                    <span class="new-price">@String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", product.Price)</span>
                                 }
 
                             </div>
                             <!-- End .price-box -->
                             <div class="product-action">
                                 <a asp-area="User" asp-controller="Dashboard" asp-action="AddItem" asp-route-id="@product.ProductId" class="btn-icon btn-add-cart product-type-simple">
-                                    <i class="icon-shopping-cart"></i><span>ADD TO CART</span>
+                                    <i class="icon-shopping-cart"></i><span>THÊM VÀO GIỎ</span>
                                 </a>
                                 <a href="#" class="btn-icon-wish" title="wishlist">
                                     <i class="icon-heart"></i>
-                                </a>
-                                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">
-                                    <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
@@ -545,33 +353,14 @@
                     </div>
                 }
         </section>
+        </div>
 
         <div class="m-b-1"></div>
         <!-- margin -->
-
-        <div class="brands-section appear-animate p-y-5">
-            <div class="container">
-                <div class="brands-slider images-center owl-carousel owl-theme nav-pos-outside show-nav-hover appear-animate" data-owl-options="{
-                                'margin': 0,
-                                'loop': true,
-                                'autoplay': true
-                            }">
-                    <img src="~/images/brands/small/brand1.png" width="140" height="60" alt="logo" />
-                    <img src="~/images/brands/small/brand2.png" width="140" height="60" alt="logo" />
-                    <img src="~/images/brands/small/brand3.png" width="140" height="60" alt="logo" />
-                    <img src="~/images/brands/small/brand4.png" width="140" height="60" alt="logo" />
-                    <img src="~/images/brands/small/brand5.png" width="140" height="60" alt="logo" />
-                    <img src="~/images/brands/small/brand6.png" width="140" height="60" alt="logo" />
-                </div>
-                <!-- End .partners-carousel -->
-            </div>
-            <!-- End .container -->
-        </div>
         </div>
         <!-- End .container -->
     </main>
     <!-- End .main -->
-
     @await Html.PartialAsync("_Footer");
 
     <!-- Plugins JS File -->
@@ -634,5 +423,5 @@
 </body>
 
 
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/@Url.Action("DashBoard","DashBoard",new{area="User"}) by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:56:02 GMT -->
+<!-- Mirrored from portotheme.com/html/porto_ecommerce/@Url.Action("DashBoard", "DashBoard", new { area = "User" }) by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:56:02 GMT -->
 </html>

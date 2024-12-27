@@ -232,7 +232,7 @@ namespace QLBanHang_UI.Areas.User.Controllers
                 int count = 0;
                 foreach (var product in productsDto)
                 {
-                    product.ImageUrl = "https://localhost:7069" + product.ImageUrl;
+                    product.ImageUrl = product.ImageUrl;
                     count++;
                     if (count == 8)
                     {
@@ -315,12 +315,12 @@ namespace QLBanHang_UI.Areas.User.Controllers
                     return new ProductDto();
                 }
                 var product = await httpResponse?.Content.ReadFromJsonAsync<ProductDto>();
-                product.ImageUrl = "https://localhost:7069" + product.ImageUrl;
+                product.ImageUrl = product.ImageUrl;
                 if (product.ImageUrl != null) 
                 {
                     for(int i = 0; i < product.ProductImages.Count; i++)
                     {
-                        product.ProductImages[i] = "https://localhost:7069" + product.ProductImages[i];
+                        product.ProductImages[i] = product.ProductImages[i];
                     }
                     
                 }

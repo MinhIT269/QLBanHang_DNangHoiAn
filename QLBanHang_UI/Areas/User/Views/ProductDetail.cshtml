@@ -9,21 +9,20 @@
 <html lang="en">
 
 
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/demo9-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:56:59 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Porto - Bootstrap eCommerce Template</title>
+    <title>Đặc Sản Hội An-Đà Nẵng</title>
 
     <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="description" content="Đặc Sản Đà Nẵng Hội An" />
+    <meta name="author" content="BKDN" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.png">
+    <link rel="shortcut icon" href="~/images/logo.png">
 
     <script>
         WebFontConfig = {
@@ -61,8 +60,8 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Product</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("DashBoard","DashBoard",new {area="User"})">Trang Chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sản Phẩm</li>
                     </ol>
                 </div>
             </nav>
@@ -125,83 +124,57 @@
                                 <h1 class="product-title">@productDetail.Name</h1>
 
                                 <div class="product-nav">
-                                    @* <div class="product-prev">
-                                <a href="#">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                <span class="box-content">
-                                <img alt="product" width="150" height="150"
-                                src="~/images/products/product-3.jpg"
-                                style="padding-top: 0px;">
-
-                                <span>Circled Ultimate 3D Speaker</span>
-                                </span>
-                                </span>
-                                </a>
-                                </div> *@
-
-                                    @* <div class="product-next">
-                                <a href="#">
-                                <span class="product-link"></span>
-
-                                <span class="product-popup">
-                                <span class="box-content">
-                                <img alt="product" width="150" height="150"
-                                src="~/images/products/product-4.jpg"
-                                style="padding-top: 0px;">
-
-                                <span>Blue Backpack for the Young</span>
-                                </span>
-                                </span>
-                                </a>
-                                </div> *@
+                               
                                 </div>
 
                                 <div class="ratings-container">
                                     <div class="product-ratings">
-                                        <span class="ratings" style="width:60%"></span>
+                                        <span class="ratings" style="width:100%"></span>
                                         <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
                                     <!-- End .product-ratings -->
 
-                                    <a href="#" class="rating-link">( 6 Reviews )</a> @*review controller*@
+                                    <a href="#" class="rating-link">( 6 Đánh giá )</a> @*review controller*@
                                 </div>
                                 <!-- End .ratings-container -->
 
                                 <hr class="short-divider">
 
                                 <div class="price-box">
-                                    @if (productDetail.PromotionPrice != null)
-                                    {
-                                        <span class="old-price">@productDetail.Price VND</span>
-                                        <span class="new-price">@productDetail.PromotionPrice VND</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="new-price">@productDetail.Price</span>
-                                    }
+                                @if (productDetail.PromotionPrice != null)
+                                {
+                                    <span class="old-price">
+                                        @productDetail.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                    </span>
+                                    <span class="new-price">
+                                        @productDetail.PromotionPrice?.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="new-price">
+                                        @productDetail.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                    </span>
+                                }
 
                                 </div>
                                 <!-- End .price-box -->
 
                                 <div class="product-desc">
-                                    <p>
-                                        @productDetail.Description
-                                    </p>
+                                        @productDetail.MetaDescription
                                 </div>
                                 <!-- End .product-desc -->
 
                                 <ul class="single-info-list">
                                     <!---->
                                     <li>
-                                        Stock :
+                                        Tồn kho :
                                         <strong>@productDetail.Stock</strong>
                                     </li>
 
                                     <li>
-                                        CATEGORY:
+                                        Danh mục:
                                         @if(productDetail.CategoryNames != null)
                                         {
                                             @foreach (var category in productDetail.CategoryNames)
@@ -214,7 +187,7 @@
                                     </li>
 
                                     <li>
-                                        Brand:
+                                        Thương Hiệu:
                                         <strong><a href="#" class="product-category">@productDetail.BrandName</a></strong>,
                                     </li>
                                 </ul>
@@ -227,7 +200,7 @@
                                     </div>
                                     <!-- End .product-single-qty -->
                                     <button type="button" class="btn btn-dark add-cart" id="add-to-cart-btn" data-product-id="@productDetail.ProductId">
-                                        Add to Cart
+                                       Thêm vào giỏ 
                                     </button>
                                 </div>
                                 <!-- End .product-action -->
@@ -235,7 +208,6 @@
                                 <hr class="divider mb-0 mt-0">
 
                                 <div class="product-single-share mb-1 pb-2 mt-0 pt-2">
-                                    <label class="sr-only">Share:</label>
 
                                     <div class="social-icons mr-2">
                                         <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
@@ -246,11 +218,7 @@
                                     </div>
                                     <!-- End .social-icons -->
 
-                                    <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist">
-                                        <i class="icon-wishlist-2"></i><span>
-                                            Add to
-                                            Wishlist
-                                        </span>
+                                    <a href="#" class="btn-icon-wish add-wishlist" title="Add to Wishlist">
                                     </a>
                                 </div>
                                 <!-- End .product single-share -->
@@ -266,18 +234,18 @@
                 <div class="product-single-tabs">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
+                            <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">MÔ TẢ</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
+                            <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Đánh Giá (1)</a>
                         </li>
                     </ul>
 
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
                             <div class="product-desc-content">
-                                <p>@productDetail.MetaDescription</p>
+                                 @Html.Raw(productDetail.Description)
                             </div>
                             <!-- End .product-desc-content -->
                         </div>
@@ -297,7 +265,7 @@
 
                                                 <div class="ratings-container float-sm-right">
                                                     <div class="product-ratings">
-                                                        <span class="ratings" style="width:60%"></span>
+                                                        <span class="ratings" style="width:100%"></span>
                                                         <!-- End .ratings -->
                                                         <span class="tooltiptext tooltip-top"></span>
                                                     </div>
@@ -389,7 +357,7 @@
                 </div>
                 <!-- End .product-single-tabs -->
                 <div class="products-section pt-0">
-                    <h2 class="section-title">Related Products</h2>
+                    <h2 class="section-title">Sản Phẩm Liên Quan</h2>
 
                     <div class="products-slider owl-carousel owl-theme dots-top dots-small">
                         @foreach(var product in Model.Products.Take(4))
@@ -397,7 +365,7 @@
                             <div class="product-default left-details">
                                 <figure>
                                 <a href="@Url.Action("ProductDetail","DashBoard",new {area="User", id =product.ProductId})">
-                                        <img src="@product.ImageUrl" alt="product" style="width=300px;height=300px ">
+                                        <img src="@product.ImageUrl" alt="product" style="width:300px; height:300px ">
                                     </a>
                                 </figure>
                                 <div class="product-details">
@@ -413,7 +381,7 @@
                                     </h3>
                                     <div class="ratings-container">
                                         <div class="product-ratings">
-                                            <span class="ratings" style="width:0%"></span>
+                                            <span class="ratings" style="width:100%"></span>
                                             <!-- End .ratings -->
                                             <span class="tooltiptext tooltip-top"></span>
                                         </div>
@@ -421,27 +389,31 @@
                                     </div>
                                     <!-- End .product-container -->
                                     <div class="price-box">
-                                        @if(product.PromotionPrice != null)
-                                        {
-                                            <span class="old-price">@product.Price</span>
-                                            <span class="product-price">@product.PromotionPrice</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="product-price">@product.Price</span>
-                                        }
+                                    @if (product.PromotionPrice != null)
+                                    {
+                                        <span class="old-price">
+                                            @product.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                        </span>
+                                        <span class="product-price">
+                                            @product.PromotionPrice?.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="product-price">
+                                            @product.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN"))đ
+                                        </span>
+                                    }
+
 
                                     </div>
                                     <!-- End .price-box -->
                                     <div class="product-action">
-                                        <a href="#" class="btn-icon btn-add-cart product-type-simple">
-                                            <i class="icon-shopping-cart"></i><span>ADD TO CART</span>
+                                    <a href="@Url.Action("AddItem","DashBoard", new {area="User", id=product.ProductId})" class="btn-icon btn-add-cart product-type-simple">
+                                            <i class="icon-shopping-cart"></i><span>Thêm vào giỏ</span>
                                         </a>
                                         <a href="#" class="btn-icon-wish" title="wishlist">
                                             <i class="icon-heart"></i>
-                                        </a>
-                                        <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View">
-                                            <i class="fas fa-external-link-alt"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -456,376 +428,6 @@
 
                 <hr class="mt-0 m-b-5" />
 
-                <div class="product-widgets-container row pb-2">
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
-                        @* <h4 class="section-sub-title">Featured Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-1.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-1-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Ultimate 3D Bluetooth
-                                        Speaker</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-2.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-2-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Brown Women Casual HandBag</a>
-                                </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-3.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-3-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Circled Ultimate 3D Speaker</a>
-                                </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div> *@
-                    </div>
-
-                    @* <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
-                        <h4 class="section-sub-title">Best Selling Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-4.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-4-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Blue Backpack for the Young -
-                                        S</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-5.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-5-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Casual Spring Blue Shoes</a>
-                                </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-6.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-6-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Men Black Gentle Belt</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
-                        <h4 class="section-sub-title">Latest Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-7.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-7-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Brown-Black Men Casual
-                                        Glasses</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-8.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-8-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Brown-Black Men Casual
-                                        Glasses</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-9.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-9-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Black Men Casual Glasses</a>
-                                </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
-                        <h4 class="section-sub-title">Top Rated Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-10.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-10-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Basketball Sports Blue Shoes</a>
-                                </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-11.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-11-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Men Sports Travel Bag</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="demo9-product.html">
-                                    <img src="~/images/products/small/product-12.jpg" width="74" height="74" alt="product">
-                                    <img src="~/images/products/small/product-12-2.jpg" width="74" height="74" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="demo9-product.html">Brown HandBag</a> </h3>
-
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
-
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                                <!-- End .price-box -->
-                            </div>
-                            <!-- End .product-details -->
-                        </div>
-                    </div> *@
-                </div>
                 <!-- End .row -->
             </div>
             <!-- End .container -->

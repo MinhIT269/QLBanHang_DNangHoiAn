@@ -59,13 +59,15 @@
                     @if (cartItem.Product.PromotionPrice != null)
                     {
                         <span class="cart-product-info">
-                            <span class="cart-product-qty">@cartItem.Quantity</span> × @cartItem.Product.PromotionPrice VND
+                            <span class="cart-product-qty">@cartItem.Quantity</span> ×
+                            @cartItem.Product.PromotionPrice?.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VND
                         </span>
                     }
                     else
                     {
                         <span class="cart-product-info">
-                            <span class="cart-product-qty">@cartItem.Quantity</span> × @cartItem.Product.Price VND
+                            <span class="cart-product-qty">@cartItem.Quantity</span> ×
+                            @cartItem.Product.Price.ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VND
                         </span>
                     }
                 </div>
@@ -86,15 +88,17 @@
 <!-- End .cart-product -->
 
 <div class="dropdown-cart-total">
-    <span>SUBTOTAL:</span>
-    <span class="cart-total-price float-right">@Model.Sum(x => x.Quantity * (x.Product.PromotionPrice ?? x.Product.Price)) VND</span>
+    <span>TẠM TÍNH: </span>
+    <span class="cart-total-price float-right">
+        @Model.Sum(x => x.Quantity * (x.Product.PromotionPrice ?? x.Product.Price)).ToString("N0", new System.Globalization.CultureInfo("vi-VN")) VND
+    </span>
 </div>
 <!-- End .dropdown-cart-total -->
 
 <div class="dropdown-cart-action">
     <a href="@Url.Action("CartView","Cart",new {area="User"})" class="btn btn-gray btn-block view-cart">
-        View Cart
+        Xem Giỏ Hàng
     </a>
-    <a href="@Url.Action("CheckoutView","Cart",new {area="User"})" class="btn btn-dark btn-block">Checkout</a>
+    <a href="@Url.Action("CheckoutView","Cart",new {area="User"})" class="btn btn-dark btn-block"> Thanh Toán</a>
 </div>
 <!-- End .dropdown-cart-total -->

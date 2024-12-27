@@ -7,16 +7,33 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 <head>
-    <!-- Title Meta -->
-    <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fully responsive premium admin dashboard template" />
-    <meta name="author" content="Techzaa" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="~/images/favicon.ico">
+    <title>Đặc Sản Hội An-Đà Nẵng</title>
+
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Đặc Sản Đà Nẵng Hội An" />
+    <meta name="author" content="BKDN" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/images/logo.png">
+
+    <script>
+        WebFontConfig = {
+            google: {
+                families: ['Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700']
+            }
+        };
+        (function (d) {
+            var wf = d.createElement('script'),
+                s = d.scripts[0];
+            wf.src = '/js/webfont.js';
+            wf.async = true;
+            s.parentNode.insertBefore(wf, s);
+        })(document);
+    </script>
 
     <!-- Vendor css (Required on all Pages) -->
     <link href="~/css/vendor.min.css" rel="stylesheet" type="text/css" />
@@ -38,22 +55,22 @@
                                         <img src="~/images/logo-light.png" height="24" alt="logo light">
                                     </a>
                                 </div>
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Đăng Nhập</p>
                                 <div class="mb-5">
                                     <form method="post" asp-area="User" asp-controller="Auth" asp-action="Login" class="authentication-form">
                                         <!-- Hiển thị tất cả lỗi từ ModelState -->
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="mb-3">
-                                            <input asp-for="UserName" class="form-control" placeholder="Enter username" required>
+                                            <input asp-for="UserName" class="form-control" placeholder="Nhập tên người dùng" required>
                                             <span asp-validation-for="UserName" class="text-danger"></span>
                                         </div>
                                         <div class="mb-4">
-                                            <input asp-for="Password" class="form-control" placeholder="Enter your password" required>
+                                            <input asp-for="Password" class="form-control" placeholder="Nhập mật khẩu của bạn" required>
                                             <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
                                         <div class="mb-1 text-center d-grid">
-                                            <button class="btn btn-soft-primary mb-2" type="submit">Sign In</button>
-                                            <a asp-area="User" asp-controller="Auth" asp-action="ResetPassword" class="float-end text-dark fw-bold ms-1">Reset Password</a>
+                                            <button class="btn btn-soft-primary mb-2" type="submit">Đăng nhập</button>
+                                            <a asp-area="User" asp-controller="Auth" asp-action="ResetPassword" class="float-end text-dark fw-bold ms-1">Quên mật khẩu?</a>
                                         </div>
                                     </form>
                                      @* <p class="mt-1 fw-semibold no-span">OR sign in with</p>
@@ -63,7 +80,7 @@
                                      </div> *@
                                 </div>
                                 <p class="text-danger text-center">
-                                    Don't have an account? <a asp-area="User" asp-controller="Auth" asp-action="Register" class="text-dark fw-bold ms-1">Sign Up</a>
+                                    Don't have an account? <a asp-area="User" asp-controller="Auth" asp-action="Register" class="text-dark fw-bold ms-1">Đăng Ký Ngay</a>
                                 </p>
 
                             </div>
@@ -84,7 +101,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="messageModalLabel">Login Error</h5>
+                    <h5 class="modal-title" id="messageModalLabel">Lỗi đăng nhập</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

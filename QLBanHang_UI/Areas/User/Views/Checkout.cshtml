@@ -6,23 +6,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 09:57:28 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Porto - Bootstrap eCommerce Template</title>
+    <title>Đặc Sản Hội An-Đà Nẵng</title>
 
     <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Porto - Bootstrap eCommerce Template">
-    <meta name="author" content="SW-THEMES">
+    <meta name="description" content="Đặc Sản Đà Nẵng Hội An" />
+    <meta name="author" content="BKDN" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="~/images/icons/favicon.png">
+    <link rel="shortcut icon" href="~/images/logo.png">
 
 
     <script>
@@ -58,29 +55,29 @@
             <div class="container checkout-container">
                 <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
                     <li>
-                        <a href="@Url.Action("CartView","Cart",new {area="User"})">Shopping Cart</a>
+                        <a href="@Url.Action("CartView","Cart",new {area="User"})">Giỏ Hàng</a>
                     </li>
                     <li class="active">
-                        <a href="@Url.Action("CheckoutView","Cart",new {area="User"})">Checkout</a>
+                        <a href="@Url.Action("CheckoutView","Cart",new {area="User"})">Thanh Toán</a>
                     </li>
                 </ul>
                 <div class="checkout-discount">
                     <h4>
-                        Have a coupon?
-                        <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link btn-toggle">ENTER YOUR CODE</button>
+                        Bạn có mã giảm giá?
+                        <button data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne" class="btn btn-link btn-toggle">NHẬP MÃ CỦA BẠN</button>
                     </h4>
 
                     <div id="collapseTwo" class="collapse">
                         <div class="feature-box">
                             <div class="feature-box-content">
-                                <p>If you have a coupon code, please apply it below.</p>
+                                <p>Nếu bạn có mã giảm giá, vui lòng nhập mã bên dưới.</p>
 
                                 <form id="couponForm" action="#">
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-sm w-auto" placeholder="Coupon code" id="promotionCode" required="" />
                                         <div class="input-group-append">
                                             <button class="btn btn-sm mt-0" type="submit" id="applyCodeBtn">
-                                                Apply Coupon
+                                                Áp dụng mã
                                             </button>
                                         </div>
                                     </div>
@@ -94,14 +91,14 @@
                     <div class="col-lg-7">
                         <ul class="checkout-steps">
                             <li>
-                                <h2 class="step-title">Billing details</h2>
+                                <h2 class="step-title">Chi tiết thanh toán</h2>
 
                                 <form asp-area="User" asp-controller="Order" asp-action="CheckOut" id="checkout-form">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    First name
+                                                    Họ
                                                     <abbr class="required" title="required">*</abbr>
                                                 </label>
                                                 <input name="FirstName" type="text" class="form-control" required />
@@ -111,7 +108,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    Last name
+                                                    Tên
                                                     <abbr class="required" title="required">*</abbr>
                                                 </label>
                                                 <input name="LastName" type="text" class="form-control" required />
@@ -121,7 +118,7 @@
 
                                     <div class="form-group mb-1 pb-2">
                                         <label>
-                                            Street address
+                                            Địa chỉ
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
                                         <input name="Address" type="text" class="form-control" placeholder="House number and street name" required />
@@ -129,26 +126,26 @@
 
                                     <div class="form-group">
                                         <label>
-                                            Promotion Code
+                                            Mã giảm giá
                                         </label>
                                         <input name="PromotionCode" type="text" class="form-control" placeholder="Please enter to apply for order" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Phone <abbr class="required" title="required">*</abbr></label>
+                                        <label>Điện thoại <abbr class="required" title="required">*</abbr></label>
                                         <input name="PhoneNumber" type="tel" class="form-control" required />
                                     </div>
 
                                     <div class="form-group">
                                         <label>
-                                            Email address
+                                            Địa chỉ email
                                             <abbr class="required" title="required">*</abbr>
                                         </label>
                                         <input type="Email" class="form-control" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="order-comments">Order notes (optional)</label>
+                                        <label class="order-comments">Ghi chú đơn hàng (tuỳ chọn)</label>
                                         <textarea class="form-control" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                     </div>
                                 </form>
@@ -159,12 +156,12 @@
 
                     <div class="col-lg-5">
                         <div class="order-summary">
-                            <h3>YOUR ORDER</h3>
+                            <h3>ĐƠN HÀNG CỦA BẠN</h3>
 
                             <table class="table table-mini-cart">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">Product</th>
+                                        <th colspan="2">Sản phẩm</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,7 +179,7 @@
 
                                                 <td class="price-col">
                                                     <span>
-                                                        @((item.Product.PromotionPrice ?? item.Product.Price) * item.Quantity)
+                                                        @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", (item.Product.PromotionPrice ?? item.Product.Price) * item.Quantity)
                                                     </span>
                                                 </td>
 
@@ -193,25 +190,26 @@
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <td>
-                                            <h4>Subtotal</h4>
+                                            <h4>Tạm tính</h4>
                                         </td>
 
                                         <td class="price-col">
                                             @if (Model.Carts!.Any())
                                             {
-                                                <span id="totalPrice">@Model.Carts!.Sum(p => (p.Product!.PromotionPrice ?? p.Product.Price) * p.Quantity)</span>
+                                                <span id="totalPrice">
+                                                    @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", Model.Carts!.Sum(p => (p.Product!.PromotionPrice ?? p.Product.Price) * p.Quantity))
+                                                </span>
                                             }
-
                                         </td>
                                     </tr>
                                     <tr class="order-shipping">
                                         <td class="text-left" colspan="2">
-                                            <h4 class="m-b-sm">Shipping</h4>
+                                            <h4 class="m-b-sm">Vận chuyển</h4>
 
                                             <div class="form-group form-group-custom-control">
                                                 <div class="custom-control custom-radio d-flex">
                                                     <input type="radio" class="custom-control-input" name="radio" checked />
-                                                    <label class="custom-control-label">Local Pickup</label>
+                                                    <label class="custom-control-label">Nhận hàng tại cửa hàng</label>
                                                 </div>
                                                 <!-- End .custom-checkbox -->
                                             </div>
@@ -220,7 +218,7 @@
                                             <div class="form-group form-group-custom-control mb-0">
                                                 <div class="custom-control custom-radio d-flex mb-0">
                                                     <input type="radio" name="radio" class="custom-control-input">
-                                                    <label class="custom-control-label">Flat Rate</label>
+                                                    <label class="custom-control-label">Phí cố định</label>
                                                 </div>
                                                 <!-- End .custom-checkbox -->
                                             </div>
@@ -231,17 +229,19 @@
 
                                     <tr class="order-total">
                                         <td>
-                                            <h4>Total</h4>
+                                            <h4>Tổng cộng</h4>
                                         </td>
-                                        <td>
-                                            <b class="total-price"><span>@Model.Carts!.Sum(p => (p.Product!.PromotionPrice ?? p.Product.Price) * p.Quantity)</span></b>
-                                        </td>
+                                        <b class="total-price">
+                                            <span>
+                                                @String.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:N0}đ", Model.Carts!.Sum(p => (p.Product!.PromotionPrice ?? p.Product.Price) * p.Quantity))
+                                            </span>
+                                        </b>
                                     </tr>
                                 </tfoot>
                             </table>
 
                             <div class="payment-methods">
-                                <h4 class="">Payment methods</h4>
+                                <h4 class="">Phương thức thanh toán</h4>
                                 <div class="info-box with-icon p-0">
                                     <p>
                                     </p>
@@ -249,7 +249,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-dark btn-place-order" form="checkout-form">
-                                Place order
+                                Đặt hàng
                             </button>
                         </div>
                         <!-- End .cart-summary -->
